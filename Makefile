@@ -6,7 +6,7 @@
 #    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by ttreichl          #+#    #+#              #
-#    Updated: 2024/07/15 18:09:28 by ttreichl         ###   ########.fr        #
+#    Updated: 2024/09/02 14:49:05 by ttreichl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ RED     = \033[31m
 RESET   = \033[0m
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -g -c $< -o $@
 	
 all: $(NAME)
 
