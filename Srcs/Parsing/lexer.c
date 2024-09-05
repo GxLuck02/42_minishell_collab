@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:06:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/15 18:48:15 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/03 16:11:46 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ void	print_array(char **cmd_param)
 	int	i;
 
 	i = 0;
+	if (!cmd_param)
+	{
+		printf("\n");	
+		return ;
+	}
 	while (cmd_param[i] != NULL)
 	{
 		printf("[%s]", cmd_param[i]);
@@ -71,14 +76,14 @@ void	print_cmd_list(t_cmd *list)
 
 	i = 1;
 	current = list;
-	printf("N° %d, infile %d, outfile %d ", i, current->infile, current->outfile);
+	printf("N° %d, infile %d, outfile %d , skip flag %d ", i, current->infile, current->outfile, current->skip_cmd);
 	printf("cmd_param ");
 	print_array(current->cmd_param);
 	i++;
 	current = current->next;
 	while (current != list)
 	{
-		printf("N° %d, infile %d, outfile %d ", i, current->infile, current->outfile);
+		printf("N° %d, infile %d, outfile %d , skip flag %d ", i, current->infile, current->outfile, current->skip_cmd);
 		printf("cmd_param ");
 		print_array(current->cmd_param);
 		current = current->next;
