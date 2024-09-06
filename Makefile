@@ -6,7 +6,7 @@
 #    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by ttreichl          #+#    #+#              #
-#    Updated: 2024/09/02 14:49:05 by ttreichl         ###   ########.fr        #
+#    Updated: 2024/09/06 06:19:37 by ttreichl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,17 +22,17 @@ SRCS    = $(SRCDIR)/main.c $(SRCDIR)/Prompt/prompt.c $(SRCDIR)/Parsing/dollars_u
 				$(SRCDIR)/Parsing/replace_dollar.c $(SRCDIR)/Parsing/token_list_utils.c $(SRCDIR)/Parsing/create_token_list.c \
 				$(SRCDIR)/Parsing/cmd_list_param.c $(SRCDIR)/Parsing/cmd_list_utils.c $(SRCDIR)/Parsing/create_cmd_list.c \
 				$(SRCDIR)/Parsing/fd_utils.c $(SRCDIR)/Parsing/here_doc.c $(SRCDIR)/Utils/free_cmd.c $(SRCDIR)/Utils/data_utils.c \
-				$(SRCDIR)/Utils/free.c
+				$(SRCDIR)/Utils/free.c $(SRCDIR)/Init/init_minishell.c $(SRCDIR)/Init/load_env.c
 				
 OBJS    = $(SRCS:.c=.o)
 
 # Compiler and flags
 CC      = gcc
-CFLAGS  = -Wall -Wextra -Werror -I$(INCDIR)
+CFLAGS  = -Wall -Wextra -Werror -I$(INCDIR) -I/Users/ttreichl/.brew/opt/readline/include
 
 # Libraries
 LIBFT   = $(LIBFTDIR)/libft.a
-LIBS    = -L$(LIBFTDIR) -lft -lreadline
+LIBS    = -L$(LIBFTDIR) -lft -lreadline -L/Users/ttreichl/.brew/opt/readline/lib
 
 # Colors
 YELLOW  = \033[33m

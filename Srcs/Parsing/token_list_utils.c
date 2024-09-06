@@ -6,13 +6,13 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:26:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/01 17:54:43 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:33:03 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-int	isspecial(char *str)
+int	ft_isspecial(char *str)
 {
 	if (str && *str && ft_strlen(str) >= 2)
 	{
@@ -39,7 +39,7 @@ int	len_token(char *command, int *quotes)
 
 	i = 0;
 	*quotes = 0;
-	while (command[i] && !ft_isspace(command[i]) && !isspecial(command + i))
+	while (command[i] && !ft_isspace(command[i]) && !ft_isspecial(command + i))
 	{
 		if (command[i] == '"' || command[i] == '\'')
 		{
@@ -54,7 +54,7 @@ int	len_token(char *command, int *quotes)
 				++i;
 		}
 		if (command[i] && command[i] != '"' && command[i] != '\'' && \
-			!ft_isspace(command[i]) && !isspecial(command + i))
+			!ft_isspace(command[i]) && !ft_isspecial(command + i))
 			++i;
 	}
 	return (i);

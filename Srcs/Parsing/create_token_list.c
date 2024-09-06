@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_token_list.c                                 :+:      :+:    :+:   */
+/*   create_token_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:13:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/01 17:34:33 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/06 00:34:03 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	add_special(t_token **begin, char **str)
 {
 	int	spe;
 
-	spe = isspecial(*str);
+	spe = ft_isspecial(*str);
 	if (!str)
 		return (0);
 	if (spe == INPUT && !append_token(begin, ft_strdup("<"), INPUT))
@@ -117,13 +117,13 @@ bool	creat_token_list(t_token **begin, char *cmd_line)
 	{
 		while (*cmd_line && ft_isspace(*cmd_line))
 			cmd_line++;
-		if (*cmd_line && !isspecial(cmd_line) && !add_cmd(begin, &cmd_line))
+		if (*cmd_line && !ft_isspecial(cmd_line) && !add_cmd(begin, &cmd_line))
 		{
 			if (*begin)
 				free_token(begin);
 			return (0);
 		}
-		else if (*cmd_line && isspecial(cmd_line) && !add_special(begin, &cmd_line))
+		else if (*cmd_line && ft_isspecial(cmd_line) && !add_special(begin, &cmd_line))
 		{
 			if (*begin)
 				free_token(begin);

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/15 18:49:34 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/06 07:11:16 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@
 # define ARG		7
 
 # define EXT_MALLOC 3
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}				t_env;
 
 typedef struct s_list
 {
@@ -61,20 +68,28 @@ typedef  struct s_cmd
 
 typedef struct s_data
 {
-	t_list	*env;
+	t_env	*env;
 	t_token	*token;
 	t_cmd	*cmd;
 	bool	sq;
 	int		exit_code;
 }				t_data;
 
+
 //data
+int			init_minishell(t_data *data, char **envp);
 int			check_pipe(t_data *data);
+t_list		*create_node(char *str);
+void		append_node(t_list **head, char *str);
 
 //prompt
 char		*init_prompt(void);
 int			is_valide_input(char *input);
 char		*get_prompt(void);
+
+//env
+int			load_env(t_data *data, char **envp);
+char		**ft_envsplit(char *env_str);
 
 //lexer
 int			replace_dollar(char **cmd_line, t_data *data);
@@ -89,7 +104,7 @@ int			open_pipe(t_data *data);
 
 //tokeniser
 bool		creat_token_list(t_token **begin, char *cmd_line);
-int			isspecial(char *str);
+int			ft_isspecial(char *str);
 int			len_token(char *str, int *quotes);
 int			append_token(t_token **begin, char *str, int type);
 void		free_token(t_token **list);

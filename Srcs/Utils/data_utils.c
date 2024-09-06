@@ -6,11 +6,41 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:45:51 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/15 18:49:43 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/06 06:08:50 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+t_list	*create_node(char *str)
+{
+	t_list	*node;
+
+	node = (t_list *)malloc(sizeof(t_list));
+	node->str = ft_strdup(str);
+	node->next = NULL;
+	return (node);
+}
+
+// Helper function to append a node to the list
+void	append_node(t_list **head, char *str)
+{
+	t_list	*new_node;
+	t_list	*current;
+
+	new_node = create_node(str);
+	current = *head;
+	if (current == NULL)
+	{
+		*head = new_node;
+		return ;
+	}
+	while (current->next != NULL)
+	{
+		current = current->next;
+	}
+	current->next = new_node;
+}
 
 int	open_pipe(t_data *data)
 {
