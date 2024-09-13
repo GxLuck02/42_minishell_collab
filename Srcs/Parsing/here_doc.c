@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:47:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:46:30 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:49:14 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,6 @@ static bool	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
 	return (true);
 }
 
-/*
-int	here_doc(t_data *data, char *end_file)
-{
-	int	fd;
-	
-	fd = open(".heredoc.tmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
-		return (-1);
-	if (!read_in_stdin(data, fd, end_file))
-	{
-		unlink(".heredoc.tmp");
-		return (-1);
-	}
-	fd = open(".heredoc.tmp", O_RDONLY);
-	if (fd < 0)
-		unlink(".heredoc.tmp");
-	return (fd);
-}*/
-
 bool	gest_endfile(char *endfile)
 {
 	bool	ret;
@@ -90,6 +71,5 @@ int	here_doc(t_data *data, char *end_file, bool quoted)
 	fd = open(".heredoc.tmp", O_RDONLY);
 	if (fd > 0)
 		unlink(".heredoc.tmp");
-	
 	return (fd);
 }
