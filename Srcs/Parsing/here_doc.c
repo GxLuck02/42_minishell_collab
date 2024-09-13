@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:47:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:49:14 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:01:46 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,27 @@ static bool	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
 {
 	char	*buf;
 
-	printf("la valeur des quote est : %d \n", quoted);
 	while (1)
 	{
-		buf = NULL;
 		buf = readline("> ");
 		if (!buf)
 		{
-			print_error("warning: here-document delimited by end-of-file ");
-			print_error("(wanted '");
+			print_error("warning: here-doc delimited by end-of-file (wanted '");
 			print_error(word);
 			print_error("')\n");
 			break ;
 		}
 		if (!ft_strncmp(word, buf, ft_strlen(word)))
 			break ;
-		if (!quoted)
+		if (!quoted && !replace_dollar(&buf, data))
 		{
-			if (!replace_dollar(&buf, data))
-				free_all(data, "Error : malloc error", EXT_MALLOC);
+			free(buf);
+			free_all(data, "Error : malloc error", EXT_MALLOC);
 		}
 		write(fd, buf, ft_strlen(buf));
 		write(fd, "\n", 1);
-		printf("%s\n", buf);
 		free(buf);
 	}
-	free(buf);
 	close(fd);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:15:12 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:22:03 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:14:24 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,11 @@ int	exist_in_env(t_data *data, int *i, char *str)
 			key_to_find[key_length + 1] == '\0')
 		{
 			*i += key_length + 1;
+			free(key_to_find);
 			return (1);
 		}
 		tmp = tmp->next;
 	}
+	free(key_to_find);
 	return (0);
 }
