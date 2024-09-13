@@ -6,28 +6,30 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:05:38 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/15 18:58:08 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:36:43 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-int	free_list(t_list **list)
+int	free_list(t_env **list)
 {
-	t_list *current;
-	t_list *tmp;
+	t_env	*current;
+	t_env	*tmp;
 
-	if (!(*list))
+	if (!(*list) || !list)
 		return (0);
 	current = *list;
-	while (current->next != *list)
+	while (!current->next)
 	{
 		tmp = current;
 		current = current->next;
-		free(tmp->str);
+		free(tmp->key);
+		free(tmp->value);
 		free(tmp);
 	}
-	free(current->str);
+	free(current->key);
+	free(current->value);
 	free(current);
 	*list = NULL;
 	return (1);

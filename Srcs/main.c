@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/06 06:47:26 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:02:11 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd_line;
 	t_data	data;
 
-	if (!init_minishell(&data, envp))
+	if (argc < 1 || !argv)
 		return (1);
-	/*creat_fictive_list(&data);*/
+	if (!init_minishell(&data, envp))
+		print_error(RED"Error with init of minishell"NRM);
 	while (1)
 	{
 		cmd_line = get_prompt();
-		printf("%s§\n", cmd_line);
+		printf(BLU"%s§\n"NRM, cmd_line);
 		if (cmd_line == NULL)
 			continue ;
 		if (is_pars(&data, cmd_line) == 0)

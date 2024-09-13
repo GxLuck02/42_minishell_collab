@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:26:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/06 00:33:03 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:10:27 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	len_token(char *command, int *quotes)
 	return (i);
 }
 
-int	creat_node(t_token **new, char *str, int type)
+int	creat_node(t_token **new, char *str, int type, bool quoted)
 {
 	if (!str)
 		return (0);
@@ -70,6 +70,7 @@ int	creat_node(t_token **new, char *str, int type)
 		free(str);
 		return (0);
 	}
+	(*new)->quoted = quoted;
 	(*new)->str = str;
 	(*new)->token_type = type;
 	(*new)->next = NULL;
@@ -84,11 +85,11 @@ void	its_first(t_token **begin, t_token *new)
 	(*begin)->next = *begin;
 }
 
-int	append_token(t_token **begin, char *str, int type)
+int	append_token(t_token **begin, char *str, int type, bool quoted)
 {
-	t_token *new;
-	
-	if (!creat_node(&new, str, type))
+	t_token	*new;
+
+	if (!creat_node(&new, str, type, quoted))
 		return (0);
 	if (!(*begin))
 		its_first(begin, new);

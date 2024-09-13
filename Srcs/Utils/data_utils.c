@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:45:51 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/06 06:08:50 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:20:29 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,22 @@ int	check_pipe(t_data *data)
 		return (0);
 	}
 	return (1);
+}
+
+//Calculate the length of a chained list
+int	len_list(t_env *list)
+{
+	int		len;
+	t_env	*tmp;
+
+	if (list == NULL)
+		return (0);
+	tmp = list;
+	len = 1;
+	while (tmp->next != NULL)
+	{
+		tmp = tmp->next;
+		len++;
+	}
+	return (len);
 }

@@ -4,10 +4,21 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/Users/ttreichl/.brew/opt/readline/include"
+                "/opt/homebrew/opt/readline/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",  // ou le chemin correct vers votre compilateur
+            "cStandard": "c11",
+            "intelliSenseMode": "macos-gcc-x64"
+        },
+        {
+            "name": "Ecole",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/Users/ttreichl/.brew/opt/readline/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",  // ou le chemin correct vers votre compilateur à l'école
             "cStandard": "c11",
             "intelliSenseMode": "macos-gcc-x64"
         }

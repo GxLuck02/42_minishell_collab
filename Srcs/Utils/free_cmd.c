@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:37:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/15 15:46:50 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:37:01 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	free_cmd(t_cmd **list)
 {
 	t_cmd	*tmp;
 	t_cmd	*current;
-	
+
 	if (!(*list))
 		return ;
 	current = *list;

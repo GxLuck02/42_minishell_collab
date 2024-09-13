@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:15:12 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/06/13 15:54:58 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:22:03 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,6 @@ int	len_var(char *str, char *env)
 	if (i == ft_search(env, '='))
 		return (i);
 	return (0);
-}
-
-//Calculate the length of a chained list
-int	len_list(t_list *list)
-{
-	int		len;
-	t_list	*tmp;
-
-	if (list == NULL)
-		return (0);
-	tmp = list;
-	len = 1;
-	while (tmp->next != NULL)
-	{
-		tmp = tmp->next;
-		len++;
-	}
-	return (len);
 }
 
 //returns the name of the var ($VAR return VAR) 
@@ -64,9 +46,9 @@ char	*get_dollar_word(char *line, int size)
 }
 
 //search in env the $VAR and replace in string if $VAR exist
-char	*get_value(t_list *env, char *key)
+char	*get_value(t_env *env, char *key)
 {
-	t_list	*tmp;
+	t_env	*tmp;
 	int		len_key;
 
 	if (!env || !key)
@@ -75,34 +57,58 @@ char	*get_value(t_list *env, char *key)
 	len_key = ft_strlen(key);
 	while (tmp != NULL)
 	{
-		if (ft_strncmp(tmp->str, key, len_key) == 0 && \
-			tmp->str[len_key] == '=')
-			return (ft_strdup(&(tmp->str[len_key + 1])));
+		if (ft_strncmp(tmp->key, key, len_key) == 0 && key[len_key + 1] == '\0')
+			return (ft_strdup(tmp->value));
 		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
-// This function checks if a variable exists in the environment list.
+char	*word_var(char *word)
+{
+	int		len;
+	int		i;
+	char	*new_str;
+
+	len = 0;
+	i = 0;
+	while (ft_isalpha(word[i]) != 0)
+	{
+		i++;
+		len++;
+	}
+	new_str = (char *)malloc((len + 1) * sizeof(char));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		new_str[i] = word[i];
+		i++;
+	}
+	new_str[i] = '\0';
+	return (new_str);
+}
+
 int	exist_in_env(t_data *data, int *i, char *str)
 {
-	t_list	*tmp;
-	int		len;
-	int		len_word;
+	t_env	*tmp;
+	char	*key_to_find;
+	size_t	key_length;
 
 	if (str[*i + 1] == '?')
 		return (2);
 	if (str[*i + 1] == '$')
 		return (3);
+	key_to_find = word_var(&str[*i + 1]);
 	tmp = data->env;
-	len = len_list(tmp);
-	while (len--)
+	while (tmp)
 	{
-		len_word = len_var(&str[*i + 1], tmp->str);
-		if ((ft_strncmp(tmp->str, &str[*i + 1], \
-				len_word) == 0) && len_word > 0)
+		key_length = ft_strlen(tmp->key);
+		if (ft_strncmp(tmp->key, key_to_find, key_length) == 0 && \
+			key_to_find[key_length + 1] == '\0')
 		{
-			*i += (len_word + 1);
+			*i += key_length + 1;
 			return (1);
 		}
 		tmp = tmp->next;

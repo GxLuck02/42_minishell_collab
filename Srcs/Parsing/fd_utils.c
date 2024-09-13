@@ -6,13 +6,13 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:39:16 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/15 18:59:11 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:17:11 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-int	open_file(t_data *data, char *file_name, int type)
+int	open_file(t_data *data, char *file_name, int type, t_token *token)
 {
 	int	fd;
 
@@ -20,7 +20,7 @@ int	open_file(t_data *data, char *file_name, int type)
 	if (type == INPUT)
 		fd = open(file_name, O_RDONLY, 0644);
 	else if (type == HEREDOC)
-		fd = here_doc(data, file_name);
+		fd = here_doc(data, file_name, token->quoted);
 	else if (type == APPEND)
 		fd = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (type == TRUNC)
@@ -30,7 +30,7 @@ int	open_file(t_data *data, char *file_name, int type)
 	return (fd);
 }
 
-int get_inf(t_data *data, t_token *tmp, t_cmd *cmd)
+int	get_inf(t_data *data, t_token *tmp, t_cmd *cmd)
 {
 	if (tmp->token_type == INPUT)
 	{
@@ -38,7 +38,7 @@ int get_inf(t_data *data, t_token *tmp, t_cmd *cmd)
 			close(cmd->infile);
 		if (tmp == tmp->next || tmp->next->token_type <= 5)
 			return (0);
-		cmd->infile = open_file(data, tmp->next->str, INPUT);
+		cmd->infile = open_file(data, tmp->next->str, INPUT, NULL);
 		if (cmd->infile == -1)
 			return (0);
 	}
@@ -48,7 +48,7 @@ int get_inf(t_data *data, t_token *tmp, t_cmd *cmd)
 			close(cmd->infile);
 		if (tmp == tmp->next || tmp->next->token_type <= 5)
 			return (0);
-		cmd->infile = open_file(data, tmp->next->str, HEREDOC);
+		cmd->infile = open_file(data, tmp->next->str, HEREDOC, tmp->next);
 		if (cmd->infile == -1)
 			return (0);
 	}
@@ -82,7 +82,7 @@ int	get_outf(t_token *tmp, t_cmd *cmd)
 			close(cmd->outfile);
 		if (tmp == tmp->next || tmp->next->token_type <= 5)
 			return (0);
-		cmd->outfile = open_file(NULL, tmp->next->str, TRUNC);
+		cmd->outfile = open_file(NULL, tmp->next->str, TRUNC, NULL);
 		if (cmd->outfile == -1)
 			return (0);
 	}
@@ -92,7 +92,7 @@ int	get_outf(t_token *tmp, t_cmd *cmd)
 			close(cmd->outfile);
 		if (tmp == tmp->next || tmp->next->token_type <= 5)
 			return (0);
-		cmd->outfile = open_file(NULL, tmp->next->str, APPEND);
+		cmd->outfile = open_file(NULL, tmp->next->str, APPEND, NULL);
 		if (cmd->outfile == -1)
 			return (0);
 	}
