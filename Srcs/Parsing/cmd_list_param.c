@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 13:31:07 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/15 17:39:43 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:36:02 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	count_args(t_data *data, t_token *token)
 {
 	int		count;
-	t_token *tmp;
+	t_token	*tmp;
 
 	count = 0;
 	tmp = token;
@@ -32,6 +32,7 @@ int	count_args(t_data *data, t_token *token)
 	}
 	return (count);
 }
+
 int	add_cmd_param(char **cmd_param, int *i, char *param)
 {
 	if (!param)
@@ -40,7 +41,7 @@ int	add_cmd_param(char **cmd_param, int *i, char *param)
 	if (cmd_param[*i] == NULL)
 		return (0);
 	(*i)++;
-	return (1);	
+	return (1);
 }
 
 void	*free_cmd_param(char **cmd_params, int i)
@@ -64,7 +65,7 @@ char	**get_params(t_data *data, t_token *token)
 		return (NULL);
 	if (tmp->token_type != PIPE && (tmp->token_type == CMD || \
 		(tmp->token_type == ARG && tmp->prev != data->token->prev \
-		&& tmp->prev->token_type >= 5)) && !add_cmd_param(cmd_param, &i, tmp->str))
+	&& tmp->prev->token_type >= 5)) && !add_cmd_param(cmd_param, &i, tmp->str))
 		return (free_cmd_param(cmd_param, i));
 	tmp = tmp->next;
 	while (tmp->token_type != PIPE && tmp != data->token)

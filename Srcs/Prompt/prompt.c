@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:53:28 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/15 19:00:16 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:41:04 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_path_prompt(void)
 	char	*pwd;
 	char	*home;
 	char	*prompt;
-	char	*color_prompt;
+	char	*tmp;
 
 	pwd = getenv("PWD");
 	home = getenv("HOME");
@@ -42,17 +42,17 @@ char	*get_path_prompt(void)
 		prompt = ft_strjoin(pwd, " → ");
 	else
 	{
-		prompt = ft_strjoin("~", pwd + ft_strlen(home));
-		prompt = ft_strjoin(prompt, " → ");
+		tmp = ft_strjoin("~", pwd + ft_strlen(home));
+		prompt = ft_strjoin(tmp, " → ");
+		free(tmp);
 	}
+	tmp = prompt;
 	prompt = ft_strjoin("xX-Minishell-Xx ", prompt);
-	if (!prompt)
-	{
-		free(prompt);
-		return (NULL);
-	}
-	color_prompt = ft_strjoin("\001\e[00;35m\002", prompt);
-	return (color_prompt);
+	free(tmp);
+	tmp = prompt;
+	prompt = ft_strjoin("\001\e[00;35m\002", prompt);
+	free(tmp);
+	return (prompt);
 }
 
 char	*init_prompt(void)
@@ -79,7 +79,10 @@ char	*get_prompt(void)
 		if (cmd_line == NULL)
 			break ;
 		if (is_valide_input(cmd_line) == 0)
+		{
+			free(cmd_line);
 			continue ;
+		}
 		add_history(cmd_line);
 		return (cmd_line);
 	}

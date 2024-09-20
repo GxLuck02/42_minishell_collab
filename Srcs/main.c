@@ -6,51 +6,13 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/03 16:03:33 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:02:11 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/minishell.h"
 
-void	init_data(t_data *data)
-{
-	data->env = NULL;
-	data->cmd = NULL;
-	data->token = NULL;
-	data->exit_code = 0;
-}
-
-t_list	*create_node(char *str)
-{
-	t_list	*node;
-
-	node = (t_list *)malloc(sizeof(t_list));
-	node->str = ft_strdup(str);
-	node->next = NULL;
-	return (node);
-}
-
-// Helper function to append a node to the list
-void	append_node(t_list **head, char *str)
-{
-	t_list	*new_node;
-	t_list	*current;
-
-	new_node = create_node(str);
-	current = *head;
-	if (current == NULL)
-	{
-		*head = new_node;
-		return ;
-	}
-	while (current->next != NULL)
-	{
-		current = current->next;
-	}
-	current->next = new_node;
-}
-
-void	creat_fictive_list(t_data *data)
+/*void	creat_fictive_list(t_data *data)
 {
 	t_list	*tmp;
 
@@ -62,19 +24,21 @@ void	creat_fictive_list(t_data *data)
 	append_node(&tmp, "VAR_23=rip");
 	append_node(&tmp, "VAR=Theo");
 	data->env = tmp;
-}
+}*/
 
-int	main()
+int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd_line;
 	t_data	data;
 
-	init_data(&data);
-	creat_fictive_list(&data);
+	if (argc < 1 || !argv)
+		return (1);
+	if (!init_minishell(&data, envp))
+		print_error(RED"Error with init of minishell"NRM);
 	while (1)
 	{
 		cmd_line = get_prompt();
-		printf("%s§\n", cmd_line);
+		printf(BLU"%s§\n"NRM, cmd_line);
 		if (cmd_line == NULL)
 			continue ;
 		if (is_pars(&data, cmd_line) == 0)
@@ -82,5 +46,6 @@ int	main()
 		free_cmd(&data.cmd);
 		free_token(&data.token);
 	}
+	rl_clear_history();
 	return (0);
 }

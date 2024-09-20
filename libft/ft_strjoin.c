@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:26:50 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/04/08 16:53:41 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:54:10 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (NULL);
-	tab = (char *)malloc(sizeof(*tab) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
-	if (tab == 0)
+	tab = (char *)malloc(sizeof(*tab) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!tab)
 		return (NULL);
 	while (s1[i])
 	{

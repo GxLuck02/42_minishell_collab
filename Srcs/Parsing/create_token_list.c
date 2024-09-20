@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   creat_token_list.c                                 :+:      :+:    :+:   */
+/*   create_token_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:13:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/07/01 17:34:33 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:16:48 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	free_token(t_token **list)
 {
-	t_token *current;
-	t_token *tmp;
+	t_token	*current;
+	t_token	*tmp;
 
 	if (!(*list))
 		return ;
@@ -34,30 +34,14 @@ void	free_token(t_token **list)
 
 void	copy_token(char *str, int len, char *new_token, int i)
 {
-	int	j;
+	int		j;
 
 	j = 0;
-	while (str[i + j] && i < len)
-	{
-		if (str[i + j] == '\'' && j++)
-		{
-			while (str [i + j] != '\''  && i++)
-				new_token[i - 1] = str[(i - 1) + j];
-			j++;
-		}
-		else if (str[i + j] == '"' && j++)
-		{
-			while (str [i + j] != '"' && i++)
-				new_token[i - 1] = str[(i - 1) + j];
-			j++;
-		}
-		else
-		{
-			new_token[i] = str[i + j];
-			i++;
-		}
-	}
-	new_token[i] = '\0';
+	if ((str[i] == '\'' || str[i] == '"') && str[len + 1] == str[i])
+		i++;
+	while (j < len)
+		new_token[j++] = str[i++];
+	new_token[j] = '\0';
 }
 
 int	add_cmd(t_token **begin, char **str)
@@ -65,8 +49,10 @@ int	add_cmd(t_token **begin, char **str)
 	int		len;
 	int		quotes;
 	char	*new_str;
+	bool	quoted;
 
 	quotes = 0;
+	quoted = false;
 	len = len_token(*str, &quotes);
 	if ((len) - (quotes * 2) < 0)
 		return (1);
@@ -74,9 +60,9 @@ int	add_cmd(t_token **begin, char **str)
 	if (!new_str)
 		return (0);
 	copy_token(*str, len - (2 * quotes), new_str, 0);
-	if (!new_str)
-		return (0);
-	if (!append_token(begin, new_str, 0))
+	if (quotes > 0)
+		quoted = true;
+	if (!new_str || !append_token(begin, new_str, 0, quoted))
 		return (0);
 	if ((*begin)->prev == (*begin) || (*begin)->prev->prev->token_type == PIPE)
 		(*begin)->prev->token_type = CMD;
@@ -90,18 +76,20 @@ int	add_special(t_token **begin, char **str)
 {
 	int	spe;
 
-	spe = isspecial(*str);
+	spe = ft_isspecial(*str);
 	if (!str)
 		return (0);
-	if (spe == INPUT && !append_token(begin, ft_strdup("<"), INPUT))
+	if (spe == INPUT && !append_token(begin, ft_strdup("<"), INPUT, false))
 		return (0);
-	else if (spe == HEREDOC && !append_token(begin, ft_strdup("<<"), HEREDOC))
+	else if (spe == HEREDOC && !append_token \
+			(begin, ft_strdup("<<"), HEREDOC, false))
 		return (0);
-	else if (spe == TRUNC && !append_token(begin, ft_strdup(">"), TRUNC))
+	else if (spe == TRUNC && !append_token(begin, ft_strdup(">"), TRUNC, false))
 		return (0);
-	else if (spe == APPEND && !append_token(begin, ft_strdup(">>"), APPEND))
+	else if (spe == APPEND && !append_token \
+			(begin, ft_strdup(">>"), APPEND, false))
 		return (0);
-	else if (spe == PIPE && !append_token(begin, ft_strdup("|"), PIPE))
+	else if (spe == PIPE && !append_token(begin, ft_strdup("|"), PIPE, false))
 		return (0);
 	if (spe == PIPE || spe == INPUT || spe == TRUNC)
 		(*str)++;
@@ -117,13 +105,14 @@ bool	creat_token_list(t_token **begin, char *cmd_line)
 	{
 		while (*cmd_line && ft_isspace(*cmd_line))
 			cmd_line++;
-		if (*cmd_line && !isspecial(cmd_line) && !add_cmd(begin, &cmd_line))
+		if (*cmd_line && !ft_isspecial(cmd_line) && !add_cmd(begin, &cmd_line))
 		{
 			if (*begin)
 				free_token(begin);
 			return (0);
 		}
-		else if (*cmd_line && isspecial(cmd_line) && !add_special(begin, &cmd_line))
+		else if (*cmd_line && ft_isspecial(cmd_line) && \
+				!add_special(begin, &cmd_line))
 		{
 			if (*begin)
 				free_token(begin);
