@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:41:55 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:24:41 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void		add_node_env(t_env **head, t_env *node);
 void		incr_shell_level(t_env *head);
 
 //bultin
-void		env(t_env *head);
+int			env(t_env *const env, char **cmd_param);
 
 //lexer
 int			replace_dollar(char **cmd_line, t_data *data);

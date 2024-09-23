@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:53:28 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 19:18:11 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:41:04 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*get_prompt(void)
 		{
 			free(cmd_line);
 			continue ;
-		}	
+		}
 		add_history(cmd_line);
 		return (cmd_line);
 	}

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:18:25 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:38:53 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:22:20 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_var(char **var)
 	free(var);
 }
 
-/*int creat_node(t_env **head, char *str)
+int	create_node_env(t_env **head, char *str)
 {
 	t_env	*new_node;
 	char	**var;
@@ -32,20 +32,20 @@ void	free_var(char **var)
 		return (0);
 	add_node_env(head, new_node);
 	return (1);
-}*/
+}
 
-int	load_default_env(/*t_env **head*/)
+int	load_default_env(t_env **head)
 {
-	/*if (head)
+	if (head)
 		return (0);
-	if (!create_node("CC=/usr/bin/gcc"))
+	if (!create_node_env(head, "CC=/usr/bin/gcc"))
 		return (0);
-	if (!create_node("OLDPWD"))
+	if (!create_node_env(head, "OLDPWD="))
 		return (0);
-	if (!create_node("PWD=/Users/theo/Desktop/minishell_collab"))
+	if (!create_node_env(head, "PWD=/home/user"))
 		return (0);
-	if (!create_node("SHLVL=1"))
-		return (0);*/
+	if (!create_node_env(head, "SHLVL=1"))
+		return (0);
 	return (1);
 }
 
@@ -84,7 +84,7 @@ int	load_env(t_data *data, char **envp)
 	new_env = NULL;
 	if (!envp)
 	{
-		if (!load_default_env())
+		if (!load_default_env(&new_env))
 			return (0);
 		data->env = new_env;
 	}
