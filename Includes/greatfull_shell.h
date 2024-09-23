@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   greatfull_shell.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:55:39 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/06/04 16:16:59 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:29:48 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
