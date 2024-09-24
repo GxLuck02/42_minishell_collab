@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by ttreichl          #+#    #+#              #
-#    Updated: 2024/09/09 22:19:34 by ttreichl         ###   ########.fr        #
+#    Updated: 2024/09/23 20:01:34 by tmontani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS    = $(SRCDIR)/main.c $(SRCDIR)/Prompt/prompt.c $(SRCDIR)/Parsing/dollars_u
 				$(SRCDIR)/Parsing/cmd_list_param.c $(SRCDIR)/Parsing/cmd_list_utils.c $(SRCDIR)/Parsing/create_cmd_list.c \
 				$(SRCDIR)/Parsing/fd_utils.c $(SRCDIR)/Parsing/here_doc.c $(SRCDIR)/Utils/free_cmd.c $(SRCDIR)/Utils/data_utils.c \
 				$(SRCDIR)/Utils/free.c $(SRCDIR)/Init/init_minishell.c $(SRCDIR)/Init/load_env.c $(SRCDIR)/Init/list_env.c $(SRCDIR)/Init/env_list_utils.c \
+				$(SRCDIR)/Exec/exec.c
 
 OBJS    = $(SRCS:.c=.o)
 
