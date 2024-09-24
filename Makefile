@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/23 02:11:07 by ttreichl          #+#    #+#              #
-#    Updated: 2024/09/23 20:01:34 by tmontani         ###   ########.fr        #
+#    Created: 2024/05/23 02:11:07 by tmontani          #+#    #+#              #
+#    Updated: 2024/09/24 11:29:44 by tmontani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS    = $(SRCDIR)/main.c $(SRCDIR)/Prompt/prompt.c $(SRCDIR)/Parsing/dollars_u
 				$(SRCDIR)/Parsing/cmd_list_param.c $(SRCDIR)/Parsing/cmd_list_utils.c $(SRCDIR)/Parsing/create_cmd_list.c \
 				$(SRCDIR)/Parsing/fd_utils.c $(SRCDIR)/Parsing/here_doc.c $(SRCDIR)/Utils/free_cmd.c $(SRCDIR)/Utils/data_utils.c \
 				$(SRCDIR)/Utils/free.c $(SRCDIR)/Init/init_minishell.c $(SRCDIR)/Init/load_env.c $(SRCDIR)/Init/list_env.c $(SRCDIR)/Init/env_list_utils.c \
-				$(SRCDIR)/Exec/exec.c
+				$(SRCDIR)/Exec/exec.c $(SRCDIR)/Exec/utils.c
 
 OBJS    = $(SRCS:.c=.o)
 
@@ -35,9 +35,9 @@ CFLAGS  = -Wall -Wextra -Werror -I$(INCDIR)
 ifeq ($(shell test -d /opt/homebrew/opt/readline/include && echo found),found)
     READLINE_INC = -I/opt/homebrew/opt/readline/include
     READLINE_LIB = -L/opt/homebrew/opt/readline/lib -lreadline
-else ifeq ($(shell test -d /Users/ttreichl/.brew/opt/readline/include && echo found),found)
-    READLINE_INC = -I/Users/ttreichl/.brew/opt/readline/include
-    READLINE_LIB = -L/Users/ttreichl/.brew/opt/readline/lib -lreadline
+else ifeq ($(shell test -d /Users/tmontani/.brew/opt/readline/include && echo found),found)
+    READLINE_INC = -I/Users/tmontani/.brew/opt/readline/include
+    READLINE_LIB = -L/Users/tmontani/.brew/opt/readline/lib -lreadline
 else
     $(error Readline library not found)
 endif
