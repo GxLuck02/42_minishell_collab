@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/24 16:17:06 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:37:32 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	t_env	*env;
+	char	**env_tab;
+	char	*absolute_path;
 	t_token	*token;
 	t_cmd	*cmd;
 	bool	sq;
@@ -136,5 +138,6 @@ bool		print_error(char *err);
 //execution
 void		exec(t_data *data);
 char	**ft_split_path(char const *path, char c);
+void	ft_print_array(char **array);
 
 #endif

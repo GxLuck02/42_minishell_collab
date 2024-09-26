@@ -1,6 +1,6 @@
 #include "../../Includes/minishell.h"
 
-static void	print_array(char **array)
+void	ft_print_array(char **array)
 {
 	int	j;
 
@@ -11,6 +11,7 @@ static void	print_array(char **array)
 		j++;
 
 	}
+	printf("\n\n");
 }
 static void	ft_free(char **array, int j)
 {
@@ -82,7 +83,7 @@ static size_t	ft_count_word(char const *s, char c)
 	}
 	return (count);
 }
-
+/*split la variable path et renvoie un double tableau avec chaque path et '/' a la fin de chaque path */
 char	**ft_split_path(char const *path, char c)
 {
 	size_t	word_count;
@@ -97,7 +98,7 @@ char	**ft_split_path(char const *path, char c)
 		ft_free(array, word_count);
 		return (NULL);
 	}
-	print_array(array);
+	//print_array(array);
 	return (array);
 }
 
