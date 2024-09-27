@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:18:25 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/26 15:28:05 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:58:43 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	load_env(t_data *data, char **envp)
 		if (!load_default_env(&new_env))
 			return (0);
 		data->env = new_env;
+		data->env_tab = creat_env_copy(data->env);
+		data->absolute_path = creat_env_copy(data->env);
 	}
 	else
 	{
@@ -94,6 +96,8 @@ int	load_env(t_data *data, char **envp)
 			return (0);
 		data->env = new_env;
 		incr_shell_level(data->env);
+		data->env_tab = creat_env_copy(data->env);
+		data->absolute_path = creat_env_copy(data->env);
 		env(data->env);
 	}
 	return (1);

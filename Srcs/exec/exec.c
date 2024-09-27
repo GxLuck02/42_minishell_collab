@@ -12,12 +12,13 @@ t_env  *ft_getenv(char *var, t_env *env)
 	}
 	return (NULL);
 }
+/*
+fork
+execute la commande ou absolute_path avec execve dans child process
 
-//si oui execute la commande avec execve
-/*void    execute_cmd(t_data *data)
-{
+*/
 
-}*/
+
 /*recupere le path et le nom de la commande
 split le path et recupere un tableau avec chaque path
 verifie avec access si chaque path est executable
@@ -31,13 +32,11 @@ char *is_path_executable(char *path, char *cmd)
 
 	i = 0;
 	path_array = ft_split_path(path, ':');
-	ft_print_array(path_array);
 	if (!path_array)
 		return (NULL);
 	while (path_array[i])
 	{
 		complete_path = ft_strjoin(path_array[i], cmd);
-		ft_printf("complete_path : %s\n", complete_path);
 		if (!complete_path)
 		{
 			free(complete_path);
@@ -51,30 +50,68 @@ char *is_path_executable(char *path, char *cmd)
 }
 /*
 recupere la variable path
+verifie si c'est un absolute path;
 verifie si le path est executable
 si non cmd not found return ;
 si oui execute la commande
 */
-void    handle_cmd(t_data *data)
+void    make_cmd(t_data *data)
 {
 	char	*complete_path;
 	t_env	*path_var;
+
 	path_var = ft_getenv("PATH", data->env);
+	if (!access(data->cmd->cmd_param[0], F_OK | X_OK))
+	{
+	 	if(!execve(data->cmd->cmd_param[0], data->cmd->cmd_param, data->absolute_path))
+			exit(127);
+	}
 	if (!path_var)
 	{
-		perror("variable path not found\n");
-		return ;
+		ft_putstr_fd("xnxX-Minishell-Xx: ", 2);
+		ft_putstr_fd(data->cmd->cmd_param[0], 2);
+		ft_putstr_fd(" :no such file or directory\n", 2);
+		exit(127);
 	}
 	complete_path = is_path_executable(path_var->value, data->cmd->cmd_param[0]);
 	if (!complete_path)
-		perror("cmd not found\n");
-	//printf(" voici le path complet: %s\n\n", complete_path);
-	//execute_cmd(complete_path, data);
+	{
+		ft_putstr_fd("xnxX-Minishell-Xx: ", 2);
+		ft_putstr_fd(data->cmd->cmd_param[0], 2);
+		ft_putstr_fd(" :cmd not found\n", 2);
+		exit(127);	
+	}
+	execve(complete_path, data->cmd->cmd_param, data->env_tab);
+}
+
+void    handle_cmd(t_data *data)
+{
+	pid_t pid;
+	int	status;
+	
+	pid = fork();
+    if (pid < 0)
+    {
+		perror("fork failed");
+    	exit(0);
+	}
+	else if (pid == 0)
+	{
+		if (data->cmd->outfile == 3)
+			dup2(data->cmd->outfile, STDOUT_FILENO);
+		else if (data->cmd->infile == 3)
+			dup2(data->cmd->infile, STDIN_FILENO);
+		make_cmd(data);
+	}
+	else
+		waitpid(pid, &status, 0);
+	return ;
 }
 /*
 envoie la commande
 */
 void exec(t_data *data)
-{	
+{
+	ft_print_array(data->cmd->cmd_param);
 	handle_cmd(data);
 }

@@ -3,15 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:40:36 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:49:34 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
+int ft_lstsize_env(t_env *lst)
+{
+    int result = 0;
+
+    while (lst) {
+        lst = lst->next;
+        result++;
+    }
+    return result;
+}
+
+/*
+fais une copie de l'environnement sous forme de double tableau pour execve
+*/
+char	**creat_env_copy(t_env *env)
+{
+	int		len_lst;
+	char	**env_tab;
+	char	*line;
+	char	*key;
+	int		i;
+	
+	i = 0;
+	len_lst = ft_lstsize_env(env);
+	env_tab = malloc(sizeof (char *) * (len_lst + 1));
+	while (env)
+	{
+		key = ft_strjoin(env->key, "=");
+		line = ft_strjoin(key, env->value);
+		env_tab[i] = ft_strdup(line);
+		if(!env_tab[i])
+			return (NULL);
+		i++;
+		free(line);
+		free(key);
+		env = env->next;
+	}
+	env_tab[i] = NULL;
+	return(env_tab);
+}
 void	incr_shell_level(t_env *head)
 {
 	t_env	*tmp;
