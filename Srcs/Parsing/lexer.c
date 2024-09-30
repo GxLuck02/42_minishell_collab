@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:06:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/26 18:38:15 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:27:58 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,8 @@ bool	is_pars(t_data *data, char *cmd_line)
 		return (0);
 	}
 	print_cmd_list(data->cmd);
+	printf("\n\n___________________________________________________________________\n\n");
+	export(&data->env, data->cmd->cmd_param);
+	printf("\n\n___________________________________________________________________\n");
 	return (check_pipe(data));
 }

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/23 17:24:41 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:30:02 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void		incr_shell_level(t_env *head);
 
 //bultin
 int			env(t_env *const env, char **cmd_param);
+int			export(t_env **env, char **args);
 
 //lexer
 int			replace_dollar(char **cmd_line, t_data *data);
