@@ -6,25 +6,11 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:02:11 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:40:35 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/minishell.h"
-
-/*void	creat_fictive_list(t_data *data)
-{
-	t_list	*tmp;
-
-	tmp = NULL;
-	append_node(&tmp, "USER=root");
-	append_node(&tmp, "HOME=/root");
-	append_node(&tmp, "VARIABLE1234=bah non");
-	append_node(&tmp, "SHELL=/bin/bash");
-	append_node(&tmp, "VAR_23=rip");
-	append_node(&tmp, "VAR=Theo");
-	data->env = tmp;
-}*/
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -46,6 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		free_cmd(&data.cmd);
 		free_token(&data.token);
 	}
+	free_all(&data, "exit", 0);
 	rl_clear_history();
 	return (0);
 }

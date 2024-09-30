@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:01:49 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/23 17:24:49 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:34:58 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int	env(t_env *const env, char **cmd_param)
 	curr = env;
 	while (curr)
 	{
+		if (!curr->key || !curr->value)
+		{
+			curr = curr->next;
+			continue ;
+		}
 		printf("%s=%s\n", curr->key, curr->value);
 		curr = curr->next;
 	}
