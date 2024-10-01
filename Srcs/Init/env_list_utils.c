@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/27 14:49:34 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:37:32 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int ft_lstsize_env(t_env *lst)
 
 /*
 fais une copie de l'environnement sous forme de double tableau pour execve
+aussi utilisée pour faire une autre copie pour executer les absolute_path
 */
 char	**creat_env_copy(t_env *env)
 {

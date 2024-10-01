@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/27 16:47:06 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:07:41 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,6 @@ char		**ft_split_path(char const *path, char c);
 void		ft_print_array(char **array);
 char		**creat_env_copy(t_env *env);
 void		execute_absolute_path(char *path, char **cmd_param, char **absolute_path);
+void		handle_pipe(t_cmd *cmd1, t_cmd *cmd2);
 
 #endif

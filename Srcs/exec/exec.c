@@ -18,7 +18,6 @@ execute la commande ou absolute_path avec execve dans child process
 
 */
 
-
 /*recupere le path et le nom de la commande
 split le path et recupere un tableau avec chaque path
 verifie avec access si chaque path est executable
@@ -51,9 +50,10 @@ char *is_path_executable(char *path, char *cmd)
 /*
 recupere la variable path
 verifie si c'est un absolute path;
-verifie si le path est executable
-si non cmd not found return ;
-si oui execute la commande
+	si oui execute la commande
+	(je dois encore ajouter une condition pour le absolute_path pour envoyer le bon message d'erreure)
+recupere le complete_path (path/cmd)
+execute la commande
 */
 void    make_cmd(t_data *data)
 {
@@ -108,10 +108,18 @@ void    handle_cmd(t_data *data)
 	return ;
 }
 /*
+boucle sur la liste de commandes
+prepare les pipes
 envoie la commande
 */
 void exec(t_data *data)
 {
-	ft_print_array(data->cmd->cmd_param);
-	handle_cmd(data);
+	(void)data;
+	while(data->cmd)
+	{
+		if (data->cmd->next)
+			handle_pipe(data->cmd, data->cmd->next);
+		handle_cmd(data);
+		data->cmd = data->cmd->next;
+	}
 }
