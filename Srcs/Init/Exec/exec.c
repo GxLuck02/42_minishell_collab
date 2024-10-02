@@ -118,8 +118,9 @@ void exec(t_data *data)
 	while(data->cmd)
 	{
 		if (data->cmd->next)
-			handle_pipe(data->cmd, data->cmd->next);
-		handle_cmd(data);
+			handle_pipe(data);
+		else
+			handle_cmd(data);
 		data->cmd = data->cmd->next;
 	}
 }
