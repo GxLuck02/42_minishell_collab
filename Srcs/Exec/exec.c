@@ -114,13 +114,25 @@ envoie la commande
 */
 void exec(t_data *data)
 {
-	(void)data;
-	//while(data->cmd)
-	//{
-		if (data->cmd->next)
-			handle_pipe(data);
-		else
-			handle_cmd(data);
-		data->cmd = data->cmd->next;
-	//}
+	puts("hekiiiii\n");
+	if (data->cmd)
+		puts("is not null");
+	if (data->cmd->next)
+	{
+		printf("%s\n", data->cmd->cmd_param[0]);
+		printf("%s\n", data->cmd->next->cmd_param[0]);
+		puts("should be null");
+	}
+	// while (data->cmd)
+	// {
+	// 	puts("hekiiiii\n");
+	// 	if (data->cmd->next)
+	// 	{
+	// 		ft_putstr_fd("ififififififif\n", 2);
+	// 		handle_pipe(data);
+	// 	}
+	// 	else
+	// 		handle_cmd(data);
+	// 	data->cmd = data->cmd->next;
+	// }
 }

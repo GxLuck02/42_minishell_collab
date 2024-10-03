@@ -6,11 +6,12 @@ si il y a une cmd prev
 dup2(pipe_fd)
 */
 
-void	execute_pipe(t_data *data, int pipe_fd[])
+void	execute_pipe(t_data *data, int *pipe_fd)
 {
 	pid_t	pid;
 	int		status;
 
+	ft_putstr_fd("pipepepepepepepe\n", 2);
 	pid = fork();
 	if (pid < 0)
 	{
@@ -21,12 +22,14 @@ void	execute_pipe(t_data *data, int pipe_fd[])
 	{
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
-		close(pipe_fd[1]);
+		exit(1);
 		make_cmd(data);
+		close(pipe_fd[1]);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
+		puts("`1");
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
@@ -35,6 +38,8 @@ void	execute_pipe(t_data *data, int pipe_fd[])
 
 void	handle_pipe(t_data *data)
 {
+
+	ft_putstr_fd("inside\n", 2);
 	int	pipe_fd[2];
 
 	if (pipe(pipe_fd) == -1)
