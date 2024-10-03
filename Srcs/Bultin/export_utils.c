@@ -6,32 +6,53 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:40:27 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/02 19:22:58 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:40:51 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-bool	var_already_exist(t_env *env, char *key, int key_len)
+void	change_value(t_env **env, t_env *new_node)
+{
+	t_env	*current;
+
+	current = *env;
+	if (!env || !new_node)
+		return ;
+	while (ft_strcmp(current->key, new_node->key) != 0)
+		current = current->next;
+	free(current->value);
+	current->value = ft_strdup(new_node->value);
+	free(new_node->key);
+	free(new_node->value);
+	free(new_node);
+}
+
+bool	var_already_exist(t_env *env, char *key)
 {
 	if (!env)
 		return (false);
-	while (!env)
+	while (env)
 	{
-		
+		if (ft_strcmp(env->key, key) == 0)
+			return (true);
+		env = env->next;
 	}
-	
+	return (false);
 }
 
 void	fill_tab(t_env *current, char **tab)
 {
 	char	*tmp;
+	char	*tmp2;
 
 	*tab = ft_strdup(current->key);
-	tmp = ft_strjoin(*tab, "=");
+	tmp = ft_strjoin(*tab, "=\"");
 	free(*tab);
-	*tab = ft_strjoin(tmp, current->value);
+	tmp2 = ft_strjoin(tmp, current->value);
 	free(tmp);
+	*tab = ft_strjoin(tmp2, "\"");
+	free(tmp2);
 }
 
 int	env_lenthg(t_env *env)
@@ -64,7 +85,7 @@ char	**creat_table(t_env *env)
 		return (NULL);
 	while (current != NULL)
 	{
-		tab_env[i] = malloc((ft_strlen(current->value) + ft_strlen(current->key) + 2) * sizeof(char ));
+		tab_env[i] = malloc((ft_strlen(current->value) + ft_strlen(current->key) + 4) * sizeof(char ));
 		if (tab_env[i] == NULL)
 			return (NULL);
 		fill_tab(current, &tab_env[i]);

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:06:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/30 19:27:58 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:14:09 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	print_array(char **cmd_param)
 	printf("\n");
 }
 
-void	print_cmd_list(t_cmd *list)
+void	 print_cmd_list(t_cmd *list)
 {
 	t_cmd	*current;
 	int		i;
@@ -130,6 +130,6 @@ bool	is_pars(t_data *data, char *cmd_line)
 	print_cmd_list(data->cmd);
 	printf("\n\n___________________________________________________________________\n\n");
 	export(&data->env, data->cmd->cmd_param);
-	printf("\n\n___________________________________________________________________\n");
+	printf("\n___________________________________________________________________\n");
 	return (check_pipe(data));
 }

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/02 19:14:43 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:01:18 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	invalid_var(char *var)
 {
-	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+	ft_putstr_fd("minishell: export: '", STDERR_FILENO);
 	ft_putstr_fd(var, STDERR_FILENO);
-	ft_putstr_fd("´: not a valide identifier", STDERR_FILENO);
+	ft_putstr_fd("': not a valide identifier", STDERR_FILENO);
 }
 
 int	set_export_var(t_env **env, char *str)
@@ -24,31 +24,40 @@ int	set_export_var(t_env **env, char *str)
 	t_env	*new_node;
 	char	**var;
 	int		len_key;
+	bool	have_equal;
 
+	have_equal = false;
 	new_node = (t_env *)malloc(sizeof (t_env));
+	if (ft_strchr(str, '=') != NULL)
+		have_equal = true;
 	var = ft_envsplit(str);
 	key_var_to_node(var, &new_node);
 	free_var(var);
 	if (!new_node)
 		return (0);
 	len_key = ft_strlen(new_node->key);
-	
-	
-	
+	if (var_already_exist(*env, new_node->key) == true)
+	{
+		if (have_equal == true)
+			change_value(env, new_node);
+	}
+	else
+		add_node_env(env, new_node);
+	return (1);
 }
 
 int	is_valid_var(char *var)
 {
 	if (!var || !*var)
 		return (0);
-	if (!ft_isalpha(*var) && *var != "_")
+	if (!ft_isalpha(*var) && *var != '_')
 		return (0);
-	*var++;
-	while (*var || *var != "=")
+	var++;
+	while (*var && *var != '=')
 	{
-		if (!ft_isalnum(*var) && *var != "_")
+		if (!ft_isalnum(*var) && *var != '_')
 			return (0);
-		*var++;
+		var++;
 	}
 	return (1);
 }
