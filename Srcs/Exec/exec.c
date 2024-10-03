@@ -114,25 +114,20 @@ envoie la commande
 */
 void exec(t_data *data)
 {
-	puts("hekiiiii\n");
-	if (data->cmd)
-		puts("is not null");
-	if (data->cmd->next)
+	int	len_cmd;
+	len_cmd = ft_lstsize_circular(data->cmd);
+	printf("%d\n", len_cmd);
+	while (len_cmd)
 	{
-		printf("%s\n", data->cmd->cmd_param[0]);
-		printf("%s\n", data->cmd->next->cmd_param[0]);
-		puts("should be null");
-	}
-	// while (data->cmd)
-	// {
-	// 	puts("hekiiiii\n");
-	// 	if (data->cmd->next)
-	// 	{
-	// 		ft_putstr_fd("ififififififif\n", 2);
-	// 		handle_pipe(data);
-	// 	}
-	// 	else
-	// 		handle_cmd(data);
-	// 	data->cmd = data->cmd->next;
-	// }
+		printf("%d\n", len_cmd);
+		if (len_cmd > 1)
+		{
+			ft_putstr_fd("inside\n", 2);
+			handle_pipe(data);
+		}
+		 else
+			handle_cmd(data);
+		data->cmd = data->cmd->next;
+		len_cmd--;
+	} 
 }

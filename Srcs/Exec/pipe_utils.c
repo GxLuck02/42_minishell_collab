@@ -22,14 +22,13 @@ void	execute_pipe(t_data *data, int *pipe_fd)
 	{
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
-		exit(1);
 		make_cmd(data);
 		close(pipe_fd[1]);
+		exit(1);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		puts("`1");
 		close(pipe_fd[1]);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
@@ -47,5 +46,6 @@ void	handle_pipe(t_data *data)
 		ft_putstr_fd("pipe Error\n", 2);
 		return ;
 	}
+	puts("helloooo\n");
 	execute_pipe(data, pipe_fd);
 }
