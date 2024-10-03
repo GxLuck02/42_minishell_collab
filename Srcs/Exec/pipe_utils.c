@@ -5,43 +5,36 @@
 si il y a une cmd prev
 dup2(pipe_fd)
 */
-void	set_redirections(t_data *data, pipe_fd)
+
+void	execute_pipe(t_data *data, int pipe_fd[]);
 {
-	if ()
+	pid_t	pid;
+	int		status;
+	pid = fork();
+	if (pid < 0)
+	{
+		ft_putstr_fd("error fork\n", 2);
+		exit(0);
+	}
+	else if (pid == 0)
+	{
+		dup2(pipe_fd[1], STDOUT_FILENO);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
+		make_cmd(data);
+	}
+	else
+		waitpid(pid, &status, 0);
 }
 
-
-
-
-
-
-
-
-
-/*
-gere toute l'execution en cas de pipe
-
-*/
 void	handle_pipe(t_data *data)
 {
 	int	pipe_fd[2];
-	pid_t	pid;
-	int		flag;
 
-	while(data->cmd)
+	if (pipe(pipe_fd) == -1)
 	{
-		if(pipe(pipe_fd) == -1)
-		{
-			ft_putstr_fd("pipe error\n", 2);
-			return ;
-		}
-		pid = fork();
-		if (pid < 0)
-		{
-			ft_putstr_fd("fork error\n", 2);
-			exit(0);
-		}
-		else if(pid == 0)
-			set_redirections(data, pipe_fd);
+		ft_putstr_fd("pipe Error\n", 2);
+		return ;
 	}
+	execute_pipe(data, pipe_fd);
 }

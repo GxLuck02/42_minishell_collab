@@ -115,12 +115,12 @@ envoie la commande
 void exec(t_data *data)
 {
 	(void)data;
-	while(data->cmd)
-	{
+	//while(data->cmd)
+	//{
 		if (data->cmd->next)
 			handle_pipe(data);
 		else
 			handle_cmd(data);
 		data->cmd = data->cmd->next;
-	}
+	//}
 }
