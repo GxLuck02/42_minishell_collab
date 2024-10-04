@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/24 10:43:25 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:06:28 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,13 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		cmd_line = get_prompt();
+		ft_putstr_fd(cmd_line, 1);
 		printf(BLU"%s§\n"NRM, cmd_line);
 		if (cmd_line == NULL)
+		{
 			continue ;
+		}
+			
 		if (is_pars(&data, cmd_line) == 0)
 			continue ;
 		exec(&data);

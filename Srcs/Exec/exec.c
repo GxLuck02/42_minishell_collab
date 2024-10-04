@@ -101,6 +101,8 @@ void    handle_cmd(t_data *data)
 			dup2(data->cmd->outfile, STDOUT_FILENO);
 		else if (data->cmd->infile == 3)
 			dup2(data->cmd->infile, STDIN_FILENO);
+		if (is_builtin(data->cmd->cmd_param[0]))
+			exit(1);
 		make_cmd(data);
 	}
 	else
@@ -116,18 +118,24 @@ void exec(t_data *data)
 {
 	int	len_cmd;
 	len_cmd = ft_lstsize_circular(data->cmd);
-	printf("%d\n", len_cmd);
+	int	saved_stdin;
+
+	saved_stdin = dup(STDIN_FILENO);
 	while (len_cmd)
 	{
-		printf("%d\n", len_cmd);
-		if (len_cmd > 1)
+		int	pipe;
+
+		pipe = len_cmd > 1;
+		if (pipe == 0)
 		{
-			ft_putstr_fd("inside\n", 2);
-			handle_pipe(data);
-		}
-		 else
 			handle_cmd(data);
+		}
+		else
+			handle_pipe(data);
 		data->cmd = data->cmd->next;
 		len_cmd--;
-	} 
+	}
+	dup2(saved_stdin, STDIN_FILENO);
+	close(saved_stdin); 
+	return ;
 }

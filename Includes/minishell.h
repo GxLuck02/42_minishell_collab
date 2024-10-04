@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/03 18:58:20 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:39:17 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,10 @@ void		execute_absolute_path(char *path, char **cmd_param, char **absolute_path);
 void		handle_pipe(t_data *data);
 void   		make_cmd(t_data *data);
 int			ft_lstsize_circular(t_cmd	*cmd);
+void		handle_child(int *pipe_fd, t_data *data);
+void		handle_parent(int *pipe_fd, int status, pid_t pid);
+int			is_builtin(char *cmd);
+int			ft_pwd(void);
+
 
 #endif

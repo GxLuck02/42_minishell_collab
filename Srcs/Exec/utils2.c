@@ -14,9 +14,18 @@ int	ft_lstsize_circular(t_cmd *cmd)
 	temp = temp->next;
 	while (temp != cmd)
 	{
-		puts("111\n");
 		temp = temp->next;
 		len++;
 	}
 	return (len);
+}
+
+int	is_builtin(char *cmd)
+{
+	if (!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "PWD"))
+	{
+		ft_pwd();
+		return (1);
+	}
+	return (0);
 }
