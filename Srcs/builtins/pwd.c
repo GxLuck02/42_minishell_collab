@@ -7,11 +7,11 @@ int	ft_pwd(void)
 	if (getcwd(cwd, PATH_MAX))
 	{
 		printf("%s\n", cwd);
-		return (0);
+		return (1);
 	}
 	else
 	{
 		perror("pwd");
-		return (1);
+		return (0);
 	}
 }

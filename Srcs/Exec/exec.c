@@ -101,8 +101,8 @@ void    handle_cmd(t_data *data)
 			dup2(data->cmd->outfile, STDOUT_FILENO);
 		else if (data->cmd->infile == 3)
 			dup2(data->cmd->infile, STDIN_FILENO);
-		if (is_builtin(data->cmd->cmd_param[0]))
-			exit(1);
+		// if (is_builtin(data->cmd->cmd_param[0]))
+		// 	exit(1);
 		make_cmd(data);
 	}
 	else

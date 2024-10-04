@@ -20,12 +20,24 @@ int	ft_lstsize_circular(t_cmd *cmd)
 	return (len);
 }
 
-int	is_builtin(char *cmd)
-{
-	if (!ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "PWD"))
-	{
-		ft_pwd();
-		return (1);
-	}
-	return (0);
-}
+// int	is_builtin(t_data *data)
+// {
+// 	char *cmd;
+// 	int	flag;
+
+// 	cmd = data->cmd->cmd_param[0];
+// 	if (!ft_strcmp(data-cmd, "pwd") || !ft_strcmp(cmd, "PWD"))
+// 		flag = ft_pwd();
+// 	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "ECHO"))
+// 			flag = ft_echo(data->cmd->cmd_param);
+	// if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "CD"))
+	// 	ft_cd(data);
+	// if (!ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "ENV"))
+	// 	ft_env(data);
+	// if (!ft_strcmp(cmd, "exit") || !ft_strcmp(cmd, "EXIT"))
+	// 	ft_exit(data);
+	//export
+	//exit
+
+// 	return (flag);
+// }
