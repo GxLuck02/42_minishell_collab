@@ -2,6 +2,7 @@
 
 int	ft_pwd(void)
 {
+	puts("test\n");
 	char	cwd[PATH_MAX];
 
 	if (getcwd(cwd, PATH_MAX))

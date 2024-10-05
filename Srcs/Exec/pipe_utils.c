@@ -12,8 +12,13 @@ void	handle_child(int *pipe_fd, t_data *data)
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
-		make_cmd(data);
-		exit(1);
+		if (is_builtin(data))
+			exit(EXIT_SUCCESS);
+		else
+		{
+			make_cmd(data);
+			exit(EXIT_SUCCESS);
+		}
 }
 void	execute_pipe(t_data *data)
 {

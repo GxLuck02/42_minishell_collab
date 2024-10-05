@@ -20,24 +20,21 @@ int	ft_lstsize_circular(t_cmd *cmd)
 	return (len);
 }
 
-// int	is_builtin(t_data *data)
-// {
-// 	char *cmd;
-// 	int	flag;
-
-// 	cmd = data->cmd->cmd_param[0];
-// 	if (!ft_strcmp(data-cmd, "pwd") || !ft_strcmp(cmd, "PWD"))
-// 		flag = ft_pwd();
-// 	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "ECHO"))
-// 			flag = ft_echo(data->cmd->cmd_param);
+/*
+verifie si la commande est un builtin et appelle le builtin
+*/
+int	is_builtin(t_data *data)
+{
+	if (!ft_strcmp(data->cmd->cmd_param[0], "pwd") || !ft_strcmp(data->cmd->cmd_param[0], "PWD"))
+		return(ft_pwd());
+	if (!ft_strcmp(data->cmd->cmd_param[0], "echo") || !ft_strcmp(data->cmd->cmd_param[0], "ECHO"))
+		return(ft_echo(data));
 	// if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "CD"))
 	// 	ft_cd(data);
 	// if (!ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "ENV"))
 	// 	ft_env(data);
 	// if (!ft_strcmp(cmd, "exit") || !ft_strcmp(cmd, "EXIT"))
 	// 	ft_exit(data);
-	//export
-	//exit
 
-// 	return (flag);
-// }
+	return (0);
+}
