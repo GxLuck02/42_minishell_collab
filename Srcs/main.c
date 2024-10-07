@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 16:20:06 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:28:14 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		cmd_line = get_prompt();
+		ft_putstr_fd(cmd_line, 1);
 		printf(BLU"%s§\n"NRM, cmd_line);
 		if (cmd_line == NULL)
+		{
 			continue ;
+		}
+			
 		if (is_pars(&data, cmd_line) == 0)
 			continue ;
+		exec(&data);
 		free_cmd(&data.cmd);
 		free_token(&data.token);
 	}
