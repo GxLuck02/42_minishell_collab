@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:01:49 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/26 15:34:58 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:00:56 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/minishell.h"
+#include "../../../Includes/minishell.h"
 
 int	env(t_env *const env, char **cmd_param)
 {

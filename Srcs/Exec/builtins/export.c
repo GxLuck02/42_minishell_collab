@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/03 17:01:18 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:01:05 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Includes/minishell.h"
+#include "../../../Includes/minishell.h"
 
 void	invalid_var(char *var)
 {
