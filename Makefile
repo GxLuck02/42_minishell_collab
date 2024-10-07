@@ -6,7 +6,7 @@
 #    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by tmontani          #+#    #+#              #
-#    Updated: 2024/10/07 17:03:44 by ttreichl         ###   ########.fr        #
+#    Updated: 2024/10/07 17:08:18 by ttreichl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,9 @@ SRCS    = $(SRCDIR)/main.c $(SRCDIR)/Prompt/prompt.c $(SRCDIR)/Parsing/dollars_u
 				$(SRCDIR)/Parsing/cmd_list_param.c $(SRCDIR)/Parsing/cmd_list_utils.c $(SRCDIR)/Parsing/create_cmd_list.c \
 				$(SRCDIR)/Parsing/fd_utils.c $(SRCDIR)/Parsing/here_doc.c $(SRCDIR)/Utils/free_cmd.c $(SRCDIR)/Utils/data_utils.c \
 				$(SRCDIR)/Utils/free.c $(SRCDIR)/Init/init_minishell.c $(SRCDIR)/Init/load_env.c $(SRCDIR)/Init/list_env.c $(SRCDIR)/Init/env_list_utils.c \
-				$(SRCDIR)/Bultin/env.c $(SRCDIR)/Bultin/export.c $(SRCDIR)/Bultin/export_utils.c $(SRCDIR)/Utils/bubble_sort.c
-				$(SRCDIR)/Exec/exec.c $(SRCDIR)/Exec/utils.c $(SRCDIR)/Exec/pipe_utils.c $(SRCDIR)/Exec/utils2.c $(SRCDIR)/builtins/pwd.c $(SRCDIR)/builtins/echo.c
+				$(SRCDIR)/Bultin/env.c $(SRCDIR)/Bultin/export.c $(SRCDIR)/Bultin/export_utils.c $(SRCDIR)/Utils/bubble_sort.c \
+				$(SRCDIR)/Exec/exec.c $(SRCDIR)/Exec/utils.c $(SRCDIR)/Exec/pipe_utils.c $(SRCDIR)/Exec/utils2.c $(SRCDIR)/Exec/builtins/pwd.c \
+				$(SRCDIR)/Exec/builtins/echo.c $(SRCDIR)/Exec/builtins/exit.c
 
 OBJS    = $(SRCS:.c=.o)
 
@@ -39,6 +40,9 @@ ifeq ($(shell test -d /opt/homebrew/opt/readline/include && echo found),found)
 else ifeq ($(shell test -d /Users/tmontani/.brew/opt/readline/include && echo found),found)
     READLINE_INC = -I/Users/tmontani/.brew/opt/readline/include
     READLINE_LIB = -L/Users/tmontani/.brew/opt/readline/lib -lreadline
+else ifeq ($(shell test -d /Users/ttreichl/.brew/opt/readline/include && echo found),found)
+    READLINE_INC = -I/Users/ttreichl/.brew/opt/readline/include
+    READLINE_LIB = -L/Users/ttreichl/.brew/opt/readline/lib -lreadline
 else
     $(error Readline library not found)
 endif
