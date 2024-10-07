@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 16:27:05 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:03:30 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ void		handle_parent(int *pipe_fd, int status, pid_t pid);
 int			is_builtin(t_data *data);
 int			ft_pwd(void);
 int			ft_echo(t_data *data);
+int			ft_exit(t_data *data);
 
 
 #endif

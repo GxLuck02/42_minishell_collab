@@ -1,4 +1,4 @@
-#include "../../Includes/minishell.h"
+#include "../../../Includes/minishell.h"
 
 
 int check_n(char *cmd_param_1)
@@ -23,8 +23,10 @@ int check_n(char *cmd_param_1)
 }
 
 /*
-verifie si il y a -n
-et imprime ce qui est demande
+
+verifie si le premier element du tableau est -n
+si oui imprimer les elements suivants sans \n a la fin
+si non imprime les elements suivants du tableau sans \n a la fin
 */
 int ft_echo(t_data *data)
 {
@@ -37,7 +39,8 @@ int ft_echo(t_data *data)
 		while (data->cmd->cmd_param[i])
 		{
 			ft_putstr_fd(data->cmd->cmd_param[i], STDOUT_FILENO);
-			ft_putchar_fd(' ', STDOUT_FILENO);
+			if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])								//ligne pour verifier si il y a un pipe
+				ft_putchar_fd(' ', STDOUT_FILENO);
 			i++;
 		}
 	}
@@ -47,10 +50,12 @@ int ft_echo(t_data *data)
 		while (data->cmd->cmd_param[i])
 		{
 			ft_putstr_fd(data->cmd->cmd_param[i], STDOUT_FILENO);
-			ft_putchar_fd(' ', STDOUT_FILENO);
+			if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
+				ft_putchar_fd(' ', STDOUT_FILENO);
 			i++;
+			
 		}
-		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	}
 	return (1);
 }
