@@ -1,6 +1,8 @@
 {
 	"files.associations": {
 		"history.h": "c",
-		"readline.h": "c"
+		"readline.h": "c",
+		"string": "c",
+		"iosfwd": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:53:28 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/18 17:41:04 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:19:53 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*get_path_prompt(void)
 	pwd = getenv("PWD");
 	home = getenv("HOME");
 	if (home == NULL || pwd == NULL)
-		return (NULL);
+		return ("minishell > ");
 	if (ft_strstr(pwd, home) == NULL)
 		prompt = ft_strjoin(pwd, " → ");
 	else
@@ -63,7 +63,6 @@ char	*init_prompt(void)
 	prompt = get_path_prompt();
 	rl_on_new_line();
 	input = readline(prompt);
-	free(prompt);
 	if (!input)
 		return (NULL);
 	return (input);

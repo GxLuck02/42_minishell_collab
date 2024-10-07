@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:13:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:16:48 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:19:43 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,24 @@ void	free_token(t_token **list)
 void	copy_token(char *str, int len, char *new_token, int i)
 {
 	int		j;
+	char	quote;
 
+	quote = '\0';
 	j = 0;
-	if ((str[i] == '\'' || str[i] == '"') && str[len + 1] == str[i])
-		i++;
 	while (j < len)
-		new_token[j++] = str[i++];
+	{
+		if (str[i] == '\'' || str[i] == '"')
+		{
+			quote = str[i];
+			i++;
+			while (str[i] != quote && str[i] != '\0')
+				new_token[j++] = str[i++];
+			i++;
+			quote = '\0';
+		}
+		else
+			new_token[j++] = str[i++];
+	}
 	new_token[j] = '\0';
 }
 

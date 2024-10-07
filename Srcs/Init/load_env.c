@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:18:25 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/18 18:33:59 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:18:49 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	create_node_env(t_env **head, char *str)
 	t_env	*new_node;
 	char	**var;
 
-	new_node = NULL;
+	new_node = (t_env *)malloc(sizeof (t_env));
 	var = ft_envsplit(str);
 	key_var_to_node(var, &new_node);
 	free_var(var);
@@ -36,15 +36,17 @@ int	create_node_env(t_env **head, char *str)
 
 int	load_default_env(t_env **head)
 {
-	if (head)
+	if (!head)
 		return (0);
-	if (!create_node_env(head, "CC=/usr/bin/gcc"))
-		return (0);
-	if (!create_node_env(head, "OLDPWD="))
+	if (!create_node_env(head, "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"))
 		return (0);
 	if (!create_node_env(head, "PWD=/home/user"))
 		return (0);
+	if (!create_node_env(head, "CC=/usr/bin/gcc"))
+		return (0);
 	if (!create_node_env(head, "SHLVL=1"))
+		return (0);
+	if (!create_node_env(head, "_=/usr/bin/env"))
 		return (0);
 	return (1);
 }
@@ -82,19 +84,25 @@ int	load_env(t_data *data, char **envp)
 	t_env	*new_env;
 
 	new_env = NULL;
-	if (!envp)
+	if (!creat_env_list(&new_env, envp))
 	{
-		if (!load_default_env(&new_env))
-			return (0);
-		data->env = new_env;
+		printf("Error: load default env as fail\n");
+		return (0);
 	}
-	else
+	if (new_env)
 	{
-		if (!creat_env_list(&new_env, envp))
-			return (0);
 		data->env = new_env;
 		incr_shell_level(data->env);
-		env(data->env);
+	}
+	if (!new_env)
+	{
+		if (!load_default_env(&new_env))
+		{
+			printf("Error: load default env as fail\n");
+			return (0);
+		}
+		if (new_env)
+			data->env = new_env;
 	}
 	return (1);
 }

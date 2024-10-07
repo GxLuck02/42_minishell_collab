@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:40:36 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:17:50 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,6 @@ void	incr_shell_level(t_env *head)
 		tmp->value = new_value;
 	}
 	return ;
-}
-
-void	env(t_env *head)
-{
-	while (head)
-	{
-		printf("%s=%s\n", head->key, head->value);
-		head = head->next;
-	}
 }
 
 void	key_var_to_node(char **var, t_env **node)
