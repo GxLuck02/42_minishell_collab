@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 16:20:22 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:23:30 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,17 @@ char		*get_prompt(void);
 //env
 int			load_env(t_data *data, char **envp);
 char		**ft_envsplit(char *env_str);
-<<<<<<< HEAD
-=======
 int			create_node_env(t_env **head, char *str);
 void		free_var(char **var);
 void		add_node_env(t_env **head, t_env *node);
 void		incr_shell_level(t_env *head);
 //bultin
-<<<<<<< HEAD
-void		env(t_env *head);
-=======
 int			env(t_env *const env, char **cmd_param);
 int			export(t_env **env, char **args);
 void		change_value(t_env **env, t_env *new_node);
 char		**creat_table(t_env *env);
 bool		var_already_exist(t_env *env, char *key);
->>>>>>> GxLuck
+
 
 //lexer
 int			replace_dollar(char **cmd_line, t_data *data);
@@ -143,6 +138,7 @@ void		free_all(t_data *data, char *err, int ext);
 //utils
 int			env_lenthg(t_env *env);
 void		bubble_sort(char **tab, int len_env);
+void		key_var_to_node(char **var, t_env **node);
 
 //error
 bool		print_error(char *err);
