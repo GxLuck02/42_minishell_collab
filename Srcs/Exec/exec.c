@@ -88,7 +88,11 @@ void    handle_cmd(t_data *data)
 {
 	pid_t pid;
 	int	status;
-	
+	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
+	{
+		(ft_exit(data));
+		return ;
+	}
 	pid = fork();
     if (pid < 0)
     {
