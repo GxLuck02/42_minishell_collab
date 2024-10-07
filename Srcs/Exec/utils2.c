@@ -33,8 +33,8 @@ int	is_builtin(t_data *data)
 	// 	ft_cd(data);
 	// if (!ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "ENV"))
 	// 	ft_env(data);
-	// if (!ft_strcmp(cmd, "exit") || !ft_strcmp(cmd, "EXIT"))
-	// 	ft_exit(data);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
+			ft_exit(data);
 
 	return (0);
 }

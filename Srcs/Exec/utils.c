@@ -7,11 +7,10 @@ void	ft_print_array(char **array)
 	j = 0;
 	while(array[j])
 	{
-		printf("%s\n", array[j]);
+		printf("%s ", array[j]);
 		j++;
 
 	}
-	printf("\n\n");
 }
 static void	ft_free(char **array, int j)
 {
