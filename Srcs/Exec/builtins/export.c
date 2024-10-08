@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 18:01:05 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/07 20:07:19 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	set_export_var(t_env **env, char *str)
 	char	**var;
 	int		len_key;
 	bool	have_equal;
-
+	
+	(void)len_key;
 	have_equal = false;
 	new_node = (t_env *)malloc(sizeof (t_env));
 	if (ft_strchr(str, '=') != NULL)
