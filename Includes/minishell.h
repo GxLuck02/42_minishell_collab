@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 17:03:30 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:42:33 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ int			is_builtin(t_data *data);
 int			ft_pwd(void);
 int			ft_echo(t_data *data);
 int			ft_exit(t_data *data);
-
+int			ft_cd(t_data *data);
+t_env 		*ft_getenv(char *var, t_env *env);
 
 #endif

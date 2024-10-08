@@ -79,7 +79,7 @@ void    make_cmd(t_data *data)
 		ft_putstr_fd("xnxX-Minishell-Xx: ", 2);
 		ft_putstr_fd(data->cmd->cmd_param[0], 2);
 		ft_putstr_fd(" :cmd not found\n", 2);
-		exit(127);	
+		exit(127);
 	}
 	execve(complete_path, data->cmd->cmd_param, data->env_tab);
 }
@@ -88,11 +88,9 @@ void    handle_cmd(t_data *data)
 {
 	pid_t pid;
 	int	status;
-	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
-	{
-		(ft_exit(data));
+
+	if (is_builtin(data))
 		return ;
-	}
 	pid = fork();
     if (pid < 0)
     {
@@ -105,8 +103,6 @@ void    handle_cmd(t_data *data)
 			dup2(data->cmd->outfile, STDOUT_FILENO);
 		else if (data->cmd->infile == 3)
 			dup2(data->cmd->infile, STDIN_FILENO);
-		if (is_builtin(data))
-		 	exit(EXIT_SUCCESS);
 		make_cmd(data);
 	}
 	else

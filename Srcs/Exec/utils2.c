@@ -29,12 +29,13 @@ int	is_builtin(t_data *data)
 		return(ft_pwd());
 	if (!ft_strcmp(data->cmd->cmd_param[0], "echo") || !ft_strcmp(data->cmd->cmd_param[0], "ECHO"))
 		return(ft_echo(data));
-	// if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "CD"))
-	// 	ft_cd(data);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "cd") || !ft_strcmp(data->cmd->cmd_param[0], "CD"))
+		return (ft_cd(data));
 	// if (!ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "ENV"))
 	// 	ft_env(data);
-	// if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
-	// 		return(ft_exit(data));
-
+	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
+			return(ft_exit(data));
+	if (!ft_strcmp(data->cmd->cmd_param[0], "export") || !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))
+		return(export(&data->env, data->cmd->cmd_param));
 	return (0);
 }
