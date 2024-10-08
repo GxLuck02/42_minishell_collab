@@ -1,4 +1,29 @@
 #include "../../../Includes/minishell.h"
+int	cd_no_args(t_data *data)
+{
+	t_env	*PWD;
+	t_env	*OLD_PWD;
+	char	*old_pwd;
+	t_env	*HOME;
+
+	HOME = ft_getenv("HOME", data->env);
+	if (!chdir(HOME->value))
+	{
+		PWD = ft_getenv("PWD", data->env);
+		old_pwd = PWD->value;
+		free(PWD->value);
+		PWD->value = ft_strdup(getcwd(NULL, 0));
+		OLD_PWD = ft_getenv("OLD_PWD", data->env);
+		OLD_PWD->value = old_pwd;
+		return (1);
+	}
+	else
+	{
+		printf("bash %s: No such file or directory\n", data->cmd->cmd_param[0]);
+		return (0);
+	}
+	return (1);
+}
 
 /*
 1. verifier si le dossier est valide
@@ -9,61 +34,32 @@
 
 int ft_cd(t_data *data)
 {
-
-	t_env *HOME;
-	t_env *PWD;
-	char *old_pwd;
+	t_env	*PWD;
 	t_env	*OLD_PWD;
+	char	*old_pwd;
 
-	HOME = NULL;
-	if (!data->cmd->cmd_param[1])
+	if(!data->cmd->cmd_param[1])
 	{
-		puts("first if\n");
-		HOME = ft_getenv("HOME", data->env);
-		if (!HOME)
-		{
-			ft_putstr_fd("HOME not set", 2);
+		puts("cd no args\n");
+		if(!cd_no_args(data))
 			return (0);
-		}
 		else
-			old_pwd = getcwd(NULL, 0);
-			if(!chdir(HOME->value))
-			{
-				PWD = ft_getenv("PWD", data->env);
-				free(PWD->value);
-				PWD->value = ft_strdup(getcwd(NULL, 0));
-				OLD_PWD = ft_getenv("OLD_PWD", data->env);
-				OLD_PWD->value = old_pwd;
-				free(old_pwd);
-				return (1);
-			}
-			else
-			{
-				free(old_pwd);
-				printf("bash %s: No such file or directory\n", data->cmd->cmd_param[0]);
-				return (0);
-			}
-
+			return (1);
 	}
-	else if (data->cmd->cmd_param[1])
+	else
 	{
-		puts("inside second if\n");
-		old_pwd = getcwd(NULL, 0);
 		if (!chdir(data->cmd->cmd_param[1]))
 		{
 			PWD = ft_getenv("PWD", data->env);
+			old_pwd = PWD->value;
 			free(PWD->value);
 			PWD->value = ft_strdup(getcwd(NULL, 0));
-			puts("yeyeyeyeyey\n");
 			OLD_PWD = ft_getenv("OLD_PWD", data->env);
 			OLD_PWD->value = old_pwd;
-			free(old_pwd);
-			puts("yeyeyeyeyey\n");
 			return (1);
 		}
 		else
 		{
-			free(old_pwd);
 			printf("bash %s: No such file or directory\n", data->cmd->cmd_param[0]);
 			return (0);
 		}
