@@ -79,7 +79,7 @@ void    make_cmd(t_data *data)
 		ft_putstr_fd("xnxX-Minishell-Xx: ", 2);
 		ft_putstr_fd(data->cmd->cmd_param[0], 2);
 		ft_putstr_fd(" :cmd not found\n", 2);
-		exit(127);	
+		exit(127);
 	}
 	execve(complete_path, data->cmd->cmd_param, data->env_tab);
 }
@@ -88,7 +88,6 @@ void    handle_cmd(t_data *data)
 {
 	pid_t pid;
 	int	status;
-	
 	pid = fork();
     if (pid < 0)
     {
@@ -99,10 +98,10 @@ void    handle_cmd(t_data *data)
 	{
 		if (data->cmd->outfile == 3)
 			dup2(data->cmd->outfile, STDOUT_FILENO);
-		else if (data->cmd->infile == 3)
+		if (data->cmd->infile == 3)
 			dup2(data->cmd->infile, STDIN_FILENO);
-		if (is_builtin(data))
-		 	exit(EXIT_SUCCESS);
+		if (data->cmd->outfile == 4)
+			dup2(data->cmd->outfile, STDOUT_FILENO);
 		make_cmd(data);
 	}
 	else
@@ -121,6 +120,11 @@ void exec(t_data *data)
 	int	saved_stdin;
 
 	saved_stdin = dup(STDIN_FILENO);
+<<<<<<< HEAD
+=======
+	if (data->cmd->skip_cmd == 1)
+		return ;
+>>>>>>> origin/tmontani
 	while (len_cmd)
 	{
 		int	pipe;
@@ -128,6 +132,12 @@ void exec(t_data *data)
 		pipe = len_cmd > 1;
 		if (pipe == 0)
 		{
+<<<<<<< HEAD
+=======
+			if(is_builtin(data))
+				execute_builtin(data);
+			else
+>>>>>>> origin/tmontani
 			handle_cmd(data);
 		}
 		else

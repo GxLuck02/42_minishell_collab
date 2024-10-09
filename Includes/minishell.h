@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 17:03:30 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:03:16 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,9 @@ int			is_builtin(t_data *data);
 int			ft_pwd(void);
 int			ft_echo(t_data *data);
 int			ft_exit(t_data *data);
-
+int			ft_cd(t_data *data);
+t_env 		*ft_getenv(char *var, t_env *env);
+int			env(t_env *const env, char **cmd_param);
+int			execute_builtin(t_data *data);
 
 #endif
