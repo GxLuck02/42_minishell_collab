@@ -1,6 +1,4 @@
 #include "../../Includes/minishell.h"
-<<<<<<< HEAD
-=======
 void	set_redir(t_data *data)
 {
 	if (data->cmd->infile == 3)
@@ -13,7 +11,6 @@ void	set_redir(t_data *data)
 	return ;
 }
 
->>>>>>> origin/tmontani
 /*
 calcule la longueur de la liste circulaire cmd
 */

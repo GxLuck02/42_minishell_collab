@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
+/*   Updated: 2024/10/09 17:07:12 by ttreichl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../Includes/minishell.h"
 
 //fonctionne comme getenv sur la liste chainee
@@ -120,11 +132,8 @@ void exec(t_data *data)
 	int	saved_stdin;
 
 	saved_stdin = dup(STDIN_FILENO);
-<<<<<<< HEAD
-=======
 	if (data->cmd->skip_cmd == 1)
 		return ;
->>>>>>> origin/tmontani
 	while (len_cmd)
 	{
 		int	pipe;
@@ -132,12 +141,9 @@ void exec(t_data *data)
 		pipe = len_cmd > 1;
 		if (pipe == 0)
 		{
-<<<<<<< HEAD
-=======
 			if(is_builtin(data))
 				execute_builtin(data);
 			else
->>>>>>> origin/tmontani
 			handle_cmd(data);
 		}
 		else

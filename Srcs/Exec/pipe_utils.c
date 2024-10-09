@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/09 17:06:33 by ttreichl          #+#    #+#             */
+/*   Updated: 2024/10/09 17:06:36 by ttreichl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../Includes/minishell.h"
+
 void	handle_parent(int *pipe_fd, int status, pid_t pid)
 {
 		waitpid(pid, &status, 0);
