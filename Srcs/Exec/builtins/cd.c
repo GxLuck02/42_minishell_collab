@@ -1,12 +1,5 @@
 #include "../../../Includes/minishell.h"
 
-// static void ft_test(t_data *data)
-// {
-// 	t_env *test;
-// 	test = ft_getenv("OLD_PWD", data->env);
-		
-// 		printf("old_pwd value: %s\n", test->value);
-// }
 int	update_old_pwd(t_data *data, char *old_pwd)
 {
 	t_env *OLD_PWD;

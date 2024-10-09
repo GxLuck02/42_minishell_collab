@@ -33,7 +33,10 @@ int ft_echo(t_data *data)
 	int	i;
 
 	i = 0;
-	if (check_n(data->cmd->cmd_param[1]))
+	if (!data->cmd->cmd_param[1])
+		ft_putstr_fd("\n", 1);
+
+	else if (check_n(data->cmd->cmd_param[1]))
 	{
 		i = 2;
 		while (data->cmd->cmd_param[i])

@@ -48,10 +48,15 @@ int ft_exit(t_data *data)
         if(ft_is_numeric(data->cmd->cmd_param[1]))
         {
             exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
+            //ft_free(data);
             exit(exit_code);
         }
         else
+        {
             printf("bash: exit: %s: numeric argument required\n", data->cmd->cmd_param[1]);
+            exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
+            exit(exit_code);
+        }
     }
     else if(len_array(data->cmd->cmd_param) > 2)
         ft_putstr_fd("exit: too many arguments\n", 2);

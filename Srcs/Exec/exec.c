@@ -89,8 +89,6 @@ void    handle_cmd(t_data *data)
 	pid_t pid;
 	int	status;
 
-	if (is_builtin(data))
-		return ;
 	pid = fork();
     if (pid < 0)
     {
@@ -101,8 +99,10 @@ void    handle_cmd(t_data *data)
 	{
 		if (data->cmd->outfile == 3)
 			dup2(data->cmd->outfile, STDOUT_FILENO);
-		else if (data->cmd->infile == 3)
+		if (data->cmd->infile == 3)
 			dup2(data->cmd->infile, STDIN_FILENO);
+		if (data->cmd->outfile == 4)
+			dup2(data->cmd->outfile, STDOUT_FILENO);
 		make_cmd(data);
 	}
 	else
@@ -121,6 +121,8 @@ void exec(t_data *data)
 	int	saved_stdin;
 
 	saved_stdin = dup(STDIN_FILENO);
+	if (data->cmd->skip_cmd == 1)
+		return ;
 	while (len_cmd)
 	{
 		int	pipe;
@@ -128,6 +130,9 @@ void exec(t_data *data)
 		pipe = len_cmd > 1;
 		if (pipe == 0)
 		{
+			if(is_builtin(data))
+				execute_builtin(data);
+			else
 			handle_cmd(data);
 		}
 		else
