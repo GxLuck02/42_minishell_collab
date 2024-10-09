@@ -6,7 +6,7 @@
 #    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by tmontani          #+#    #+#              #
-#    Updated: 2024/10/07 19:44:20 by ttreichl         ###   ########.fr        #
+#    Updated: 2024/10/09 15:25:25 by ttreichl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,9 @@ CFLAGS  = -Wall -Wextra -Werror -I$(INCDIR)
 ifeq ($(shell test -d /opt/homebrew/opt/readline/include && echo found),found)
     READLINE_INC = -I/opt/homebrew/opt/readline/include
     READLINE_LIB = -L/opt/homebrew/opt/readline/lib -lreadline
+else ifeq ($(shell test -d /usr/include/readline/ && echo found),found)
+    READLINE_INC = -I/usr/include/readline/
+    READLINE_LIB = -L/usr/lib/x86_64-linux-gnu/ -lreadline
 else ifeq ($(shell test -d $(READLINE_PATH)/include && echo found),found)
     READLINE_INC = -I$(READLINE_PATH)/include
     READLINE_LIB = -L$(READLINE_PATH)/lib -lreadline

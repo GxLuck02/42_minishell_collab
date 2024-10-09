@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 20:03:40 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/06/10 15:45:22 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:35:19 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define LIBFT_H
 
 # include <stdlib.h>
+# include <limits.h>
+# include <stdint.h>
+
 # include <unistd.h>
 # include <stdarg.h>
 

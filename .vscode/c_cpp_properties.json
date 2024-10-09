@@ -15,7 +15,7 @@
             "name": "Ecole",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/Users/ttreichl/.brew/opt/readline/include"
+                "/usr/include/readline/readline.h"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",  // ou le chemin correct vers votre compilateur à l'école
