@@ -47,11 +47,13 @@ int	execute_builtin(t_data *data)
 	if (!ft_strcmp(data->cmd->cmd_param[0], "cd") || !ft_strcmp(data->cmd->cmd_param[0], "CD"))
 		ft_cd(data);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "env") || !ft_strcmp(data->cmd->cmd_param[0], "ENV"))
-		env(data->env, data->cmd->cmd_param);
+		ft_env(data->env, data->cmd->cmd_param);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
 			ft_exit(data);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "unset") || !ft_strcmp(data->cmd->cmd_param[0], "UNSET"))
+			ft_unset();
 	if (!ft_strcmp(data->cmd->cmd_param[0], "export") || !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))
-		export(&data->env, data->cmd->cmd_param);
+		ft_export(&data->env, data->cmd->cmd_param);
 	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
 	close(saved_stdin);

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 17:05:10 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:34:03 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ int	main(int argc, char **argv, char **envp)
 		print_error(RED"Error with init of minishell"NRM);
 	while (1)
 	{
-		cmd_line = get_prompt();
+		cmd_line = get_prompt(&data);
 		printf(BLU"%s§\n"NRM, cmd_line);
 		if (cmd_line == NULL)
 		{
 			continue ;
 		}
-			
 		if (is_pars(&data, cmd_line) == 0)
 			continue ;
 		exec(&data);

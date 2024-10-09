@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:40:27 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 17:59:16 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:08:10 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../Includes/minishell.h"
+#include "../../Includes/minishell.h"
 
 void	change_value(t_env **env, t_env *new_node)
 {

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 16:28:22 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:25:27 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ void	incr_shell_level(t_env *head)
 	char	*new_value;
 
 	tmp = head;
-	while (tmp && ft_strcmp(tmp->key, "SHLVL"))
+	while (tmp && ft_strcmp(tmp->key, "SHLVL") != 0)
 		tmp = tmp->next;
 	if (tmp)
 	{
-		sh_level = ft_atoi(tmp->value) + 1;
+		sh_level = ft_atoi(tmp->value);
 		if (sh_level < 0)
 			sh_level = 0;
+		sh_level += 1;
 		new_value = ft_itoa(sh_level);
 		if (!new_value)
 			return ;

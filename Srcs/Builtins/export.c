@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-<<<<<<<< HEAD:Srcs/Builtins/export.c
-/*   Updated: 2024/10/09 15:32:18 by ttreichl         ###   ########.fr       */
-========
-/*   Updated: 2024/10/07 20:07:19 by tmontani         ###   ########.fr       */
->>>>>>>> origin/tmontani:Srcs/Exec/builtins/export.c
+/*   Created: 2024/10/09 17:08:19 by ttreichl          #+#    #+#             */
+/*   Updated: 2024/10/09 17:17:42 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../Includes/minishell.h"
+#include "../../Includes/minishell.h"
 
 void	invalid_var(char *var)
 {
@@ -29,7 +25,6 @@ int	set_export_var(t_env **env, char *str)
 	char	**var;
 	bool	have_equal;
 	
-	(void)len_key;
 	have_equal = false;
 	new_node = (t_env *)malloc(sizeof (t_env));
 	if (ft_strchr(str, '=') != NULL)
@@ -88,7 +83,7 @@ int	export_no_args(t_env *env)
 	return (1);
 }
 
-int	export(t_env **env, char **args)
+int	ft_export(t_env **env, char **args)
 {
 	int	i;
 	

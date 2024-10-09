@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:53:28 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 16:43:37 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:59:30 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,22 @@ int	is_valide_input(char *input)
 	return (0);
 }
 
-char	*get_path_prompt(void)
+char	*get_path_prompt(t_data *data)
 {
-	char	*pwd;
-	char	*home;
+	t_env	*pwd;
+	t_env	*home;
 	char	*prompt;
 	char	*tmp;
 
-	pwd = getenv("PWD");
-	home = getenv("HOME");
+	pwd = ft_getenv("PWD", data->env);
+	home = ft_getenv("HOME", data->env);
 	if (home == NULL || pwd == NULL)
 		return ("minishell > ");
-	if (ft_strstr(pwd, home) == NULL)
-		prompt = ft_strjoin(pwd, " → ");
+	if (ft_strstr(pwd->value, home->value) == NULL)
+		prompt = ft_strjoin(pwd->value, " → ");
 	else
 	{
-		tmp = ft_strjoin("~", pwd + ft_strlen(home));
+		tmp = ft_strjoin("~", pwd->value + ft_strlen(home->value));
 		prompt = ft_strjoin(tmp, " → ");
 		free(tmp);
 	}
@@ -55,12 +55,12 @@ char	*get_path_prompt(void)
 	return (prompt);
 }
 
-char	*init_prompt(void)
+char	*init_prompt(t_data *data)
 {
 	char	*input;
 	char	*prompt;
 
-	prompt = get_path_prompt();
+	prompt = get_path_prompt(data);
 	rl_on_new_line();
 	input = readline(prompt);
 	if (!input)
@@ -68,13 +68,13 @@ char	*init_prompt(void)
 	return (input);
 }
 
-char	*get_prompt(void)
+char	*get_prompt(t_data *data)
 {
 	char	*cmd_line;
 
 	while (1)
 	{
-		cmd_line = init_prompt();
+		cmd_line = init_prompt(data);
 		if (cmd_line == NULL)
 			break ;
 		if (is_valide_input(cmd_line) == 0)

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:06:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 16:43:07 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:33:00 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	is_valid_token(t_data *data)
 	if (data->token == NULL)
 		return (0);
 	tmp = data->token;
-	if (ft_strcmp(tmp->str, "&&") == 0 || ft_strcmp(tmp->str, ";") == 0 || \
-			ft_strcmp(tmp->str, "\\") == 0)
+	if ((ft_strcmp(tmp->str, "&&") == 0 && !tmp->quoted) || (ft_strcmp \
+		(tmp->str, ";") == 0 && !tmp->quoted) || ft_strcmp(tmp->str, "\\") == 0)
 	{
 		free_token(&data->token);
 		print_error("Error : one token is unvalide\n");
@@ -29,8 +29,8 @@ int	is_valid_token(t_data *data)
 	tmp = tmp->next;
 	while (tmp != data->token)
 	{
-		if (ft_strcmp(tmp->str, "&&") == 0 || ft_strcmp(tmp->str, ";") \
-				== 0 || ft_strcmp(tmp->str, "\\") == 0)
+		if ((ft_strcmp(tmp->str, "&&") == 0 && !tmp->quoted) || (ft_strcmp \
+		(tmp->str, ";") == 0 && !tmp->quoted) || ft_strcmp(tmp->str, "\\") == 0)
 		{
 			free_token(&data->token);
 			print_error("Error : one token is unvalide\n");
@@ -76,7 +76,7 @@ void	print_array(char **cmd_param)
 	printf("\n");
 }
 
-void	 print_cmd_list(t_cmd *list)
+void	print_cmd_list(t_cmd *list)
 {
 	t_cmd	*current;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 17:03:16 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:55:44 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ t_list		*create_node(char *str);
 void		append_node(t_list **head, char *str);
 
 //prompt
-char		*init_prompt(void);
+char		*init_prompt(t_data *data);
 int			is_valide_input(char *input);
-char		*get_prompt(void);
+char		*get_prompt(t_data *data);
 
 //env
 int			load_env(t_data *data, char **envp);
@@ -98,13 +98,19 @@ int			create_node_env(t_env **head, char *str);
 void		free_var(char **var);
 void		add_node_env(t_env **head, t_env *node);
 void		incr_shell_level(t_env *head);
+
 //bultin
-int			env(t_env *const env, char **cmd_param);
-int			export(t_env **env, char **args);
+int			ft_env(t_env *const env, char **cmd_param);
+int			ft_export(t_env **env, char **args);
 void		change_value(t_env **env, t_env *new_node);
 char		**creat_table(t_env *env);
 bool		var_already_exist(t_env *env, char *key);
-
+int			is_builtin(t_data *data);
+int			ft_pwd(void);
+int			ft_echo(t_data *data);
+int			ft_exit(t_data *data);
+int			ft_cd(t_data *data);
+int			ft_unset(void);
 
 //lexer
 int			replace_dollar(char **cmd_line, t_data *data);
@@ -158,13 +164,7 @@ void   		make_cmd(t_data *data);
 int			ft_lstsize_circular(t_cmd	*cmd);
 void		handle_child(int *pipe_fd, t_data *data);
 void		handle_parent(int *pipe_fd, int status, pid_t pid);
-int			is_builtin(t_data *data);
-int			ft_pwd(void);
-int			ft_echo(t_data *data);
-int			ft_exit(t_data *data);
-int			ft_cd(t_data *data);
 t_env 		*ft_getenv(char *var, t_env *env);
-int			env(t_env *const env, char **cmd_param);
 int			execute_builtin(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 19:20:09 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 17:47:30 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int check_n(char *cmd_param_1)
 	int	i;
 
 	i = 0;
+	if (cmd_param_1 == NULL)
+		return (0);
 	if (cmd_param_1[i] != '-')
 		return (0);
 	else

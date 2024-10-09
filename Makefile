@@ -6,7 +6,7 @@
 #    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by tmontani          #+#    #+#              #
-#    Updated: 2024/10/09 17:02:43 by ttreichl         ###   ########.fr        #
+#    Updated: 2024/10/09 17:36:17 by ttreichl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ INCDIR 	 		= Srcs/Includes
 READLINE_PATH	= $(HOME)/.brew/opt/readline/
 
 # Source files
-BUILTINS		= cd echo env exit export_utils export pwd
+BUILTINS		= cd echo env exit export_utils export pwd unset
 EXEC			= exec pipe_utils utils utils2
 INIT			= env_list_utils init_minishell list_env load_env
 PARSING			= cmd_list_param cmd_list_utils create_cmd_list create_token_list \
