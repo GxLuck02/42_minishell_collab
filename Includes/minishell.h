@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/03 18:38:48 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:03:30 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <limits.h>
 # include "../libft/libft.h"
 # include "greatfull_shell.h"
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define INPUT		1		//"<"
 # define HEREDOC	2		//"<<"
@@ -70,6 +72,8 @@ typedef struct s_cmd
 typedef struct s_data
 {
 	t_env	*env;
+	char	**env_tab;
+	char	**absolute_path;
 	t_token	*token;
 	t_cmd	*cmd;
 	bool	sq;
@@ -92,16 +96,15 @@ int			load_env(t_data *data, char **envp);
 char		**ft_envsplit(char *env_str);
 int			create_node_env(t_env **head, char *str);
 void		free_var(char **var);
-void		key_var_to_node(char **var, t_env **node);
 void		add_node_env(t_env **head, t_env *node);
 void		incr_shell_level(t_env *head);
-
 //bultin
 int			env(t_env *const env, char **cmd_param);
 int			export(t_env **env, char **args);
 void		change_value(t_env **env, t_env *new_node);
 char		**creat_table(t_env *env);
 bool		var_already_exist(t_env *env, char *key);
+
 
 //lexer
 int			replace_dollar(char **cmd_line, t_data *data);
@@ -139,8 +142,26 @@ void		free_all(t_data *data, char *err, int ext);
 //utils
 int			env_lenthg(t_env *env);
 void		bubble_sort(char **tab, int len_env);
+void		key_var_to_node(char **var, t_env **node);
 
 //error
 bool		print_error(char *err);
+
+//execution
+void		exec(t_data *data);
+char		**ft_split_path(char const *path, char c);
+void		ft_print_array(char **array);
+char		**creat_env_copy(t_env *env);
+void		execute_absolute_path(char *path, char **cmd_param, char **absolute_path);
+void		handle_pipe(t_data *data);
+void   		make_cmd(t_data *data);
+int			ft_lstsize_circular(t_cmd	*cmd);
+void		handle_child(int *pipe_fd, t_data *data);
+void		handle_parent(int *pipe_fd, int status, pid_t pid);
+int			is_builtin(t_data *data);
+int			ft_pwd(void);
+int			ft_echo(t_data *data);
+int			ft_exit(t_data *data);
+
 
 #endif

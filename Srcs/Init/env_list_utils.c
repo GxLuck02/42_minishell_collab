@@ -6,12 +6,53 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/02 19:01:37 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:28:22 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
+int ft_lstsize_env(t_env *lst)
+{
+    int result = 0;
+
+    while (lst) {
+        lst = lst->next;
+        result++;
+    }
+    return result;
+}
+
+/*
+fais une copie de l'environnement sous forme de double tableau pour execve
+aussi utilisée pour faire une autre copie pour executer les absolute_path
+*/
+char	**creat_env_copy(t_env *env)
+{
+	int		len_lst;
+	char	**env_tab;
+	char	*line;
+	char	*key;
+	int		i;
+	
+	i = 0;
+	len_lst = ft_lstsize_env(env);
+	env_tab = malloc(sizeof (char *) * (len_lst + 1));
+	while (env)
+	{
+		key = ft_strjoin(env->key, "=");
+		line = ft_strjoin(key, env->value);
+		env_tab[i] = ft_strdup(line);
+		if(!env_tab[i])
+			return (NULL);
+		i++;
+		free(line);
+		free(key);
+		env = env->next;
+	}
+	env_tab[i] = NULL;
+	return(env_tab);
+}
 void	incr_shell_level(t_env *head)
 {
 	t_env	*tmp;

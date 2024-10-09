@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 12:45:28 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 15:28:11 by ttreichl         ###   ########.fr       */
+/*   Created: 2024/10/07 19:19:43 by ttreichl          #+#    #+#             */
+/*   Updated: 2024/10/07 19:19:48 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../Includes/minishell.h"
 
-size_t	ft_strlen(const char *word)
+int	ft_pwd(void)
 {
-	int	index;
-	int	nbrchar;
+	char	cwd[PATH_MAX];
 
-	nbrchar = 0;
-	index = 0;
-	while (word[index] != '\0')
+	if (getcwd(cwd, PATH_MAX))
 	{
-		index++;
-		nbrchar++;
+		printf("%s\n", cwd);
+		return (1);
 	}
-	return (nbrchar);
+	else
+	{
+		perror("pwd");
+		return (0);
+	}
 }

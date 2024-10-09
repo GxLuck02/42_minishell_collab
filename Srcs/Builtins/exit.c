@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 12:45:28 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 15:28:11 by ttreichl         ###   ########.fr       */
+/*   Created: 2024/10/07 19:19:57 by ttreichl          #+#    #+#             */
+/*   Updated: 2024/10/07 19:19:59 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../Includes/minishell.h"
 
-size_t	ft_strlen(const char *word)
+int ft_exit(t_data *data)
 {
-	int	index;
-	int	nbrchar;
-
-	nbrchar = 0;
-	index = 0;
-	while (word[index] != '\0')
-	{
-		index++;
-		nbrchar++;
-	}
-	return (nbrchar);
+    (void)data;
+    puts("in exit\n");
+    exit(0);
+    return (1);
 }

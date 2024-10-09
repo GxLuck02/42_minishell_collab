@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:18:25 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/26 18:35:28 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:42:44 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,17 @@ int	load_env(t_data *data, char **envp)
 	new_env = NULL;
 	if (!creat_env_list(&new_env, envp))
 	{
-		printf("Error: load default env as fail\n");
-		return (0);
+		if (!load_default_env(&new_env))
+		{
+			printf("Error: load default env as fail\n");
+			return (0);
+		}	
 	}
 	if (new_env)
 	{
 		data->env = new_env;
+		data->env_tab = creat_env_copy(data->env);
+		data->absolute_path = creat_env_copy(data->env);
 		incr_shell_level(data->env);
 	}
 	if (!new_env)
@@ -103,6 +108,8 @@ int	load_env(t_data *data, char **envp)
 		}
 		if (new_env)
 			data->env = new_env;
+		data->env_tab = creat_env_copy(data->env);
+		data->absolute_path = creat_env_copy(data->env);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/03 17:01:18 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:32:18 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	set_export_var(t_env **env, char *str)
 {
 	t_env	*new_node;
 	char	**var;
-	int		len_key;
 	bool	have_equal;
 
 	have_equal = false;
@@ -35,7 +34,6 @@ int	set_export_var(t_env **env, char *str)
 	free_var(var);
 	if (!new_node)
 		return (0);
-	len_key = ft_strlen(new_node->key);
 	if (var_already_exist(*env, new_node->key) == true)
 	{
 		if (have_equal == true)
