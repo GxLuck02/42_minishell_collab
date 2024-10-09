@@ -31,8 +31,8 @@ int	is_builtin(t_data *data)
 		return(ft_echo(data));
 	if (!ft_strcmp(data->cmd->cmd_param[0], "cd") || !ft_strcmp(data->cmd->cmd_param[0], "CD"))
 		return (ft_cd(data));
-	// if (!ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "ENV"))
-	// 	ft_env(data);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "env") || !ft_strcmp(data->cmd->cmd_param[0], "ENV"))
+		env(data->env, data->cmd->cmd_param);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
 			return(ft_exit(data));
 	if (!ft_strcmp(data->cmd->cmd_param[0], "export") || !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))

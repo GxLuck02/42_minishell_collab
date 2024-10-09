@@ -1,11 +1,20 @@
 #include "../../../Includes/minishell.h"
 
+// static void ft_test(t_data *data)
+// {
+// 	t_env *test;
+// 	test = ft_getenv("OLD_PWD", data->env);
+		
+// 		printf("old_pwd value: %s\n", test->value);
+// }
 int	update_old_pwd(t_data *data, char *old_pwd)
 {
 	t_env *OLD_PWD;
 
-	OLD_PWD = ft_getenv("OLD_PWD", data->env);
-	if (OLD_PWD)
+	OLD_PWD = ft_getenv("OLDPWD", data->env);
+	if (!OLD_PWD)
+		return (0);
+	else
 	{
 		OLD_PWD->value = old_pwd;
 		return (1);
@@ -35,10 +44,14 @@ int	cd_no_args(t_data *data)
 	}
 }
 /*
-1. verifier si le dossier est valide
-2. mettre a jour la variable env pwd
-3. get_cwd donne le chemin absolu actuel stocker dans cwd
-4. 
+ verifier si cd est seule ou avec arguments
+ si seule appelle cd_no_args
+essaye de changer le repertoire courant avec chdir
+si ca fonctionne
+	update la variable PWD
+	update la variable OLDPWD
+si ca fonctionne pas c'est que l'input est faux
+	return (message d'erreure);
 */
 
 int ft_cd(t_data *data)
@@ -65,9 +78,7 @@ int ft_cd(t_data *data)
 			return (1);
 		}
 		else
-		{
 			printf("bash %s: No such file or directory\n", data->cmd->cmd_param[0]);
-			return (0);
-		}
+		return (0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/08 15:42:33 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/09 09:55:36 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,6 @@ int			ft_echo(t_data *data);
 int			ft_exit(t_data *data);
 int			ft_cd(t_data *data);
 t_env 		*ft_getenv(char *var, t_env *env);
+int			env(t_env *const env, char **cmd_param);
 
 #endif
