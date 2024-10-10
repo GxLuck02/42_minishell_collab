@@ -42,19 +42,23 @@ int ft_exit(t_data *data)
     exit_code = 0;
     ft_putstr_fd("exit\n", STDOUT_FILENO);
     if (len_array(data->cmd->cmd_param) == 1)
+    {
+        ft_free_data(data);
         exit(0);
+    }
     if (len_array(data->cmd->cmd_param) == 2)
     {
         if(ft_is_numeric(data->cmd->cmd_param[1]))
         {
             exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
-            //ft_free(data);
+            ft_free_data(data);
             exit(exit_code);
         }
         else
         {
             printf("bash: exit: %s: numeric argument required\n", data->cmd->cmd_param[1]);
             exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
+            ft_free_data(data);
             exit(exit_code);
         }
     }
