@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/10 16:41:16 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/10 18:05:49 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void		handle_parent(int *pipe_fd, int status, pid_t pid);
 int			is_builtin(t_data *data);
 int			ft_pwd(void);
 int			ft_echo(t_data *data);
-int			ft_exit(t_data *data);
+void		ft_exit(t_data *data);
 int			ft_cd(t_data *data);
 t_env 		*ft_getenv(char *var, t_env *env);
 int			env(t_env *const env, char **cmd_param);

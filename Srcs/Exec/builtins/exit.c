@@ -35,34 +35,31 @@ bool	ft_is_numeric(char	*str)
     1 arg verifier si c'est un nb et quitter avec
     plusieurs args error
 */
-int ft_exit(t_data *data)
+void    ft_exit(t_data *data)
 {
     int exit_code;
 
     exit_code = 0;
-    ft_putstr_fd("exit\n", STDOUT_FILENO);
     if (len_array(data->cmd->cmd_param) == 1)
     {
         ft_free_data(data);
         exit(0);
     }
-    if (len_array(data->cmd->cmd_param) == 2)
+    if (len_array(data->cmd->cmd_param) >= 2)
     {
-        if(ft_is_numeric(data->cmd->cmd_param[1]))
-        {
-            exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
-            ft_free_data(data);
-            exit(exit_code);
-        }
-        else
+        if(!ft_is_numeric(data->cmd->cmd_param[1]))
         {
             printf("bash: exit: %s: numeric argument required\n", data->cmd->cmd_param[1]);
             exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
-            ft_free_data(data);
+            //ft_free_data(data);
             exit(exit_code);
         }
     }
-    else if(len_array(data->cmd->cmd_param) > 2)
-        ft_putstr_fd("exit: too many arguments\n", 2);
-    return (1);
+        if (len_array(data->cmd->cmd_param) > 2)
+        {   printf("exit\nbash: exit too many arguments\n");
+            return ;
+        }
+        exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
+        //ft_free_data(data);
+        exit(exit_code);
 }
