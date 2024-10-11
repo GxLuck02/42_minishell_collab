@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 17:55:44 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:20:31 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	bool			equal;
 	struct s_env	*next;
 }				t_env;
 
@@ -97,20 +98,22 @@ char		**ft_envsplit(char *env_str);
 int			create_node_env(t_env **head, char *str);
 void		free_var(char **var);
 void		add_node_env(t_env **head, t_env *node);
-void		incr_shell_level(t_env *head);
+void		incr_shell_level(t_data *data);
 
 //bultin
 int			ft_env(t_env *const env, char **cmd_param);
 int			ft_export(t_env **env, char **args);
 void		change_value(t_env **env, t_env *new_node);
-char		**creat_table(t_env *env);
-bool		var_already_exist(t_env *env, char *key);
 int			is_builtin(t_data *data);
 int			ft_pwd(void);
 int			ft_echo(t_data *data);
 int			ft_exit(t_data *data);
 int			ft_cd(t_data *data);
-int			ft_unset(void);
+int			ft_unset(t_env **env, char **args);
+char		**creat_table(t_env *env);
+bool		var_already_exist(t_env *env, char *key);
+int			is_valid_var(char *var);
+void		invalid_var(char *var);
 
 //lexer
 int			replace_dollar(char **cmd_line, t_data *data);
@@ -144,10 +147,12 @@ int			len_list(t_env *list);
 //free
 void		free_cmd(t_cmd **list);
 void		free_all(t_data *data, char *err, int ext);
+void		free_table(char **table);
 
 //utils
 int			env_lenthg(t_env *env);
 void		bubble_sort(char **tab, int len_env);
+void		equal_check(t_env **env, char *str);
 void		key_var_to_node(char **var, t_env **node);
 
 //error

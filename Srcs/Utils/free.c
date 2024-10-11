@@ -6,11 +6,23 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:05:38 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:36:43 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:20:19 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+void	free_table(char **table)
+{
+	int	i;
+
+	i = -1;
+	if (!table)
+		return ;
+	while (table[++i])
+		free(table[i]);
+	free(table);
+}
 
 int	free_list(t_env **list)
 {

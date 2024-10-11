@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:18:25 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 16:42:44 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:01:20 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	free_var(char **var)
 {
-	free(var[0]);
-	free(var[1]);
+	int	i;
+
+	i = -1;
+	while (var[++i])
+		free(var[i]);
 	free(var);
 }
 
@@ -65,6 +68,7 @@ int	creat_env_list(t_env **head, char **envp)
 		if (!var)
 			return (0);
 		new_node = (t_env *)malloc(sizeof (t_env));
+		equal_check(&new_node, envp[i]);
 		if (!new_node)
 		{
 			free_var(var);
@@ -97,7 +101,7 @@ int	load_env(t_data *data, char **envp)
 		data->env = new_env;
 		data->env_tab = creat_env_copy(data->env);
 		data->absolute_path = creat_env_copy(data->env);
-		incr_shell_level(data->env);
+		incr_shell_level(data);
 	}
 	if (!new_env)
 	{

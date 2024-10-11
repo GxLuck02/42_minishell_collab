@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 18:25:27 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:56:26 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,22 @@ char	**creat_env_copy(t_env *env)
 	env_tab[i] = NULL;
 	return(env_tab);
 }
-void	incr_shell_level(t_env *head)
+void	incr_shell_level(t_data *data)
 {
-	t_env	*tmp;
+	t_env 	*SHLVL;
 	int		sh_level;
 	char	*new_value;
 
-	tmp = head;
-	while (tmp && ft_strcmp(tmp->key, "SHLVL") != 0)
-		tmp = tmp->next;
-	if (tmp)
-	{
-		sh_level = ft_atoi(tmp->value);
+	SHLVL = ft_getenv("SHLVL", data->env);
+	sh_level = ft_atoi(SHLVL->value);
 		if (sh_level < 0)
 			sh_level = 0;
 		sh_level += 1;
 		new_value = ft_itoa(sh_level);
 		if (!new_value)
 			return ;
-		free(tmp->value);
-		tmp->value = new_value;
-	}
+		free(SHLVL->value);
+		SHLVL->value = new_value;
 	return ;
 }
 

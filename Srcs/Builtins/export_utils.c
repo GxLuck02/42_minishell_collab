@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:40:27 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 17:08:10 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:37:09 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	change_value(t_env **env, t_env *new_node)
 		current = current->next;
 	free(current->value);
 	current->value = ft_strdup(new_node->value);
+	current->equal = true;
 	free(new_node->key);
 	free(new_node->value);
 	free(new_node);
@@ -47,11 +48,23 @@ void	fill_tab(t_env *current, char **tab)
 	char	*tmp2;
 
 	*tab = ft_strdup(current->key);
-	tmp = ft_strjoin(*tab, "=\"");
+	if (!tab)
+		return ;
+	if (current->equal == true)
+		tmp = ft_strjoin(*tab, "=\"");
+	else
+		tmp = ft_strdup(*tab);
 	free(*tab);
+	if (!tmp)
+		return ;
 	tmp2 = ft_strjoin(tmp, current->value);
 	free(tmp);
-	*tab = ft_strjoin(tmp2, "\"");
+	if (!tmp2)
+		return ;
+	if (current->equal == true)
+		*tab = ft_strjoin(tmp2, "\"");
+	else
+		*tab = ft_strdup(tmp2);
 	free(tmp2);
 }
 
@@ -85,9 +98,15 @@ char	**creat_table(t_env *env)
 		return (NULL);
 	while (current != NULL)
 	{
-		tab_env[i] = malloc((ft_strlen(current->value) + ft_strlen(current->key) + 4) * sizeof(char ));
+		if (current->equal == true)
+			tab_env[i] = malloc((ft_strlen(current->value) + ft_strlen(current->key) + 4) * sizeof(char ));
+		else
+			tab_env[i] = malloc((ft_strlen(current->value) + ft_strlen(current->key) + 2) * sizeof(char ));
 		if (tab_env[i] == NULL)
-			return (NULL);
+		{
+			free_table(tab_env);
+			return (0);
+		}
 		fill_tab(current, &tab_env[i]);
 		current = current->next;
 		i++;

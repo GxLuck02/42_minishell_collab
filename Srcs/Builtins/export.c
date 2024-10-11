@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:08:19 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 17:17:42 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:30:51 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,26 @@ void	invalid_var(char *var)
 {
 	ft_putstr_fd("minishell: export: '", STDERR_FILENO);
 	ft_putstr_fd(var, STDERR_FILENO);
-	ft_putstr_fd("': not a valide identifier", STDERR_FILENO);
+	ft_putstr_fd("': not a valide identifier\n", STDERR_FILENO);
 }
 
 int	set_export_var(t_env **env, char *str)
 {
 	t_env	*new_node;
 	char	**var;
-	bool	have_equal;
 	
-	have_equal = false;
 	new_node = (t_env *)malloc(sizeof (t_env));
-	if (ft_strchr(str, '=') != NULL)
-		have_equal = true;
+	if (!new_node)
+		return (0);
 	var = ft_envsplit(str);
 	key_var_to_node(var, &new_node);
 	free_var(var);
 	if (!new_node)
 		return (0);
+	equal_check(&new_node, str);
 	if (var_already_exist(*env, new_node->key) == true)
 	{
-		if (have_equal == true)
+		if (new_node->equal == true)
 			change_value(env, new_node);
 	}
 	else

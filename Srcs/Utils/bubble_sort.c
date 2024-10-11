@@ -6,11 +6,22 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:52:52 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/02 13:44:22 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:29:58 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+void	equal_check(t_env **env, char *str)
+{
+	char	*equal;
+	
+	equal = ft_strchr(str, '=');
+	if (equal)
+		(*env)->equal = true;
+	else
+		(*env)->equal = false;
+}
 
 void	bubble_sort(char **tab, int len_env)
 {

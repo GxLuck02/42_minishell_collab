@@ -51,7 +51,7 @@ int	execute_builtin(t_data *data)
 	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
 			ft_exit(data);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "unset") || !ft_strcmp(data->cmd->cmd_param[0], "UNSET"))
-			ft_unset();
+			ft_unset(&data->env, data->cmd->cmd_param);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "export") || !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))
 		ft_export(&data->env, data->cmd->cmd_param);
 	dup2(saved_stdin, STDIN_FILENO);
@@ -75,6 +75,8 @@ int	is_builtin(t_data *data)
 		return(1);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
 			return(1);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "unset") || !ft_strcmp(data->cmd->cmd_param[0], "UNSET"))
+		return(1);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "export") || !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))
 		return(1);
 	return (0);
