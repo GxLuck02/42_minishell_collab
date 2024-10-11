@@ -1,4 +1,4 @@
-#include "../../../Includes/minishell.h"
+#include "../../Includes/minishell.h"
 
 int	update_old_pwd(t_data *data, char *old_pwd)
 {

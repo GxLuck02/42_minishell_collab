@@ -1,4 +1,4 @@
-#include "../../../Includes/minishell.h"
+#include "../../Includes/minishell.h"
 
 
 int check_n(char *cmd_param_1)

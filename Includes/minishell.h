@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/10 18:05:49 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:44:42 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "greatfull_shell.h"
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # define INPUT		1		//"<"
 # define HEREDOC	2		//"<<"

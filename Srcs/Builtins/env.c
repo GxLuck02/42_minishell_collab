@@ -6,11 +6,11 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:01:49 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 18:00:56 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:29:05 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../Includes/minishell.h"
+#include "../../Includes/minishell.h"
 
 int	env(t_env *const env, char **cmd_param)
 {

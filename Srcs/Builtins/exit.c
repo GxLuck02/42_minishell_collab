@@ -1,4 +1,4 @@
-#include "../../../Includes/minishell.h"
+#include "../../Includes/minishell.h"
 
 int len_array(char **array)
 {
@@ -42,7 +42,7 @@ void    ft_exit(t_data *data)
     exit_code = 0;
     if (len_array(data->cmd->cmd_param) == 1)
     {
-        ft_free_data(data);
+        free_all(data, 0, 0);
         exit(0);
     }
     if (len_array(data->cmd->cmd_param) >= 2)
@@ -51,7 +51,7 @@ void    ft_exit(t_data *data)
         {
             printf("bash: exit: %s: numeric argument required\n", data->cmd->cmd_param[1]);
             exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
-            //ft_free_data(data);
+            free_all(data, 0, 0);
             exit(exit_code);
         }
     }
@@ -60,6 +60,6 @@ void    ft_exit(t_data *data)
             return ;
         }
         exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
-        //ft_free_data(data);
+            free_all(data, 0, 0);
         exit(exit_code);
 }
