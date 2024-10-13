@@ -99,11 +99,13 @@ void    handle_cmd(t_data *data)
 	}
 	else if (pid == 0)
 	{
+		data->child_pid = 0;
 		set_redir(data);
 		make_cmd(data, 0);
 	}
 	else
 		waitpid(pid, &status, 0);
+		data->child_pid = -1;
 	return ;
 }
 /*

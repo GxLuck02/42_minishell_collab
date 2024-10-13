@@ -22,7 +22,7 @@ READLINE_PATH	= $(HOME)/.brew/opt/readline/
 
 # Source files
 BUILTINS		= cd echo env exit export_utils export pwd 
-EXEC			= exec pipe_utils utils utils2
+EXEC			= exec pipe_utils utils utils2 signals
 INIT			= env_list_utils init_minishell list_env load_env
 PARSING			= cmd_list_param cmd_list_utils create_cmd_list create_token_list \
 				  dollars_utils fd_utils here_doc lexer quotes_utils \
