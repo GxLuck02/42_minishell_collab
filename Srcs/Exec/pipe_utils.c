@@ -32,7 +32,7 @@ void	handle_child(int *pipe_fd, t_data *data)
 		}
 		else
 		{
-			make_cmd(data);
+			make_cmd(data, 1);
 			exit(EXIT_SUCCESS);
 		}
 }

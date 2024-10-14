@@ -7,7 +7,6 @@ void	set_redir(t_data *data)
 		dup2(data->cmd->outfile, STDOUT_FILENO);
 	if (data->cmd->outfile == 4)
 		dup2(data->cmd->outfile, STDOUT_FILENO);
-
 	return ;
 }
 

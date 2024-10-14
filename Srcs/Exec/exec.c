@@ -67,11 +67,13 @@ verifie si c'est un absolute path;
 recupere le complete_path (path/cmd)
 execute la commande
 */
-void    make_cmd(t_data *data)
+void    make_cmd(t_data *data, int inside_pipe)
 {
 	char	*complete_path;
 	t_env	*path_var;
 
+	if (inside_pipe)
+		set_redir(data);
 	path_var = ft_getenv("PATH", data->env);
 	if (!access(data->cmd->cmd_param[0], F_OK | X_OK))
 	{
@@ -108,13 +110,8 @@ void    handle_cmd(t_data *data)
 	}
 	else if (pid == 0)
 	{
-		if (data->cmd->outfile == 3)
-			dup2(data->cmd->outfile, STDOUT_FILENO);
-		if (data->cmd->infile == 3)
-			dup2(data->cmd->infile, STDIN_FILENO);
-		if (data->cmd->outfile == 4)
-			dup2(data->cmd->outfile, STDOUT_FILENO);
-		make_cmd(data);
+		set_redir(data);
+		make_cmd(data, 0);
 	}
 	else
 		waitpid(pid, &status, 0);

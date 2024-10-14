@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:15:12 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 19:14:24 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:06:45 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

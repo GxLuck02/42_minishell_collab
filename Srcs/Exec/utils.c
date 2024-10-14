@@ -97,7 +97,6 @@ char	**ft_split_path(char const *path, char c)
 		ft_free(array, word_count);
 		return (NULL);
 	}
-	//print_array(array);
 	return (array);
 }
 
