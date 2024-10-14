@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/11 16:12:42 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:07:58 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	sleep(10);
+	setup_signals();
 	if (argc < 1 || !argv)
 		return (1);
 	atexit(check_leaks);
@@ -32,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		cmd_line = get_prompt(&data);
+		handle_ctrl_d(cmd_line);
 		printf(BLU"%s§\n"NRM, cmd_line);
 		if (cmd_line == NULL)
 		{

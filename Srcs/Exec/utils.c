@@ -20,6 +20,10 @@ static void	ft_free(char **array, int j)
 		j--;
 	}
 }
+/*
+malloc une char * 
+remplit cette chaine avec len caractere de la chaine passee en parametre
+*/
 
 static char	*fill_word(const char *str, size_t len)
 {
@@ -39,6 +43,8 @@ static char	*fill_word(const char *str, size_t len)
 	return (word);
 }
 
+// rempli le tableau avec les paths et ajoute un '/' pour pouvoir ensuite join la commande
+// retourne un double tableau avec tous les paths suivi de '/'
 static char	**fill_array(const char *path, char sep, char **array, size_t word_count)
 {
 	size_t	len;
@@ -64,6 +70,7 @@ static char	**fill_array(const char *path, char sep, char **array, size_t word_c
 	return (array);
 }
 
+//compte le nb de mot dans une chaine
 static size_t	ft_count_word(char const *s, char c)
 {
 	size_t	count;

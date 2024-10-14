@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 05:40:00 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/11 16:05:52 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:37:56 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	init_data(t_data *data)
 	data->env = NULL;
 	data->cmd = NULL;
 	data->token = NULL;
+	data->env_tab = NULL;
+	data->absolute_path = NULL;
 	data->exit_code = 0;
 }
 

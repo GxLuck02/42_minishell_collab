@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:05:38 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 13:52:15 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:08:07 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ void	free_all(t_data *data, char *err, int ext)
 	if (!access(".heredoc.tmp", F_OK))
 		unlink(".heredoc.tmp");
 	if (ext != -1)
-		exit(ext);
+		exit(0);
 }

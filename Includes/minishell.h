@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 16:01:16 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:09:13 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "greatfull_shell.h"
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # define INPUT		1		//"<"
 # define HEREDOC	2		//"<<"
@@ -179,5 +180,9 @@ t_env 		*ft_getenv(char *var, t_env *env);
 int			execute_builtin(t_data *data);
 void		set_redir(t_data *data);
 void		ft_free_data(t_data *data);
+
+//signals
+void		setup_signals(void);
+void		handle_ctrl_d(char *cmd_line);
 
 #endif

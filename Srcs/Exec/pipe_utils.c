@@ -14,10 +14,10 @@
 
 void	handle_parent(int *pipe_fd, int status, pid_t pid)
 {
-		waitpid(pid, &status, 0);
-		close(pipe_fd[1]);
-		dup2(pipe_fd[0], STDIN_FILENO);
-		close(pipe_fd[0]);
+	waitpid(pid, &status, 0);
+	close(pipe_fd[1]);
+	dup2(pipe_fd[0], STDIN_FILENO);
+	close(pipe_fd[0]);
 }
 
 void	handle_child(int *pipe_fd, t_data *data)
