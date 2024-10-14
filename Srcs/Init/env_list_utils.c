@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/11 15:56:26 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:00:51 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	incr_shell_level(t_data *data)
 
 void	key_var_to_node(char **var, t_env **node)
 {
+	if (!var)
+		return ;
 	(*node)->key = ft_strdup(var[0]);
 	(*node)->value = ft_strdup(var[1]);
 	(*node)->next = NULL;

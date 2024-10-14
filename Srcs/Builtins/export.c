@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:08:19 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/11 16:30:51 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:02:55 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	export_no_args(t_env *env)
 		return (0);
 	i = 0;
 	new_tab = creat_table(env);
+	if (!new_tab)
+		return (0);
 	bubble_sort(new_tab, env_lenthg(env));
 	if (!new_tab)
 		return (0);

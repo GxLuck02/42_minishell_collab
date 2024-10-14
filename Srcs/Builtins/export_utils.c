@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:40:27 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/11 16:37:09 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:48:17 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,6 @@ bool	var_already_exist(t_env *env, char *key)
 	return (false);
 }
 
-void	fill_tab(t_env *current, char **tab)
-{
-	char	*tmp;
-	char	*tmp2;
-
-	*tab = ft_strdup(current->key);
-	if (!tab)
-		return ;
-	if (current->equal == true)
-		tmp = ft_strjoin(*tab, "=\"");
-	else
-		tmp = ft_strdup(*tab);
-	free(*tab);
-	if (!tmp)
-		return ;
-	tmp2 = ft_strjoin(tmp, current->value);
-	free(tmp);
-	if (!tmp2)
-		return ;
-	if (current->equal == true)
-		*tab = ft_strjoin(tmp2, "\"");
-	else
-		*tab = ft_strdup(tmp2);
-	free(tmp2);
-}
 
 int	env_lenthg(t_env *env)
 {
@@ -81,36 +56,47 @@ int	env_lenthg(t_env *env)
 	return (len);
 }
 
+static char	*copy_key_value(t_env *env)
+{
+		char	*line;
+		char	*key;
+		
+		if (env->equal == true)
+			key = ft_strjoin(env->key, "=\"");
+		else
+			key = ft_strdup(env->key);
+		line = ft_strjoin(key, env->value);
+		free(key);
+		if (env->equal == true)
+			key = ft_strjoin(line, "\"");
+		else
+			key = ft_strdup(line);
+		free(line);
+		line = ft_strdup(key);
+		free(key);
+		return (line);
+}
+
 char	**creat_table(t_env *env)
 {
-	t_env	*current;
-	int		nbr_var;
-	char	**tab_env;
+	int		len_lst;
+	char	**env_tab;
+	char	*line;
 	int		i;
-
-	if (!env)
-		return (NULL);
+	
 	i = 0;
-	current = env;
-	nbr_var = env_lenthg(env);
-	tab_env = (char **)malloc((nbr_var + 1) * sizeof(char *));
-	if (!tab_env)
-		return (NULL);
-	while (current != NULL)
+	len_lst = ft_lstsize_env(env);
+	env_tab = malloc(sizeof (char *) * (len_lst + 1));
+	while (env)
 	{
-		if (current->equal == true)
-			tab_env[i] = malloc((ft_strlen(current->value) + ft_strlen(current->key) + 4) * sizeof(char ));
-		else
-			tab_env[i] = malloc((ft_strlen(current->value) + ft_strlen(current->key) + 2) * sizeof(char ));
-		if (tab_env[i] == NULL)
-		{
-			free_table(tab_env);
-			return (0);
-		}
-		fill_tab(current, &tab_env[i]);
-		current = current->next;
+		line = copy_key_value(env);
+		env_tab[i] = line;
+		if(!env_tab[i])
+			return (NULL);
 		i++;
+		env = env->next;
 	}
-	tab_env[i] = NULL;
-	return (tab_env);
+	env_tab[i] = NULL;
+	return(env_tab);
+
 }

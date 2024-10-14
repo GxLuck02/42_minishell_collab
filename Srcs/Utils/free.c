@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:05:38 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/11 16:20:19 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:52:15 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	free_list(t_env **list)
 	if (!(*list) || !list)
 		return (0);
 	current = *list;
-	while (!current->next)
+	while (current->next)
 	{
 		tmp = current;
 		current = current->next;
@@ -40,9 +40,6 @@ int	free_list(t_env **list)
 		free(tmp->value);
 		free(tmp);
 	}
-	free(current->key);
-	free(current->value);
-	free(current);
 	*list = NULL;
 	return (1);
 }
