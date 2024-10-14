@@ -21,7 +21,7 @@ INCDIR 	 		= Srcs/Includes
 READLINE_PATH	= $(HOME)/.brew/opt/readline/
 
 # Source files
-BUILTINS		= cd echo env exit export_utils export pwd 
+BUILTINS		= cd echo env exit export_utils export pwd unset
 
 EXEC			= exec pipe_utils utils utils2 signals
 
