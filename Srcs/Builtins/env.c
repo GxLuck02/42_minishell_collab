@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:01:49 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 17:43:40 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:55:58 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	ft_env(t_env *const env, char **cmd_param)
 	curr = env;
 	while (curr)
 	{
-		if (!curr->key || !curr->value)
+		if (!curr->key || !curr->value \
+			|| ft_strcmp(curr->value, "") == 0)
 		{
 			curr = curr->next;
 			continue ;

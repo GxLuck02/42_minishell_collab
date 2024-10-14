@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:35:37 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/11 14:12:11 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:46:12 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ static void	delet_node(t_env **env, char *str)
 {
 	t_env	*tmp;
 	t_env	*current;
-	int		flag;
 	
-	flag = 0;
 	if (!env || !*env)
 		return ;
 	current = *env;
