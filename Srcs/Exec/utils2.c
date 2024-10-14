@@ -1,4 +1,5 @@
 #include "../../Includes/minishell.h"
+// fais les redirections
 void	set_redir(t_data *data)
 {
 	if (data->cmd->infile == 3)
@@ -31,6 +32,8 @@ int	ft_lstsize_circular(t_cmd *cmd)
 	return (len);
 }
 
+/* fais les redirections necessaires et execute le builtin
+*/
 int	execute_builtin(t_data *data)
 {
 	int	saved_stdin;
@@ -58,7 +61,7 @@ int	execute_builtin(t_data *data)
 	return (0);
 }
 /*
-verifie si la commande est un builtin et appelle le builtin
+verifie si la commande est un builtin
 */
 int	is_builtin(t_data *data)
 {

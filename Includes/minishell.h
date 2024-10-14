@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/13 19:00:49 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:22:08 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct s_data
 	t_cmd	*cmd;
 	bool	sq;
 	int		exit_code;
-	pid_t	child_pid;
 }				t_data;
 
 //data
@@ -172,6 +171,7 @@ void		set_redir(t_data *data);
 void		ft_free_data(t_data *data);
 
 //signals
-void		handle_c(int sig);
+void		setup_signals(void);
+void		handle_ctrl_d(char *cmd_line);
 
 #endif

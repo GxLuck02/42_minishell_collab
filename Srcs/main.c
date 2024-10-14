@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/13 18:42:50 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:19:37 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd_line;
-	t_data	data;
-	struct sigaction sa;
-    sa.sa_handler = &handle_c;
-    sigaction(SIGINT, &sa, NULL);
+	t_data	data;;
 	
+	setup_signals();
 	if (argc < 1 || !argv)
 		return (1);
 	if (!init_minishell(&data, envp))
@@ -27,6 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		cmd_line = get_prompt();
+		handle_ctrl_d(cmd_line);
 		printf(BLU"%s§\n"NRM, cmd_line);
 		if (cmd_line == NULL)
 		{
