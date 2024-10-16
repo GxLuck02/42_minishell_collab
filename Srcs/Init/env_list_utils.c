@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 18:50:14 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:27:03 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ void	incr_shell_level(t_data *data)
 	char	*new_value;
 
 	SHLVL = ft_getenv("SHLVL", data->env);
+	printf("%s\n", SHLVL->value);
+	if (!SHLVL || !SHLVL->value)
+    	return ;
 	sh_level = ft_atoi(SHLVL->value);
 		if (sh_level < 0)
 			sh_level = 0;
@@ -69,6 +72,7 @@ void	incr_shell_level(t_data *data)
 			return ;
 		free(SHLVL->value);
 		SHLVL->value = new_value;
+	printf("%s\n", SHLVL->value);
 	return ;
 }
 
