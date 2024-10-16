@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:15:12 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 18:06:45 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:07:57 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	len_var(char *str, char *env)
 		return (0);
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
-	if (i == ft_search(env, '='))
+	if (i == ft_search(env, '=') && env[i] == '=')
 		return (i);
 	return (0);
 }
@@ -33,10 +33,11 @@ char	*get_dollar_word(char *line, int size)
 	char	*key;
 	int		i;
 
-	if (line == NULL)
+	if (!line || size <= 0)
 		return (NULL);
 	i = 0;
-	key = malloc(size * sizeof(char));
+	if (size > 0)
+		key = malloc(size * sizeof(char));
 	if (!key)
 		return (NULL);
 	while (line[++i] && i < size)
@@ -57,7 +58,7 @@ char	*get_value(t_env *env, char *key)
 	len_key = ft_strlen(key);
 	while (tmp != NULL)
 	{
-		if (ft_strncmp(tmp->key, key, len_key) == 0 && key[len_key + 1] == '\0')
+		if (ft_strncmp(tmp->key, key, len_key) == 0 && key[len_key] == '\0')
 			return (ft_strdup(tmp->value));
 		tmp = tmp->next;
 	}
@@ -72,7 +73,7 @@ char	*word_var(char *word)
 
 	len = 0;
 	i = 0;
-	while (ft_isalpha(word[i]) != 0)
+	while (ft_isalnum(word[i]) != 0 || word[i] == '_')
 	{
 		i++;
 		len++;
@@ -106,7 +107,7 @@ int	exist_in_env(t_data *data, int *i, char *str)
 	{
 		key_length = ft_strlen(tmp->key);
 		if (ft_strncmp(tmp->key, key_to_find, key_length) == 0 && \
-			key_to_find[key_length + 1] == '\0')
+			key_to_find[key_length] == '\0')
 		{
 			*i += key_length + 1;
 			free(key_to_find);

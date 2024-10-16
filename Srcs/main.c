@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 16:43:25 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:59:22 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd_line;
 	t_data	data;
 
-	sleep(5);
+	//sleep(5);
 	setup_signals();
 	if (argc < 1 || !argv)
 		return (1);

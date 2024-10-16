@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:56:54 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/07 16:18:09 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:48:25 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,19 @@ int	ft_caract(char *str, char c)
  */
 int	malloc_s(char ***s, char *env_str)
 {
+	int	key_len;
+	int	value_len;
+
+	
+	if (!env_str)
+		return (0);
 	(*s) = (char **)malloc(sizeof(char *) * 3);
 	if (!(*s))
 		return (0);
-	(*s)[0] = (char *)malloc(sizeof(char) * (ft_caract(env_str, '=') + 1));
-	(*s)[1] = (char *)malloc(sizeof(char) * ((ft_strlen(env_str) - \
-				ft_caract(env_str, '=')) + 1));
+	key_len = ft_caract(env_str, '=');
+	value_len = ft_strlen(env_str) - key_len;
+	(*s)[0] = (char *)malloc(sizeof(char) * (key_len + 1));
+	(*s)[1] = (char *)malloc(sizeof(char) * (value_len + 1));
 	if (!(*s)[0] || !(*s)[1])
 	{
 		if ((*s)[0])
@@ -76,6 +83,11 @@ char	**ft_envsplit(char *env_str)
 	while (env_str[++i] && env_str[i] != '=')
 		s[0][i] = env_str[i];
 	s[0][i] = '\0';
+	if (env_str[i] != '=')
+	{
+        s[1][0] = '\0';
+        return s;
+    }
 	while (env_str[++i])
 		s[1][++j] = env_str[i];
 	s[1][j + 1] = '\0';
