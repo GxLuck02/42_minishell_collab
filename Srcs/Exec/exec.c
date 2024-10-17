@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 15:33:16 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:13:23 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,20 @@ void	make_cmd(t_data *data, int inside_pipe)
 	}
 	execve(complete_path, data->cmd->cmd_param, data->env_tab);
 }
+static int	return_parent_process(pid_t pid)
+{
+	int	status;
+	
+	waitpid(pid, &status, 0);
+	if (WIFEXCITED(status))
+		return (WEXITSTATUS(status));
+	else
+		return (-1);
+}
 
 void	handle_cmd(t_data *data)
 {
 	pid_t	pid;
-	int		status;
 
 	pid = fork();
 	if (pid < 0)
@@ -115,7 +124,7 @@ void	handle_cmd(t_data *data)
 		make_cmd(data, 0);
 	}
 	else
-		waitpid(pid, &status, 0);
+		data->exit_code = return_parent_process(pid);
 	return ;
 }
 
