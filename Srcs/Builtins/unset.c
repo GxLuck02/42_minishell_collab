@@ -3,36 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:35:37 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 18:46:12 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:58:23 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-static void	delet_node(t_env **env, char *str)
+static void    delet_node(t_env **env, char *str)
 {
-	t_env	*tmp;
-	t_env	*current;
-	
-	if (!env || !*env)
-		return ;
-	current = *env;
-	while (current)
-	{
-		if (ft_strcmp(current->next->key, str) == 0)
-		{
-			tmp = current->next;
-			current->next = tmp->next;
-			free(tmp->key);
-			free(tmp->value);
-			free(tmp);
-			return ;
-		}
-		current = current->next;
-	}
+    t_env    *tmp;
+    t_env    *current;
+
+    if (!*env || !env)
+        return ;
+    if (ft_strcmp((*env)->key, str) == 0)
+    {
+        tmp = *env;
+        *env = (*env)->next;
+        free_node(tmp);
+        return ;
+    }
+    current = *env;
+    while (current && current->next)
+    {
+        if (ft_strcmp(current->next->key, str) == 0)
+        {
+            tmp = current->next;
+            current->next = tmp->next;
+            free_node(tmp);
+            return ;
+        }
+        current = current->next;
+    }
 }
 
 int	unset_var(t_env **env, char *str)

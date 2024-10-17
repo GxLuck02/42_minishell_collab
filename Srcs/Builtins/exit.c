@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:19:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 16:08:51 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:51:16 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void    ft_exit(t_data *data)
     exit_code = 0;
     if (len_array(data->cmd->cmd_param) == 1)
     {
-        free_all(data, 0, 0);
+        printf("exit\n");
+        free_all(data, 0, -1);
         exit(0);
     }
     if (len_array(data->cmd->cmd_param) >= 2)
@@ -72,6 +73,8 @@ void    ft_exit(t_data *data)
             return ;
         }
         exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
-            free_all(data, 0, 0);
+            free_all(data, 0, -1);
+        printf("exit\n");
         exit(exit_code);
 }
+

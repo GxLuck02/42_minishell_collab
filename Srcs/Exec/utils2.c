@@ -6,17 +6,12 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:13:05 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/17 15:30:01 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:01:43 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
-//reset stdin qui a pu etre change lors de l'execution
-void	reset_stdin(int saved_stdin)
-{
-	dup2(saved_stdin, STDIN_FILENO),
-	close(saved_stdin);
-}
+
 // fais les redirections
 void	set_redir(t_data *data)
 {
@@ -50,6 +45,17 @@ int	ft_lstsize_circular(t_cmd *cmd)
 	return (len);
 }
 
+void	execute_builtin2(t_data *data)
+{
+	if (!ft_strcmp(data->cmd->cmd_param[0], "unset")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "UNSET"))
+		ft_unset(&data->env, data->cmd->cmd_param);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "export")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))
+		ft_export(&data->env, data->cmd->cmd_param);
+	return ;
+}
+
 /* fais les redirections necessaires et execute le builtin
 */
 int	execute_builtin(t_data *data)
@@ -60,24 +66,24 @@ int	execute_builtin(t_data *data)
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
 	set_redir(data);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "pwd") || !ft_strcmp(data->cmd->cmd_param[0], "PWD"))
+	if (!ft_strcmp(data->cmd->cmd_param[0], "pwd")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "PWD"))
 		ft_pwd();
-	if (!ft_strcmp(data->cmd->cmd_param[0], "echo") || !ft_strcmp(data->cmd->cmd_param[0], "ECHO"))
+	if (!ft_strcmp(data->cmd->cmd_param[0], "echo")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "ECHO"))
 		ft_echo(data);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "cd") || !ft_strcmp(data->cmd->cmd_param[0], "CD"))
+	if (!ft_strcmp(data->cmd->cmd_param[0], "cd")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "CD"))
 		ft_cd(data);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "env") || !ft_strcmp(data->cmd->cmd_param[0], "ENV"))
+	if (!ft_strcmp(data->cmd->cmd_param[0], "env")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "ENV"))
 		ft_env(data->env, data->cmd->cmd_param);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
-			ft_exit(data);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "unset") || !ft_strcmp(data->cmd->cmd_param[0], "UNSET"))
-			ft_unset(&data->env, data->cmd->cmd_param);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "export") || !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))
-		ft_export(&data->env, data->cmd->cmd_param);
-	dup2(saved_stdin, STDIN_FILENO);
-	dup2(saved_stdout, STDOUT_FILENO);
-	close(saved_stdin);
-	close(saved_stdout);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "exit")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
+		ft_exit(data);
+	execute_builtin2(data);
+	reset_stdin(saved_stdin);
+	reset_stdout(saved_stdout);
 	return (0);
 }
 
