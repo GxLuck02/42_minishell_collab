@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 20:54:47 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:42:12 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int			ft_echo(t_data *data);
 void		ft_exit(t_data *data);
 int			ft_cd(t_data *data);
 int			ft_unset(t_env **env, char **args);
+t_env		*ft_getenv(char *var, t_env *env);
 char		**creat_table(t_env *env);
 bool		var_already_exist(t_env *env, char *key);
 int			is_valid_var(char *var);

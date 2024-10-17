@@ -6,29 +6,15 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 20:20:22 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:43:38 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-//fonctionne comme getenv sur la liste chainee
-// renvoie le noeud de la liste qui correspond a la variable demandee
-t_env	*ft_getenv(char *var, t_env *env)
-{
-	while (env)
-	{
-		if (!ft_strcmp(var, env->key))
-			return (env);
-		env = env->next;
-	}
-	return (NULL);
-}
-
 /*
 fork
 execute la commande ou absolute_path avec execve dans child process
-
 */
 
 /*recupere le path et le nom de la commande
@@ -42,11 +28,11 @@ char	*is_path_executable(char *path, char *cmd)
 	int		i;
 	char	*complete_path;
 
-	i = 0;
+	i = -1;
 	path_array = ft_split_path(path, ':');
 	if (!path_array)
 		return (NULL);
-	while (path_array[i])
+	while (path_array[++i])
 	{
 		complete_path = ft_strjoin(path_array[i], cmd);
 		if (!complete_path)
@@ -60,7 +46,6 @@ char	*is_path_executable(char *path, char *cmd)
 			return (complete_path);
 		}
 		free(complete_path);
-		i++;
 	}
 	free_table(path_array);
 	return (NULL);
@@ -102,10 +87,11 @@ void	make_cmd(t_data *data, int inside_pipe)
 	}
 	execve(complete_path, data->cmd->cmd_param, data->env_tab);
 }
+
 static int	return_parent_process(pid_t pid)
 {
 	int	status;
-	
+
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));

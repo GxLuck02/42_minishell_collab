@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:06:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 17:33:00 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:40:15 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ bool	is_pars(t_data *data, char *cmd_line)
 		free_all(data, "malloc error\n", EXT_MALLOC);
 	}
 	free(cmd_line);
-	print_token(data->token);
 	if (is_valid_token(data) == 0)
 		return (0);
 	if (!open_pipe(data))
@@ -127,6 +126,5 @@ bool	is_pars(t_data *data, char *cmd_line)
 		free_all(data, NULL, -1);
 		return (0);
 	}
-	print_cmd_list(data->cmd);
 	return (check_pipe(data));
 }

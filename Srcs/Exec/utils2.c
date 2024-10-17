@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:13:05 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/17 20:34:20 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:45:11 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_lstsize_circular(t_cmd *cmd)
 void	execute_builtin2(t_data *data)
 {
 	if (!data->cmd || !data->cmd->cmd_param[0])
-		return;
+		return ;
 	if (!ft_strcmp(data->cmd->cmd_param[0], "unset")
 		|| !ft_strcmp(data->cmd->cmd_param[0], "UNSET"))
 		ft_unset(&data->env, data->cmd->cmd_param);

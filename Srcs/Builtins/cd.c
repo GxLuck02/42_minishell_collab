@@ -6,54 +6,60 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 20:57:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 20:59:38 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 22:27:13 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
+void	free_and_assign_pwd_value(t_env *current_pwd, char *new_pwd)
+{
+	if (!current_pwd)
+		return ;
+	free(current_pwd->value);
+	new_pwd = getcwd(NULL, 0);
+	current_pwd->value = ft_strdup(new_pwd);
+	free(new_pwd);
+}
+
 int	update_old_pwd(t_data *data, char *old_pwd)
 {
-	t_env	*OLD_PWD;
+	t_env	*old_pwd_env;
 
-	OLD_PWD = ft_getenv("OLDPWD", data->env);
-	if (!OLD_PWD)
+	old_pwd_env = ft_getenv("OLDPWD", data->env);
+	if (!old_pwd_env)
 		return (0);
 	else
 	{
-		if (OLD_PWD->value)
-			free(OLD_PWD->value);
-		old_pwd->value = old_pwd;
+		if (old_pwd_env->value)
+			free(old_pwd_env->value);
+		old_pwd_env->value = old_pwd;
 		return (1);
 	}
 	return (0);
 }
+
 int	cd_no_args(t_data *data)
 {
-	t_env	*PWD;
-	t_env	*HOME;
+	t_env	*pwd_value;
+	t_env	*home_value;
 	char	*old_pwd;
 	char	*new_pwd;
 
-	HOME = ft_getenv("HOME", data->env);
-	old_pwd = getcwd(NULL, 0);  // Alloue la chaîne du répertoire actuel
-	if (!HOME || !old_pwd)
-	{	
-		if (!HOME)
+	new_pwd = NULL;
+	home_value = ft_getenv("HOME", data->env);
+	old_pwd = getcwd(NULL, 0);
+	if (!home_value || !old_pwd)
+	{
+		if (!home_value)
 			printf("bash %s: HOME not set\n", data->cmd->cmd_param[0]);
 		return (0);
 	}
-	if (!chdir(HOME->value))  // Si chdir réussit
+	if (!chdir(home_value->value))
 	{
-		PWD = ft_getenv("PWD", data->env);
-		if (PWD)
-		{
-			free(PWD->value);  // Libère l'ancienne valeur de PWD
-			new_pwd = getcwd(NULL, 0);  // Alloue la nouvelle chaîne pour PWD
-			PWD->value = ft_strdup(new_pwd);  // Duplique la nouvelle valeur dans PWD
-			free(new_pwd);  // Libère la chaîne retournée par getcwd
-		}
-		update_old_pwd(data, old_pwd);  // Met à jour OLDPWD avec l'ancienne valeur
+		pwd_value = ft_getenv("PWD", data->env);
+		free_and_assign_pwd_value(pwd_value, new_pwd);
+		update_old_pwd(data, old_pwd);
 		return (1);
 	}
 	else
@@ -74,40 +80,31 @@ si ca fonctionne pas c'est que l'input est faux
 	return (message d'erreure);
 */
 
-int ft_cd(t_data *data)
+int	ft_cd(t_data *data)
 {
-	t_env	*PWD;
+	t_env	*current_pwd;
 	char	*old_pwd;
 	char	*new_pwd;
 
-	if(!data->cmd->cmd_param[1])
+	new_pwd = NULL;
+	if (!data->cmd->cmd_param[1])
 	{
-		if(!cd_no_args(data))
+		if (!cd_no_args(data))
 			return (0);
-		else
-			return (1);
+		return (1);
+	}
+	old_pwd = getcwd(NULL, 0);
+	if (!chdir(data->cmd->cmd_param[1]))
+	{
+		current_pwd = ft_getenv("PWD", data->env);
+		free_and_assign_pwd_value(current_pwd, new_pwd);
+		update_old_pwd(data, old_pwd);
+		return (1);
 	}
 	else
 	{
-		old_pwd = getcwd(NULL, 0);
-		if (!chdir(data->cmd->cmd_param[1]))
-		{
-			PWD = ft_getenv("PWD", data->env);
-			if (PWD)
-			{
-				free(PWD->value);
-				new_pwd = getcwd(NULL, 0);
-				PWD->value = ft_strdup(new_pwd);
-				free(new_pwd);
-			}
-			update_old_pwd(data, old_pwd);
-			return (1);
-		}
-		else
-		{
-			free(old_pwd);
-			printf("bash %s: No such file or directory\n", data->cmd->cmd_param[0]);
-		}
-		return (0);
+		free(old_pwd);
+		printf("bash %s: No such file or directory\n", data->cmd->cmd_param[0]);
 	}
+	return (0);
 }

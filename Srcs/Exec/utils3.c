@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:34:29 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/17 17:01:09 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:41:32 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+//fonctionne comme getenv sur la liste chainee
+// renvoie le noeud de la liste qui correspond a la variable demandee
+t_env	*ft_getenv(char *var, t_env *env)
+{
+	while (env)
+	{
+		if (!ft_strcmp(var, env->key))
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
+}
 
 //reset stdin qui a pu etre change lors de l'execution
 void	reset_stdin(int saved_stdin)
