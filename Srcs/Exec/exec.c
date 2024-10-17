@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 18:13:23 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:09:29 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	return_parent_process(pid_t pid)
 	int	status;
 	
 	waitpid(pid, &status, 0);
-	if (WIFEXCITED(status))
+	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else
 		return (-1);
@@ -111,7 +111,7 @@ static int	return_parent_process(pid_t pid)
 void	handle_cmd(t_data *data)
 {
 	pid_t	pid;
-
+	
 	pid = fork();
 	if (pid < 0)
 	{
