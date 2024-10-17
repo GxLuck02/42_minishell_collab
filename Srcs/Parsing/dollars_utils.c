@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollars_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:15:12 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/16 18:07:57 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:28:51 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*get_dollar_word(char *line, int size)
 	char	*key;
 	int		i;
 
+	key = 0;
 	if (!line || size <= 0)
 		return (NULL);
 	i = 0;

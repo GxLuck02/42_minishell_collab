@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/16 12:38:41 by tmontani          #+#    #+#             */
+/*   Updated: 2024/10/17 15:32:16 by tmontani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../Includes/minishell.h"
 
 void	handle_ctrl_d(char *cmd_line)
@@ -13,8 +25,9 @@ void	handle_ctrl_d(char *cmd_line)
 //exit les child process et affiche un nouveau prompt
 //sinon
 //affiche un nouveau prompt
-void	handle_sigint()
+void	handle_sigint(int sig)
 {
+	(void)sig;
 	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -24,7 +37,7 @@ void	handle_sigint()
 void	setup_signals(void)
 {
 	if (signal(SIGINT, &handle_sigint) == SIG_ERR
-	|| signal(SIGQUIT, SIG_IGN) == SIG_ERR
-	|| signal(SIGTSTP, SIG_IGN) == SIG_ERR)
-		ft_putstr_fd("signal erro\n", 2);
+		|| signal(SIGQUIT, SIG_IGN) == SIG_ERR
+		|| signal(SIGTSTP, SIG_IGN) == SIG_ERR)
+		ft_putstr_fd("signal error\n", 2);
 }

@@ -1,17 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/16 12:55:15 by tmontani          #+#    #+#             */
+/*   Updated: 2024/10/17 15:31:53 by tmontani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../Includes/minishell.h"
 
-void	ft_print_array(char **array)
-{
-	int	j;
-
-	j = 0;
-	while(array[j])
-	{
-		printf("%s ", array[j]);
-		j++;
-
-	}
-}
 static void	ft_free(char **array, int j)
 {
 	while (j >= 0)
@@ -31,7 +31,7 @@ static char	*fill_word(const char *str, size_t len)
 	size_t	i;
 
 	i = 0;
-	word = malloc(sizeof(char) * (len + 2)); // je fais len + 2 pour avoir la place de mettre '/' et '\0'
+	word = malloc(sizeof(char) * (len + 2));
 	if (!word)
 		return (NULL);
 	while (i < len)
@@ -43,9 +43,11 @@ static char	*fill_word(const char *str, size_t len)
 	return (word);
 }
 
-// rempli le tableau avec les paths et ajoute un '/' pour pouvoir ensuite join la commande
-// retourne un double tableau avec tous les paths suivi de '/'
-static char	**fill_array(const char *path, char sep, char **array, size_t word_count)
+/* rempli le tableau avec les paths et
+ ajoute un '/' pour pouvoir ensuite join la commande
+ retourne un double tableau avec tous les paths suivi de '/'
+ */
+static char	**fill_array(const char *path, char sep, char **array, size_t word)
 {
 	size_t	len;
 	size_t	i;
@@ -53,7 +55,7 @@ static char	**fill_array(const char *path, char sep, char **array, size_t word_c
 
 	i = 0;
 	a = 0;
-	while (a < word_count)
+	while (a < word)
 	{
 		len = 0;
 		while (path[i] == sep)
@@ -89,7 +91,9 @@ static size_t	ft_count_word(char const *s, char c)
 	}
 	return (count);
 }
-/*split la variable path et renvoie un double tableau avec chaque path et '/' a la fin de chaque path */
+
+/*split la variable path et renvoie un double tableau 
+avec chaque path et '/' a la fin de chaque path */
 char	**ft_split_path(char const *path, char c)
 {
 	size_t	word_count;
@@ -106,4 +110,3 @@ char	**ft_split_path(char const *path, char c)
 	}
 	return (array);
 }
-

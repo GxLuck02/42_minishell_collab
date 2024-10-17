@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:33 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/09 17:06:36 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:32:50 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,26 @@ void	handle_parent(int *pipe_fd, int status, pid_t pid)
 
 void	handle_child(int *pipe_fd, t_data *data)
 {
-		close(pipe_fd[0]);
-		dup2(pipe_fd[1], STDOUT_FILENO);
-		close(pipe_fd[1]);
-		if (is_builtin(data))
-		{
-			execute_builtin(data);
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			make_cmd(data, 1);
-			exit(EXIT_SUCCESS);
-		}
+	close(pipe_fd[0]);
+	dup2(pipe_fd[1], STDOUT_FILENO);
+	close(pipe_fd[1]);
+	if (is_builtin(data))
+	{
+		execute_builtin(data);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		make_cmd(data, 1);
+		exit(EXIT_SUCCESS);
+	}
 }
+
 void	execute_pipe(t_data *data)
 {
 	pid_t	pid;
 	int		status;
-	int	pipe_fd[2];
+	int		pipe_fd[2];
 
 	status = 0;
 	if (pipe(pipe_fd) == -1)
@@ -60,9 +61,4 @@ void	execute_pipe(t_data *data)
 		handle_child(pipe_fd, data);
 	else
 		handle_parent(pipe_fd, status, pid);
-}
-
-void	handle_pipe(t_data *data)
-{
-	execute_pipe(data);
 }
