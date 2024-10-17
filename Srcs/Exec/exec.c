@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 18:13:23 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:20:22 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,18 @@ char	*is_path_executable(char *path, char *cmd)
 		complete_path = ft_strjoin(path_array[i], cmd);
 		if (!complete_path)
 		{
-			free(complete_path);
+			free_table(path_array);
 			return (NULL);
 		}
 		if (!access(complete_path, F_OK | X_OK))
+		{
+			free_table(path_array);
 			return (complete_path);
+		}
+		free(complete_path);
 		i++;
 	}
+	free_table(path_array);
 	return (NULL);
 }
 
@@ -102,7 +107,7 @@ static int	return_parent_process(pid_t pid)
 	int	status;
 	
 	waitpid(pid, &status, 0);
-	if (WIFEXCITED(status))
+	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else
 		return (-1);

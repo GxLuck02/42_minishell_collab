@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:19:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 17:34:57 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:47:42 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ bool	ft_is_numeric(char	*str)
 
 	i = 0;
     if (str[i] == '-' || str[i] == '+')
+    {
         i++;
+    }
 	while (str[i])
+    {
 		if (!ft_isdigit(str[i++]))
 			return (false);
+    }
 	return (true);
 }
 
@@ -87,32 +91,32 @@ void    ft_exit(t_data *data)
     if (len_array(data->cmd->cmd_param) == 1)
     {
         printf("exit\n");
-        free_all(data, 0, -1);
-        exit(0);
+        free_all(data, 0, exit_code);
     }
     if (long_cmp(data->cmd->cmd_param[1]) == 1)
     {
         printf("exit\n");
-        exit(255);
+        free_all(data, 0, 255);
     }
     if (len_array(data->cmd->cmd_param) >= 2)
     {
         if(!ft_is_numeric(data->cmd->cmd_param[1]))
         {
             printf("bash: exit: %s: numeric argument required\n", data->cmd->cmd_param[1]);
-            exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
-            free_all(data, 0, -1);
-            exit(exit_code);
+            free_all(data, 0, 255);
         }
     }
-        if (len_array(data->cmd->cmd_param) > 2)
-        {
-            printf("exit\nbash: exit too many arguments\n");
-            return ;
-        }
-        exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
-            free_all(data, 0, -1);
-        printf("exit\n");
-        exit(exit_code);
+    if (len_array(data->cmd->cmd_param) > 2)
+    {
+        printf("exit\nbash: exit too many arguments\n");
+        return ;
+    }
+    exit_code = ft_atoi(data->cmd->cmd_param[1]);
+    if (exit_code < 0)
+        exit_code = 256 + (exit_code % 256);
+    else 
+        exit_code %= 256;
+    printf("exit\n");
+    free_all(data, 0, exit_code);
 }
 

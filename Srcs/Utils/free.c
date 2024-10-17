@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:05:38 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 16:51:36 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:08:57 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	free_list(t_env **list)
 	if (!(*list) || !list)
 		return (0);
 	current = *list;
-	while (current->next)
+	while (current)
 	{
 		tmp = current;
 		current = current->next;
@@ -71,5 +71,5 @@ void	free_all(t_data *data, char *err, int ext)
 	if (!access(".heredoc.tmp", F_OK))
 		unlink(".heredoc.tmp");
 	if (ext != -1)
-		exit(0);
+		exit(ext);
 }

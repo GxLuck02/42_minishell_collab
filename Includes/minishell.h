@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 16:51:59 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:54:47 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,23 +162,24 @@ bool		print_error(char *err);
 
 //execution
 void		exec(t_data *data);
-int 		ft_lstsize_env(t_env *lst);
+int			ft_lstsize_env(t_env *lst);
 char		**ft_split_path(char const *path, char c);
 void		ft_print_array(char **array);
 char		**creat_env_copy(t_env *env);
-void		execute_absolute_path(char *path, char **cmd_param, char **absolute_path);
-void   		make_cmd(t_data *data, int inside_pipe);
+void		execute_absolute_path(char *path, char **cmd_param, \
+			char **absolute_path);
+void		make_cmd(t_data *data, int inside_pipe);
 void		execute_pipe(t_data *data);
 int			ft_lstsize_circular(t_cmd	*cmd);
 void		handle_child(int *pipe_fd, t_data *data);
 void		handle_parent(int *pipe_fd, int status, pid_t pid);
-t_env 		*ft_getenv(char *var, t_env *env);
+t_env		*ft_getenv(char *var, t_env *env);
 int			execute_builtin(t_data *data);
 void		set_redir(t_data *data);
 void		ft_free_data(t_data *data);
 void		reset_stdin(int saved_stdin);
 void		reset_stdout(int saved_stdout);
-void   		error_path_var(t_data *data);
+void		error_path_var(t_data *data);
 
 //signals
 void		setup_signals(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:55:15 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/17 15:31:53 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:16:21 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	ft_free(char **array, int j)
 		free(array[j]);
 		j--;
 	}
+	free(array);
 }
 /*
 malloc une char * 

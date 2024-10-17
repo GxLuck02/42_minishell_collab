@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/17 20:57:23 by ttreichl          #+#    #+#             */
+/*   Updated: 2024/10/17 20:59:38 by ttreichl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../Includes/minishell.h"
 
 int	update_old_pwd(t_data *data, char *old_pwd)
 {
-	t_env *OLD_PWD;
+	t_env	*OLD_PWD;
 
 	OLD_PWD = ft_getenv("OLDPWD", data->env);
 	if (!OLD_PWD)
@@ -11,7 +23,7 @@ int	update_old_pwd(t_data *data, char *old_pwd)
 	{
 		if (OLD_PWD->value)
 			free(OLD_PWD->value);
-		OLD_PWD->value = old_pwd;
+		old_pwd->value = old_pwd;
 		return (1);
 	}
 	return (0);
