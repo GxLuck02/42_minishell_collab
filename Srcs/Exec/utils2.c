@@ -1,4 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/16 13:13:05 by tmontani          #+#    #+#             */
+/*   Updated: 2024/10/17 15:30:01 by tmontani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../Includes/minishell.h"
+//reset stdin qui a pu etre change lors de l'execution
+void	reset_stdin(int saved_stdin)
+{
+	dup2(saved_stdin, STDIN_FILENO),
+	close(saved_stdin);
+}
 // fais les redirections
 void	set_redir(t_data *data)
 {
@@ -62,24 +80,32 @@ int	execute_builtin(t_data *data)
 	close(saved_stdout);
 	return (0);
 }
+
 /*
 verifie si la commande est un builtin
 */
 int	is_builtin(t_data *data)
 {
-	if (!ft_strcmp(data->cmd->cmd_param[0], "pwd") || !ft_strcmp(data->cmd->cmd_param[0], "PWD"))
-		return(1);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "echo") || !ft_strcmp(data->cmd->cmd_param[0], "ECHO"))
-		return(1);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "cd") || !ft_strcmp(data->cmd->cmd_param[0], "CD"))
+	if (!ft_strcmp(data->cmd->cmd_param[0], "pwd")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "PWD"))
 		return (1);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "env") || !ft_strcmp(data->cmd->cmd_param[0], "ENV"))
-		return(1);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "exit") || !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
-			return(1);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "unset") || !ft_strcmp(data->cmd->cmd_param[0], "UNSET"))
-		return(1);
-	if (!ft_strcmp(data->cmd->cmd_param[0], "export") || !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))
-		return(1);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "echo")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "ECHO"))
+		return (1);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "cd")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "CD"))
+		return (1);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "env")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "ENV"))
+		return (1);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "exit")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
+		return (1);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "unset")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "UNSET"))
+		return (1);
+	if (!ft_strcmp(data->cmd->cmd_param[0], "export")
+		|| !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))
+		return (1);
 	return (0);
 }

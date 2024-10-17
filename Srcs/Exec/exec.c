@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/11 13:02:33 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/17 15:33:16 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //fonctionne comme getenv sur la liste chainee
 // renvoie le noeud de la liste qui correspond a la variable demandee
-t_env  *ft_getenv(char *var, t_env *env)
+t_env	*ft_getenv(char *var, t_env *env)
 {
 	while (env)
 	{
@@ -24,6 +24,7 @@ t_env  *ft_getenv(char *var, t_env *env)
 	}
 	return (NULL);
 }
+
 /*
 fork
 execute la commande ou absolute_path avec execve dans child process
@@ -35,7 +36,7 @@ split le path et recupere un tableau avec chaque path
 verifie avec access si chaque path est executable
 si oui renvoie le path executable sinon renvoie NULL
 */
-char *is_path_executable(char *path, char *cmd)
+char	*is_path_executable(char *path, char *cmd)
 {
 	char	**path_array;
 	int		i;
@@ -59,15 +60,17 @@ char *is_path_executable(char *path, char *cmd)
 	}
 	return (NULL);
 }
+
 /*
 recupere la variable path
 verifie si c'est un absolute path;
-	si oui execute la commande
-	(je dois encore ajouter une condition pour le absolute_path pour envoyer le bon message d'erreure)
+si oui execute la commande
+(je dois encore ajouter une condition pour
+ le absolute_path pour envoyer le bon message d'erreure)
 recupere le complete_path (path/cmd)
 execute la commande
 */
-void    make_cmd(t_data *data, int inside_pipe)
+void	make_cmd(t_data *data, int inside_pipe)
 {
 	char	*complete_path;
 	t_env	*path_var;
@@ -77,17 +80,14 @@ void    make_cmd(t_data *data, int inside_pipe)
 	path_var = ft_getenv("PATH", data->env);
 	if (!access(data->cmd->cmd_param[0], F_OK | X_OK))
 	{
-	 	if(!execve(data->cmd->cmd_param[0], data->cmd->cmd_param, data->absolute_path))
+		if (!execve(data->cmd->cmd_param[0],
+				data->cmd->cmd_param, data->absolute_path))
 			exit(127);
 	}
 	if (!path_var)
-	{
-		ft_putstr_fd("xnxX-Minishell-Xx: ", 2);
-		ft_putstr_fd(data->cmd->cmd_param[0], 2);
-		ft_putstr_fd(" :no such file or directory\n", 2);
-		exit(127);
-	}
-	complete_path = is_path_executable(path_var->value, data->cmd->cmd_param[0]);
+		error_path_var(data);
+	complete_path = is_path_executable(path_var->value,
+			data->cmd->cmd_param[0]);
 	if (!complete_path)
 	{
 		ft_putstr_fd("xnxX-Minishell-Xx: ", 2);
@@ -98,15 +98,16 @@ void    make_cmd(t_data *data, int inside_pipe)
 	execve(complete_path, data->cmd->cmd_param, data->env_tab);
 }
 
-void    handle_cmd(t_data *data)
+void	handle_cmd(t_data *data)
 {
-	pid_t pid;
-	int	status;
+	pid_t	pid;
+	int		status;
+
 	pid = fork();
-    if (pid < 0)
-    {
+	if (pid < 0)
+	{
 		perror("fork failed");
-    	exit(0);
+		exit(0);
 	}
 	else if (pid == 0)
 	{
@@ -117,38 +118,37 @@ void    handle_cmd(t_data *data)
 		waitpid(pid, &status, 0);
 	return ;
 }
+
 /*
 boucle sur la liste de commandes
 prepare les pipes
 envoie la commande
 */
-void exec(t_data *data)
+void	exec(t_data *data)
 {
 	int	len_cmd;
-	len_cmd = ft_lstsize_circular(data->cmd);
 	int	saved_stdin;
+	int	pipe;
 
+	len_cmd = ft_lstsize_circular(data->cmd);
 	saved_stdin = dup(STDIN_FILENO);
 	if (data->cmd->skip_cmd == 1)
 		return ;
 	while (len_cmd)
 	{
-		int	pipe;
-
 		pipe = len_cmd > 1;
 		if (pipe == 0)
 		{
-			if(is_builtin(data))
+			if (is_builtin(data))
 				execute_builtin(data);
 			else
-			handle_cmd(data);
+				handle_cmd(data);
 		}
 		else
-			handle_pipe(data);
+			execute_pipe(data);
 		data->cmd = data->cmd->next;
 		len_cmd--;
 	}
-	dup2(saved_stdin, STDIN_FILENO);
-	close(saved_stdin); 
+	reset_stdin(saved_stdin);
 	return ;
 }
