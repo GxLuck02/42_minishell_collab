@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 15:27:34 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:51:59 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ int			len_list(t_env *list);
 void		free_cmd(t_cmd **list);
 void		free_all(t_data *data, char *err, int ext);
 void		free_table(char **table);
+void		free_node(t_env *env);
 
 //utils
 int			env_lenthg(t_env *env);
@@ -176,6 +177,7 @@ int			execute_builtin(t_data *data);
 void		set_redir(t_data *data);
 void		ft_free_data(t_data *data);
 void		reset_stdin(int saved_stdin);
+void		reset_stdout(int saved_stdout);
 void   		error_path_var(t_data *data);
 
 //signals
