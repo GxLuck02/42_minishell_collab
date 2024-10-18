@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 16:08:39 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:47:12 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	set_export_var(t_env **env, char *str)
 {
 	t_env	*new_node;
 	char	**var;
-	
+
 	new_node = (t_env *)malloc(sizeof (t_env));
 	if (!new_node)
 		return (0);
@@ -63,7 +63,7 @@ int	export_no_args(t_env *env)
 {
 	char	**new_tab;
 	int		i;
-	
+
 	if (!env)
 		return (0);
 	i = 0;
@@ -76,7 +76,7 @@ int	export_no_args(t_env *env)
 	while (new_tab[i] != NULL)
 	{
 		printf("declare -x ");
-		printf("%s\n",new_tab[i]);
+		printf("%s\n", new_tab[i]);
 		free(new_tab[i]);
 		i++;
 	}
@@ -87,7 +87,7 @@ int	export_no_args(t_env *env)
 int	ft_export(t_env **env, char **args)
 {
 	int	i;
-	
+
 	i = 1;
 	if (!args[1])
 		return (export_no_args(*env));
@@ -101,7 +101,7 @@ int	ft_export(t_env **env, char **args)
 				return (0);
 			}
 			else if (!set_export_var(env, args[i]))
-				return(0);
+				return (0);
 			i++;
 		}
 	}

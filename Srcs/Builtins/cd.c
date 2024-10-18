@@ -1,56 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/18 14:15:23 by tmontani          #+#    #+#             */
+/*   Updated: 2024/10/18 14:15:27 by tmontani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../Includes/minishell.h"
 
-int	update_old_pwd(t_data *data, char *old_pwd)
+int	update_old_pwd(t_data *data, char *old_pwd_update)
 {
-	t_env *OLD_PWD;
+	t_env	*old_pwd;
 
-	OLD_PWD = ft_getenv("OLDPWD", data->env);
-	if (!OLD_PWD)
+	old_pwd = ft_getenv("OLDPWD", data->env);
+	if (!old_pwd)
 		return (0);
 	else
 	{
-		if (OLD_PWD->value)
-			free(OLD_PWD->value);
-		OLD_PWD->value = old_pwd;
+		if (old_pwd->value)
+			free(old_pwd->value);
+		old_pwd->value = old_pwd_update;
 		return (1);
 	}
 	return (0);
 }
+
 int	cd_no_args(t_data *data)
 {
-	t_env	*PWD;
-	t_env	*HOME;
+	t_env	*pwd;
+	t_env	*home;
 	char	*old_pwd;
 	char	*new_pwd;
 
-	HOME = ft_getenv("HOME", data->env);
-	old_pwd = getcwd(NULL, 0);  // Alloue la chaîne du répertoire actuel
-	if (!HOME || !old_pwd)
+	home = ft_getenv("HOME", data->env);
+	old_pwd = getcwd(NULL, 0);
+	if (!home || !old_pwd)
 	{	
-		if (!HOME)
-			printf("bash %s: HOME not set\n", data->cmd->cmd_param[0]);
+		if (!home)
+			printf("bash %s: home not set\n", data->cmd->cmd_param[0]);
 		return (0);
 	}
-	if (!chdir(HOME->value))  // Si chdir réussit
+	if (!chdir(home->value))
 	{
-		PWD = ft_getenv("PWD", data->env);
-		if (PWD)
+		pwd = ft_getenv("PWD", data->env);
+		if (pwd)
 		{
-			free(PWD->value);  // Libère l'ancienne valeur de PWD
-			new_pwd = getcwd(NULL, 0);  // Alloue la nouvelle chaîne pour PWD
-			PWD->value = ft_strdup(new_pwd);  // Duplique la nouvelle valeur dans PWD
-			free(new_pwd);  // Libère la chaîne retournée par getcwd
+			free(pwd->value);
+			new_pwd = getcwd(NULL, 0);
+			pwd->value = ft_strdup(new_pwd);
+			free(new_pwd);
 		}
-		update_old_pwd(data, old_pwd);  // Met à jour OLDPWD avec l'ancienne valeur
+		update_old_pwd(data, old_pwd);
 		return (1);
 	}
 	else
 	{
 		free(old_pwd);
-		printf("bash: %s: No such file or directory\n", data->cmd->cmd_param[0]);
+		printf("bash: %s: No such file or directory\n",
+			data->cmd->cmd_param[0]);
 		return (0);
 	}
 }
+
 /*
  verifier si cd est seule ou avec arguments
  si seule appelle cd_no_args
@@ -61,16 +76,15 @@ si ca fonctionne
 si ca fonctionne pas c'est que l'input est faux
 	return (message d'erreure);
 */
-
-int ft_cd(t_data *data)
+int	ft_cd(t_data *data)
 {
-	t_env	*PWD;
+	t_env	*pwd;
 	char	*old_pwd;
 	char	*new_pwd;
 
-	if(!data->cmd->cmd_param[1])
+	if (!data->cmd->cmd_param[1])
 	{
-		if(!cd_no_args(data))
+		if (!cd_no_args(data))
 			return (0);
 		else
 			return (1);
@@ -80,12 +94,12 @@ int ft_cd(t_data *data)
 		old_pwd = getcwd(NULL, 0);
 		if (!chdir(data->cmd->cmd_param[1]))
 		{
-			PWD = ft_getenv("PWD", data->env);
-			if (PWD)
+			pwd = ft_getenv("PWD", data->env);
+			if (pwd)
 			{
-				free(PWD->value);
+				free(pwd->value);
 				new_pwd = getcwd(NULL, 0);
-				PWD->value = ft_strdup(new_pwd);
+				pwd->value = ft_strdup(new_pwd);
 				free(new_pwd);
 			}
 			update_old_pwd(data, old_pwd);
@@ -94,7 +108,8 @@ int ft_cd(t_data *data)
 		else
 		{
 			free(old_pwd);
-			printf("bash %s: No such file or directory\n", data->cmd->cmd_param[0]);
+			printf("bash %s: No such file or directory\n",
+				data->cmd->cmd_param[0]);
 		}
 		return (0);
 	}
