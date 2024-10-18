@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 21:42:12 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:27:06 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void		free_node(t_env *env);
 
 //utils
 int			env_lenthg(t_env *env);
+int			len_array(char **array);
 void		bubble_sort(char **tab, int len_env);
 void		equal_check(t_env **env, char *str);
 void		key_var_to_node(char **var, t_env **node);
@@ -167,8 +168,6 @@ int			ft_lstsize_env(t_env *lst);
 char		**ft_split_path(char const *path, char c);
 void		ft_print_array(char **array);
 char		**creat_env_copy(t_env *env);
-void		execute_absolute_path(char *path, char **cmd_param, \
-			char **absolute_path);
 void		make_cmd(t_data *data, int inside_pipe);
 void		execute_pipe(t_data *data);
 int			ft_lstsize_circular(t_cmd	*cmd);

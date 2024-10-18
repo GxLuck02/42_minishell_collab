@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:56:54 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 21:39:48 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:35:29 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**ft_envsplit(char *env_str)
 	{
 		s[1][0] = '\0';
 		return (s);
-    }
+	}
 	while (env_str[++i])
 		s[1][++j] = env_str[i];
 	s[1][j + 1] = '\0';

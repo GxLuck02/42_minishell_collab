@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:40:27 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 17:37:37 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:19:24 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ bool	var_already_exist(t_env *env, char *key)
 	return (false);
 }
 
-
 int	env_lenthg(t_env *env)
 {
 	int	len;
@@ -58,23 +57,23 @@ int	env_lenthg(t_env *env)
 
 static char	*copy_key_value(t_env *env)
 {
-		char	*line;
-		char	*key;
-		
-		if (env->equal == true)
-			key = ft_strjoin(env->key, "=\"");
-		else
-			key = ft_strdup(env->key);
-		line = ft_strjoin(key, env->value);
-		free(key);
-		if (env->equal == true)
-			key = ft_strjoin(line, "\"");
-		else
-			key = ft_strdup(line);
-		free(line);
-		line = ft_strdup(key);
-		free(key);
-		return (line);
+	char	*line;
+	char	*key;
+
+	if (env->equal == true)
+		key = ft_strjoin(env->key, "=\"");
+	else
+		key = ft_strdup(env->key);
+	line = ft_strjoin(key, env->value);
+	free(key);
+	if (env->equal == true)
+		key = ft_strjoin(line, "\"");
+	else
+		key = ft_strdup(line);
+	free(line);
+	line = ft_strdup(key);
+	free(key);
+	return (line);
 }
 
 char	**creat_table(t_env *env)
@@ -83,7 +82,7 @@ char	**creat_table(t_env *env)
 	char	**env_tab;
 	char	*line;
 	int		i;
-	
+
 	i = 0;
 	len_lst = ft_lstsize_env(env);
 	env_tab = malloc(sizeof (char *) * (len_lst + 1));
@@ -91,12 +90,11 @@ char	**creat_table(t_env *env)
 	{
 		line = copy_key_value(env);
 		env_tab[i] = line;
-		if(!env_tab[i])
+		if (!env_tab[i])
 			return (NULL);
 		i++;
 		env = env->next;
 	}
 	env_tab[i] = NULL;
-	return(env_tab);
-
+	return (env_tab);
 }

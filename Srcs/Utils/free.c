@@ -6,17 +6,17 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:05:38 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 20:08:57 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:24:38 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
- void    free_node(t_env *env)
+void	free_node(t_env *env)
 {
-        free(env->key);
-        free(env->value);
-        free(env);
+	free(env->key);
+	free(env->value);
+	free(env);
 }
 
 void	free_table(char **table)

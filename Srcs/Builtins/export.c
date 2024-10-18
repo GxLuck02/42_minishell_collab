@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 22:33:48 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:19:35 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	ft_export(t_env **env, char **args)
 				return (0);
 			}
 			else if (!set_export_var(env, args[i]))
-				return ( 0);
+				return (0);
 			i++;
 		}
 	}

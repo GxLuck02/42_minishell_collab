@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 20:57:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 22:27:13 by ttreichl         ###   ########.fr       */
+/*   Created: 2024/10/18 14:15:23 by tmontani          #+#    #+#             */
+/*   Updated: 2024/10/18 17:19:52 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ int	update_old_pwd(t_data *data, char *old_pwd)
 	return (0);
 }
 
+static int	get_env_values(t_data *data, t_env **home_value, char **old_pwd)
+{
+	*home_value = ft_getenv("HOME", data->env);
+	*old_pwd = getcwd(NULL, 0);
+	if (!*home_value || !*old_pwd)
+	{
+		if (!*home_value)
+			printf("bash %s: HOME not set\n", \
+				data->cmd->cmd_param[0]);
+		return (0);
+	}
+	return (1);
+}
+
 int	cd_no_args(t_data *data)
 {
 	t_env	*pwd_value;
@@ -47,14 +61,8 @@ int	cd_no_args(t_data *data)
 	char	*new_pwd;
 
 	new_pwd = NULL;
-	home_value = ft_getenv("HOME", data->env);
-	old_pwd = getcwd(NULL, 0);
-	if (!home_value || !old_pwd)
-	{
-		if (!home_value)
-			printf("bash %s: HOME not set\n", data->cmd->cmd_param[0]);
+	if (!get_env_values(data, &home_value, &old_pwd))
 		return (0);
-	}
 	if (!chdir(home_value->value))
 	{
 		pwd_value = ft_getenv("PWD", data->env);
@@ -65,7 +73,8 @@ int	cd_no_args(t_data *data)
 	else
 	{
 		free(old_pwd);
-		printf("bash: %s: No such file or directory\n", data->cmd->cmd_param[0]);
+		printf("bash: %s: No such file or directory\n", \
+			data->cmd->cmd_param[0]);
 		return (0);
 	}
 }
