@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:53:28 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/16 18:48:25 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:39:04 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_path_prompt(t_data *data)
 		prompt = ft_strjoin(tmp, " → ");
 		free(tmp);
 	}
-	tmp = ft_strjoin("xX-Minishell-Xx ", prompt);;
+	tmp = ft_strjoin("xX-Minishell-Xx ", prompt);
 	free(prompt);
 	prompt = ft_strjoin("\001\e[00;35m\002", tmp);
 	free(tmp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:15:23 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/18 14:15:27 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:39:37 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	cd_no_args(t_data *data)
 	home = ft_getenv("HOME", data->env);
 	old_pwd = getcwd(NULL, 0);
 	if (!home || !old_pwd)
-	{	
+	{
 		if (!home)
 			printf("bash %s: home not set\n", data->cmd->cmd_param[0]);
 		return (0);

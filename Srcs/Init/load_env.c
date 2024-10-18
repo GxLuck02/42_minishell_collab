@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:18:25 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 16:35:33 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:54:59 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ int	create_node_env(t_env **head, char *str)
 
 int	load_default_env(t_env **head)
 {
+	char	*path;
+
+	path = "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
 	if (!head)
 		return (0);
-	if (!create_node_env(head, "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"))
+	if (!create_node_env(head, path))
 		return (0);
 	if (!create_node_env(head, "PWD=/home/user"))
 		return (0);
@@ -94,7 +97,7 @@ int	load_env(t_data *data, char **envp)
 		{
 			printf("Error: load default env as fail\n");
 			return (0);
-		}	
+		}
 	}
 	if (new_env)
 	{

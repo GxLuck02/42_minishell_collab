@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:05:38 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 14:26:13 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:41:05 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
- void	free_node(t_env *env)
+void	free_node(t_env *env)
 {
 	free(env->key);
 	free(env->value);

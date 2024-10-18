@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:56:54 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/16 15:48:25 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:02:57 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	malloc_s(char ***s, char *env_str)
 	int	key_len;
 	int	value_len;
 
-	
 	if (!env_str)
 		return (0);
 	(*s) = (char **)malloc(sizeof(char *) * 3);
@@ -85,9 +84,9 @@ char	**ft_envsplit(char *env_str)
 	s[0][i] = '\0';
 	if (env_str[i] != '=')
 	{
-        s[1][0] = '\0';
-        return s;
-    }
+		s[1][0] = '\0';
+		return (s);
+	}
 	while (env_str[++i])
 		s[1][++j] = env_str[i];
 	s[1][j + 1] = '\0';

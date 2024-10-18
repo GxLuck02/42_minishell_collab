@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bubble_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:52:52 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 14:02:38 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:41:59 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	equal_check(t_env **env, char *str)
 {
 	char	*equal;
-	
+
 	equal = ft_strchr(str, '=');
 	if (equal)
 		(*env)->equal = true;
@@ -28,7 +28,7 @@ void	bubble_sort(char **tab, int len_env)
 	bool	unsorted;
 	char	*tmp;
 	int		n;
-	
+
 	unsorted = true;
 	tmp = *tab;
 	while (unsorted)

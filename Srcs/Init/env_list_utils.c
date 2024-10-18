@@ -3,24 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/16 18:27:03 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:51:17 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-int ft_lstsize_env(t_env *lst)
+int	ft_lstsize_env(t_env *lst)
 {
-    int result = 0;
+	int	result;
 
-    while (lst) {
-        lst = lst->next;
-        result++;
-    }
-    return result;
+	result = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		result++;
+	}
+	return (result);
 }
 
 /*
@@ -34,7 +36,7 @@ char	**creat_env_copy(t_env *env)
 	char	*line;
 	char	*key;
 	int		i;
-	
+
 	i = 0;
 	len_lst = ft_lstsize_env(env);
 	env_tab = malloc(sizeof (char *) * (len_lst + 1));
@@ -43,7 +45,7 @@ char	**creat_env_copy(t_env *env)
 		key = ft_strjoin(env->key, "=");
 		line = ft_strjoin(key, env->value);
 		env_tab[i] = ft_strdup(line);
-		if(!env_tab[i])
+		if (!env_tab[i])
 			return (NULL);
 		i++;
 		free(line);
@@ -51,28 +53,29 @@ char	**creat_env_copy(t_env *env)
 		env = env->next;
 	}
 	env_tab[i] = NULL;
-	return(env_tab);
+	return (env_tab);
 }
+
 void	incr_shell_level(t_data *data)
 {
-	t_env 	*SHLVL;
+	t_env	*shell_lst;
 	int		sh_level;
 	char	*new_value;
 
-	SHLVL = ft_getenv("SHLVL", data->env);
-	printf("%s\n", SHLVL->value);
-	if (!SHLVL || !SHLVL->value)
-    	return ;
-	sh_level = ft_atoi(SHLVL->value);
-		if (sh_level < 0)
-			sh_level = 0;
-		sh_level += 1;
-		new_value = ft_itoa(sh_level);
-		if (!new_value)
-			return ;
-		free(SHLVL->value);
-		SHLVL->value = new_value;
-	printf("%s\n", SHLVL->value);
+	shell_lst = ft_getenv("SHLVL", data->env);
+	printf("%s\n", shell_lst->value);
+	if (!shell_lst || !shell_lst->value)
+		return ;
+	sh_level = ft_atoi(shell_lst->value);
+	if (sh_level < 0)
+		sh_level = 0;
+	sh_level += 1;
+	new_value = ft_itoa(sh_level);
+	if (!new_value)
+		return ;
+	free(shell_lst->value);
+	shell_lst->value = new_value;
+	printf("%s\n", shell_lst->value);
 	return ;
 }
 
