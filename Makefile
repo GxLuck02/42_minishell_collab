@@ -84,7 +84,7 @@ PROGRESS_BAR_LENGTH = 100
 MAKEFLAGS += --silent
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -g -c $< -o $@
+	$(CC) $(CFLAGS) -g -c $< -o $@
 
 all: header $(NAME)
 
@@ -95,7 +95,7 @@ $(NAME): $(OBJS)
 	@make re -C ./libft
 	@echo ""
 	@echo "$(YELLOW)Linking objects...$(RESET)"
-	@$(CC) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)Minishell Compiled! ᕦ($(RED)♥$(GREEN)_$(RED)♥$(GREEN))ᕤ$(RESET)\n"
 
 header:
