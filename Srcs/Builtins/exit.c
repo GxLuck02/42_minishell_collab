@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:19:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 17:26:29 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:34:13 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,20 @@ void	ft_exit(t_data *data)
 	{
 		if (!ft_is_numeric(data->cmd->cmd_param[1]))
 		{
+			printf("exit\n");
 			printf("bash: exit: %s: numeric argument required\n",
 				data->cmd->cmd_param[1]);
 			exit_code = 2;
-			free_all(data, 0, -1);
-			exit(2);
+			free_all(data, 0, exit_code);
 		}
 	}
 	if (len_array(data->cmd->cmd_param) > 2)
 	{
 		printf("exit\nbash: exit too many arguments\n");
+		data->exit_code = 1;
 		return ;
 	}
 	exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
-	free_all(data, 0, -1);
 	printf("exit\n");
-	exit(exit_code);
+	free_all(data, 0, exit_code);
 }

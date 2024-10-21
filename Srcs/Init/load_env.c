@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:18:25 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 16:54:44 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:25:13 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int	load_env(t_data *data, char **envp)
 	}
 	if (new_env)
 		data->env = new_env;
+	incr_shell_level(data);
 	data->env_tab = creat_env_copy(data->env);
 	data->absolute_path = creat_env_copy(data->env);
-	incr_shell_level(data);
 	return (1);
 }

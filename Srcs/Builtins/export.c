@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 16:19:35 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:39:12 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@ int	set_export_var(t_env **env, char *str)
 	char	**var;
 
 	new_node = (t_env *)malloc(sizeof (t_env));
-	if (!new_node)
-		return (0);
 	var = ft_envsplit(str);
+	if (!var || !new_node)
+	{
+		if (new_node)
+			free(new_node);
+		return (0);
+	}
 	key_var_to_node(var, &new_node);
 	free_var(var);
 	if (!new_node)
@@ -37,6 +41,7 @@ int	set_export_var(t_env **env, char *str)
 	{
 		if (new_node->equal == true)
 			change_value(env, new_node);
+		free(new_node);
 	}
 	else
 		add_node_env(env, new_node);

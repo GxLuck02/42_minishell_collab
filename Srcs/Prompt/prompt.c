@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:53:28 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 16:24:26 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:32:51 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*get_path_prompt(t_data *data)
 	pwd = ft_getenv("PWD", data->env);
 	home = ft_getenv("HOME", data->env);
 	if (home == NULL || pwd == NULL)
-		return (ft_strdup("minishell > "));
+		return (ft_strdup("xX-Minishell-Xx > "));
 	if (ft_strstr(pwd->value, home->value) == NULL)
 		prompt = ft_strjoin(pwd->value, " → ");
 	else
@@ -64,6 +64,7 @@ char	*init_prompt(t_data *data)
 	free(prompt);
 	if (!input)
 		return (NULL);
+	rl_replace_line("", 0);
 	return (input);
 }
 

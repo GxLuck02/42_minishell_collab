@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 15:51:17 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:26:02 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,12 @@ void	incr_shell_level(t_data *data)
 	char	*new_value;
 
 	shell_lst = ft_getenv("SHLVL", data->env);
-	printf("%s\n", shell_lst->value);
 	if (!shell_lst || !shell_lst->value)
+	{
+		shell_lst->key = ft_strdup("SHLVL");
+		shell_lst->value = 0;
 		return ;
+	}
 	sh_level = ft_atoi(shell_lst->value);
 	if (sh_level < 0)
 		sh_level = 0;
@@ -75,7 +78,6 @@ void	incr_shell_level(t_data *data)
 		return ;
 	free(shell_lst->value);
 	shell_lst->value = new_value;
-	printf("%s\n", shell_lst->value);
 	return ;
 }
 

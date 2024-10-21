@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 16:32:14 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:05:09 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	make_cmd(t_data *data, int inside_pipe)
 			data->cmd->cmd_param[0]);
 	if (!complete_path)
 	{
-		ft_putstr_fd("xnxX-Minishell-Xx: ", 2);
+		ft_putstr_fd("xX-Minishell-Xx: ", 2);
 		ft_putstr_fd(data->cmd->cmd_param[0], 2);
 		ft_putstr_fd(" :cmd not found\n", 2);
 		exit(127);
