@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:15:23 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/18 17:19:52 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:19:27 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,6 @@ int	update_old_pwd(t_data *data, char *old_pwd)
 	return (0);
 }
 
-static int	get_env_values(t_data *data, t_env **home_value, char **old_pwd)
-{
-	*home_value = ft_getenv("HOME", data->env);
-	*old_pwd = getcwd(NULL, 0);
-	if (!*home_value || !*old_pwd)
-	{
-		if (!*home_value)
-			printf("bash %s: HOME not set\n", \
-				data->cmd->cmd_param[0]);
-		return (0);
-	}
-	return (1);
-}
-
 int	cd_no_args(t_data *data)
 {
 	t_env	*pwd_value;
@@ -78,6 +64,7 @@ int	cd_no_args(t_data *data)
 		return (0);
 	}
 }
+
 /*
  verifier si cd est seule ou avec arguments
  si seule appelle cd_no_args
@@ -87,7 +74,38 @@ si ca fonctionne
 	update la variable OLDPWD
 si ca fonctionne pas c'est que l'input est faux
 	return (message d'erreure);
+
+	cd ~
+	cd -
 */
+static int	cd_special(t_data *data, char *pwd, char *new_pwd)
+{
+	t_env	*home;
+	t_env	*old_pwd;
+	t_env	*current_pwd;
+
+	home = ft_getenv("HOME", data->env);
+	old_pwd = ft_getenv("OLDPWD", data->env);
+	if (!ft_strcmp(data->cmd->cmd_param[1], "~"))
+	{
+		chdir(home->value);
+		current_pwd = ft_getenv("PWD", data->env);
+		free_and_assign_pwd_value(current_pwd, new_pwd);
+		update_old_pwd(data, pwd);
+		return (1);
+	}
+	else if (!ft_strcmp(data->cmd->cmd_param[1], "-"))
+	{
+		if (!old_pwd)
+			return (0);
+		chdir(old_pwd->value);
+		current_pwd = ft_getenv("PWD", data->env);
+		free_and_assign_pwd_value(current_pwd, new_pwd);
+		update_old_pwd(data, pwd);
+		return (1);
+	}
+	return (0);
+}
 
 int	ft_cd(t_data *data)
 {
@@ -97,12 +115,11 @@ int	ft_cd(t_data *data)
 
 	new_pwd = NULL;
 	if (!data->cmd->cmd_param[1])
-	{
-		if (!cd_no_args(data))
-			return (0);
-		return (1);
-	}
+		return (cd_no_args(data));
 	old_pwd = getcwd(NULL, 0);
+	if (!strcmp(data->cmd->cmd_param[1], "~") || \
+			!strcmp(data->cmd->cmd_param[1], "-"))
+		return (cd_special(data, old_pwd, new_pwd));
 	if (!chdir(data->cmd->cmd_param[1]))
 	{
 		current_pwd = ft_getenv("PWD", data->env);

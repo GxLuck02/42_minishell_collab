@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:19:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 14:34:13 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:34:59 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ void	ft_exit(t_data *data)
 	}
 	exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
 	printf("exit\n");
-	free_all(data, 0, exit_code);
+	free_all(data, 0, -1);
+	exit(exit_code);
 }

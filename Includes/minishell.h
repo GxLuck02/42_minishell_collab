@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 17:27:06 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:15:58 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void		free_node(t_env *env);
 
 //utils
 int			env_lenthg(t_env *env);
+int			get_env_values(t_data *data, t_env **home_value, char **old_pwd);
 int			len_array(char **array);
 void		bubble_sort(char **tab, int len_env);
 void		equal_check(t_env **env, char *str);

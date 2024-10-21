@@ -6,32 +6,34 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 16:18:53 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 16:42:59 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-int	check_n(char *cmd_param_1)
+int	check_n(char **cmd_param, int *index)
 {
-	int	i;
+	bool	n_find;
 
-	i = 0;
-	if (cmd_param_1 == NULL)
+	n_find = false;
+	if (cmd_param[*index] == NULL)
 		return (0);
-	if (cmd_param_1[i] != '-')
+	if (cmd_param[*index][0] != '-')
 		return (0);
 	else
 	{
-		i++;
-		while (cmd_param_1 && cmd_param_1[i])
+		while (cmd_param[*index] != NULL)
 		{
-			if (cmd_param_1[i] != 'n')
-				return (0);
-			i++;
+			if (ft_strcmp(cmd_param[*index], "-n") != 0)
+				break ;
+			n_find = true;
+			(*index)++;
 		}
 	}
-	return (1);
+	if (n_find == true)
+		return (1);
+	return (0);
 }
 
 /*
@@ -43,15 +45,15 @@ int	ft_echo(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	if (check_n(data->cmd->cmd_param[1]))
+	i = 1;
+	if (check_n(data->cmd->cmd_param, &i))
 	{
-		i = 1;
-		while (data->cmd->cmd_param[++i])
+		while (data->cmd->cmd_param[i])
 		{
 			ft_putstr_fd(data->cmd->cmd_param[i], STDOUT_FILENO);
 			if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
 				ft_putchar_fd(' ', STDOUT_FILENO);
+			i++;
 		}
 	}
 	else

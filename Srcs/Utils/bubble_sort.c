@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   bubble_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 21:52:52 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 17:26:34 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:15:34 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+int	get_env_values(t_data *data, t_env **home_value, char **old_pwd)
+{
+	*home_value = ft_getenv("HOME", data->env);
+	*old_pwd = getcwd(NULL, 0);
+	if (!*home_value || !*old_pwd)
+	{
+		if (!*home_value)
+			printf("bash %s: HOME not set\n", \
+				data->cmd->cmd_param[0]);
+		return (0);
+	}
+	return (1);
+}
 
 int	len_array(char **array)
 {
