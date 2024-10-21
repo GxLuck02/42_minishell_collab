@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 16:42:59 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:05:24 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ int	ft_echo(t_data *data)
 		}
 		ft_putstr_fd("\n", STDOUT_FILENO);
 	}
-	return (1);
+	return (0);
 }

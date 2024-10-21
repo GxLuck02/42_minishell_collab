@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:13:05 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/18 16:23:52 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:58:58 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	execute_builtin2(t_data *data)
 		return ;
 	if (!ft_strcmp(data->cmd->cmd_param[0], "unset")
 		|| !ft_strcmp(data->cmd->cmd_param[0], "UNSET"))
-		ft_unset(&data->env, data->cmd->cmd_param);
+		data->exit_code = ft_unset(&data->env, data->cmd->cmd_param);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "export")
 		|| !ft_strcmp(data->cmd->cmd_param[0], "EXPORT"))
-		ft_export(&data->env, data->cmd->cmd_param);
+		data->exit_code = ft_export(&data->env, data->cmd->cmd_param);
 	return ;
 }
 
@@ -70,16 +70,16 @@ int	execute_builtin(t_data *data)
 	set_redir(data);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "pwd")
 		|| !ft_strcmp(data->cmd->cmd_param[0], "PWD"))
-		ft_pwd();
+		data->exit_code = ft_pwd();
 	if (!ft_strcmp(data->cmd->cmd_param[0], "echo")
 		|| !ft_strcmp(data->cmd->cmd_param[0], "ECHO"))
-		ft_echo(data);
+		data->exit_code = ft_echo(data);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "cd")
 		|| !ft_strcmp(data->cmd->cmd_param[0], "CD"))
-		ft_cd(data);
+		data->exit_code = ft_cd(data);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "env")
 		|| !ft_strcmp(data->cmd->cmd_param[0], "ENV"))
-		ft_env(data->env, data->cmd->cmd_param);
+		data->exit_code = ft_env(data->env, data->cmd->cmd_param);
 	if (!ft_strcmp(data->cmd->cmd_param[0], "exit")
 		|| !ft_strcmp(data->cmd->cmd_param[0], "EXIT"))
 		ft_exit(data);

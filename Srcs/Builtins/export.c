@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 14:39:12 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:02:04 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	export_no_args(t_env *env)
 	int		i;
 
 	if (!env)
-		return (0);
+		return (1);
 	i = 0;
 	new_tab = creat_table(env);
 	if (!new_tab)
@@ -86,7 +86,7 @@ int	export_no_args(t_env *env)
 		i++;
 	}
 	free(new_tab);
-	return (1);
+	return (0);
 }
 
 int	ft_export(t_env **env, char **args)
@@ -103,12 +103,12 @@ int	ft_export(t_env **env, char **args)
 			if (!is_valid_var(args[i]))
 			{
 				invalid_var(args[i]);
-				return (0);
+				return (1);
 			}
 			else if (!set_export_var(env, args[i]))
-				return (0);
+				return (1);
 			i++;
 		}
 	}
-	return (1);
+	return (0);
 }
