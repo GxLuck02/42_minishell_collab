@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 20:55:52 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:17:09 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		cmd_line = get_prompt(&data);
 		handle_ctrl_d(cmd_line);
-		printf(BLU"%s§\n"NRM, cmd_line);
 		if (cmd_line == NULL)
 			continue ;
 		if (is_pars(&data, cmd_line) == 0)
