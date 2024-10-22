@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 19:43:49 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:14:05 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,20 @@ void	exec(t_data *data)
 	int	len_cmd;
 	int	saved_stdin;
 	int	pipe;
-
+	
 	len_cmd = ft_lstsize_circular(data->cmd);
+	data->pid_tab = malloc(sizeof(pid_t) * (len_cmd + 1));
+    if (data->pid_tab == NULL)
+	{
+        perror("malloc");
+        exit(EXIT_FAILURE);
+	}
+	for (int i = 0; i < len_cmd; i++) {
+        data->pid_tab[i] = -1;
+	}
+	 data->pid_tab[len_cmd] = 0;
 	saved_stdin = dup(STDIN_FILENO);
+	
 	if (data->cmd->skip_cmd == 1)
 		return ;
 	while (len_cmd)
@@ -149,6 +160,10 @@ void	exec(t_data *data)
 		data->cmd = data->cmd->next;
 		len_cmd--;
 	}
+	wait_all(data);
+	free(data->pid_tab);
+	close(STDIN_FILENO);
 	reset_stdin(saved_stdin);
 	return ;
 }
+

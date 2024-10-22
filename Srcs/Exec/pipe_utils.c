@@ -6,15 +6,15 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:33 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 15:32:50 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:16:37 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-void	handle_parent(int *pipe_fd, int status, pid_t pid)
+void	handle_parent(int *pipe_fd)
 {
-	waitpid(pid, &status, 0);
+	close(STDIN_FILENO);
 	close(pipe_fd[1]);
 	dup2(pipe_fd[0], STDIN_FILENO);
 	close(pipe_fd[0]);
@@ -39,26 +39,28 @@ void	handle_child(int *pipe_fd, t_data *data)
 
 void	execute_pipe(t_data *data)
 {
-	pid_t	pid;
-	int		status;
-	int		pipe_fd[2];
+	int			pipe_fd[2];
+	static	int	i;
 
-	status = 0;
 	if (pipe(pipe_fd) == -1)
 	{
 		ft_putstr_fd("pipe Error\n", 2);
 		return ;
 	}
-	pid = fork();
-	if (pid < 0)
+	data->pid_tab[i] = fork();
+	if (data->pid_tab[i] < 0)
 	{
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 		ft_putstr_fd("error fork\n", 2);
 		exit(0);
 	}
-	else if (pid == 0)
+	else if (data->pid_tab[i] == 0)
 		handle_child(pipe_fd, data);
 	else
-		handle_parent(pipe_fd, status, pid);
+	{
+		i++;
+		handle_parent(pipe_fd);
+	}
 }
+
