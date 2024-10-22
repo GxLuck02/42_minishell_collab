@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:53:28 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 14:32:51 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:01:40 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ char	*get_path_prompt(t_data *data)
 	}
 	tmp = ft_strjoin("xX-Minishell-Xx ", prompt);
 	free(prompt);
-	prompt = ft_strjoin("\001\e[00;35m\002", tmp);
+	prompt = ft_strjoin("\001\e[1;32m\002", tmp);
 	free(tmp);
-	return (prompt);
+	tmp = ft_strjoin(prompt, "\001\e[1;36m\002");
+	free(prompt);
+	return (tmp);
 }
 
 char	*init_prompt(t_data *data)
