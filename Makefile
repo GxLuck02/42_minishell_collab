@@ -92,10 +92,10 @@ $(NAME): $(OBJS)
 	@echo "$(YELLOW)----Compiling minishell----$(RESET)\n"
 	@echo "$(YELLOW)Compiling libft...$(RESET)"
 	@echo ""
-	@make re -C ./libft
+	@make -C ./libft 
 	@echo ""
 	@echo "$(YELLOW)Linking objects...$(RESET)"
-	@$(CC) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)Minishell Compiled! ᕦ($(RED)♥$(GREEN)_$(RED)♥$(GREEN))ᕤ$(RESET)\n"
 
 header:
