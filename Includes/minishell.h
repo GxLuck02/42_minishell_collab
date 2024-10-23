@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/23 15:54:58 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:21:37 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void		setup_signals(void);
 void		handle_ctrl_d(char *cmd_line);
 
 //pipe
-void		wait_all(t_data *data);
+void		wait_all(t_data *data, int len_cmd);
 void    add_pid_tab(t_data *data, pid_t pid);
 
 #endif

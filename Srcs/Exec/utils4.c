@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:07:13 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/23 15:46:53 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:23:00 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void    add_pid_tab(t_data *data, pid_t pid)
     }
 }
 
-void    wait_all(t_data *data)
+void    wait_all(t_data *data,int len_cmd)
 {
     int i;
 
     i = 0;
-    while (data->pid_tab[i])
+    while(i < len_cmd)
     {
         waitpid(data->pid_tab[i], NULL, 0);
         i++;
