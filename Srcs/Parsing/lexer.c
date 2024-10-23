@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:06:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/23 14:55:01 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:48:49 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ bool	is_pars(t_data *data, char *cmd_line)
 		free(cmd_line);
 		free_all(data, "malloc error\n", EXT_MALLOC);
 	}
-	print_token(data->token);
 	free(cmd_line);
 	if (is_valid_token(data) == 0)
 		return (0);
