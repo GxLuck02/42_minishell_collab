@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 18:21:43 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:12:59 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	setup_signals();
+	sleep(5);
 	if (argc < 1 || !argv)
 		return (1);
 	if (!init_minishell(&data, envp))

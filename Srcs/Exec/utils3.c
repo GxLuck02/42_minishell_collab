@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:34:29 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/18 16:24:05 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:36:50 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	reset_stdout(int saved_stdout)
 // renvoie une erreure si la variable path n'est pas trouvee dans l'env
 void	error_path_var(t_data *data)
 {
-	ft_putstr_fd("xnxX-Minishell-Xx: ", 2);
+	ft_putstr_fd("xX-Minishell-Xx: ", 2);
 	ft_putstr_fd(data->cmd->cmd_param[0], 2);
 	ft_putstr_fd(" :no such file or directory\n", 2);
 	exit(127);

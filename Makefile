@@ -29,7 +29,7 @@ INIT			= env_list_utils init_minishell list_env load_env
 
 PARSING			= cmd_list_param cmd_list_utils create_cmd_list create_token_list \
 				  dollars_utils fd_utils here_doc lexer quotes_utils \
-				  replace_dollar token_list_utils
+				  replace_dollar token_list_utils check_syntax
 				  
 PROMPT			= prompt
 UTILS			= bubble_sort data_utils free_cmd free

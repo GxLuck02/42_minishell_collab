@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 18:15:58 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:43:05 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ int			ft_isspecial(char *str);
 int			len_token(char *str, int *quotes);
 int			append_token(t_token **begin, char *str, int type, bool quoted);
 void		free_token(t_token **list);
+int			check_syntax(t_data *data);
 
 //cmd_list
 int			creat_cmd_list(t_data *data);
