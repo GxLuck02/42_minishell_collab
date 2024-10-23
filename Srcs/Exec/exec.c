@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/22 18:14:05 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:02:22 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	make_cmd(t_data *data, int inside_pipe)
 	char	*complete_path;
 	t_env	*path_var;
 
-	if (inside_pipe)
+	if (!inside_pipe)
 		set_redir(data);
 	path_var = ft_getenv("PATH", data->env);
 	if (!access(data->cmd->cmd_param[0], F_OK | X_OK))
@@ -128,9 +128,13 @@ void	exec(t_data *data)
 {
 	int	len_cmd;
 	int	saved_stdin;
-	int	pipe;
+	int	saved_stdout;
+	int	has_pipe;
+	int	temp_len;
+	int pipe_fd[2];
 	
 	len_cmd = ft_lstsize_circular(data->cmd);
+	temp_len = len_cmd;
 	data->pid_tab = malloc(sizeof(pid_t) * (len_cmd + 1));
     if (data->pid_tab == NULL)
 	{
@@ -142,28 +146,64 @@ void	exec(t_data *data)
 	}
 	 data->pid_tab[len_cmd] = 0;
 	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	
 	if (data->cmd->skip_cmd == 1)
 		return ;
-	while (len_cmd)
+	if (len_cmd == 1)
 	{
-		pipe = len_cmd > 1;
-		if (pipe == 0)
+		if (is_builtin(data))
 		{
-			if (is_builtin(data))
-				execute_builtin(data);
-			else
-				handle_cmd(data);
+			execute_builtin(data);
+			reset_stdin(saved_stdin);
+			reset_stdout(saved_stdout);
+			return ;
 		}
-		else
-			execute_pipe(data);
-		data->cmd = data->cmd->next;
-		len_cmd--;
+		else if (!is_builtin(data))
+		{
+			handle_cmd(data);
+			reset_stdin(saved_stdin);
+			reset_stdout(saved_stdout);
+			return;
+		}
+		return ;
 	}
-	wait_all(data);
+	while (temp_len)
+	{
+		puts("pipe cmd\n");
+		has_pipe = len_cmd > 1;
+		if (has_pipe)
+		{
+			pipe(pipe_fd);
+			add_pid_tab(data, fork());
+			if (data->pid_tab[data->pid_index] == -1)
+			{
+				ft_putstr_fd("pipe Error\n", 2);
+				free_all(data, 0, 0);
+				exit(EXIT_FAILURE);
+			}
+			if(data->pid_tab[data->pid_index] == 0)
+			{
+				close(pipe_fd[0]);
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				if (is_builtin(data))
+					execute_builtin(data);
+				else
+					make_cmd(data, 1);
+				close(pipe_fd[1]);
+			}
+			temp_len--;
+			if (temp_len == 0)
+				wait_all(data);
+				dup2(data->cmd->next->infile, STDIN_FILENO);
+			}
+	}
+	close(pipe_fd[1]);
+	close(pipe_fd[0]);
+	close(data->cmd->outfile);
+	reset_stdout(saved_stdout);
 	free(data->pid_tab);
-	close(STDIN_FILENO);
-	reset_stdin(saved_stdin);
 	return ;
+	
 }
 

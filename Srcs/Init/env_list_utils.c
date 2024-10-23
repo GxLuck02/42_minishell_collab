@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:55 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 13:26:02 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:27:49 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	incr_shell_level(t_data *data)
 	if (!shell_lst || !shell_lst->value)
 	{
 		shell_lst->key = ft_strdup("SHLVL");
-		shell_lst->value = 0;
+		shell_lst->value = ft_strdup("0");
 		return ;
 	}
 	sh_level = ft_atoi(shell_lst->value);
