@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/24 18:49:47 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/24 18:52:41 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,11 @@ void exec(t_data *data)
         perror("malloc");
         exit(EXIT_FAILURE);
     }
+	if (len_cmd == 1 && is_builtin(data))
+	{
+		execute_builtin(data);
+		return ;
+	}
     for (int i = 0; i < len_cmd; i++)
     {
         if (i < len_cmd - 1 && pipe(pipe_fd) == -1)
