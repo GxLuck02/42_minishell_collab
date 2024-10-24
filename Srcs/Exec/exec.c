@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/23 18:21:11 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/24 18:49:47 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,12 +167,16 @@ void exec(t_data *data)
             }
             if (i < len_cmd - 1)
             {
+				puts("here\n");
                 close(pipe_fd[0]);  
                 dup2(pipe_fd[1], STDOUT_FILENO);
                 close(pipe_fd[1]);
             }
 			if (is_builtin(data))
+			{	
 				execute_builtin(data);
+				exit(0);
+			}
 			else
             	make_cmd(data, len_cmd > 1); // Exécuter la commande avec pipes si nécessaire
         }
@@ -192,6 +196,7 @@ void exec(t_data *data)
         data->cmd = data->cmd->next; // Avancer vers la commande suivante
     }
 	wait_all(data, len_cmd);
+	close(STDOUT_FILENO);
     dup2(saved_stdin, STDIN_FILENO);
     dup2(saved_stdout, STDOUT_FILENO);
     close(saved_stdin);
