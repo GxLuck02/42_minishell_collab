@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:40:59 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 16:07:37 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:57:13 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,18 @@ int	check_syntax(t_data *data)
 	ret = 1;
 	tmp = data->token;
 	if (!check_for_first_token(tmp))
-		ret = 0;
+	{
+		free_token(&data->token);
+		return (0);
+	}
 	tmp = tmp->next;
 	while (tmp != data->token)
 	{
-		if (!check_token(tmp))
+		if (!check_token(tmp) || !check_combination(tmp))
+		{
 			ret = 0;
-		if (!check_combination(tmp))
-			ret = 0;
+			break ;
+		}
 		tmp = tmp->next;
 	}
 	if (ret == 0)

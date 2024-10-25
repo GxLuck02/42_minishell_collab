@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 16:09:15 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:48:45 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	check_infile(t_data *data)
 {
-	int bytes_read;
 	char *buf;
 	
-	bytes_read = 0;
 	if (data->cmd->infile != -2 && data->cmd->infile >= 0)	
 	{
 	    while ((buf = get_next_line(data->cmd->infile)))
@@ -25,6 +23,7 @@ int	check_infile(t_data *data)
 			if (!buf)
 				break ;
         	printf("%s", buf);
+			free(buf);
     	}
 		return (1);
 	}
