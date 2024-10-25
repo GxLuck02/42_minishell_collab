@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 17:41:03 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:11:07 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_infile(t_data *data)
 {
 	char	*buf;
 
-	if (data->cmd->infile != -2 && data->cmd->infile >= 0)	
+	if (data->cmd->infile != -2 && data->cmd->infile >= 0)
 	{
 		buf = get_next_line(data->cmd->infile);
 		while (buf)

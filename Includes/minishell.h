@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 17:03:54 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:11:43 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ typedef struct s_data
 	int		exit_code;
 	pid_t	*pid_tab;
 	int		pid_index;
+	int		prev_fd;
+	int		pipe_fd[2];
 }				t_data;
 
 //data
@@ -194,10 +196,11 @@ void		add_pid_tab(t_data *data, pid_t pid);
 //exec_loop_utils
 void		init_pid_tab(t_data *data, int len_cmd);
 void		fork_fail(t_data *data);
-void		handle_child(t_data *data, int len_cmd, int prev_fd, int pipe_fd[], int i);
-void		handle_parent(t_data *data, int len_cmd, pid_t pid, int i, int *prev_fd, int pipe_fd[]);
+void		handle_child(t_data *data, int len_cmd, int i);
+void		handle_parent(t_data *data, int len_cmd, pid_t pid, int i);
 void		pipe_error(t_data *data);
-void		restore_and_cleanup(int saved_stdin, int saved_stdout, t_data *data);
+void		restore_and_cleanup(int saved_stdin, int saved_stdout,
+				t_data *data);
 
 //exec_loop
 void		exec_loop(t_data *data, int i, int len_cmd);

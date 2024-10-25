@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_loop_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:33 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 16:57:09 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:07:11 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,22 @@ void	fork_fail(t_data *data)
 	exit(EXIT_FAILURE);
 }
 
-void	handle_child(t_data *data, int len_cmd,
-	int prev_fd, int pipe_fd[], int i)
+void	handle_child(t_data *data, int len_cmd, int i)
 {
 	set_redir(data);
-	if (prev_fd != -1)
+	if (data->prev_fd != -1)
 	{
-		dup2(prev_fd, STDIN_FILENO);
-		close(prev_fd);
+		dup2(data->prev_fd, STDIN_FILENO);
+		close(data->prev_fd);
 	}
 	if (i < len_cmd - 1)
 	{
-		close(pipe_fd[0]);
-		dup2(pipe_fd[1], STDOUT_FILENO);
-		close(pipe_fd[1]);
+		close(data->pipe_fd[0]);
+		dup2(data->pipe_fd[1], STDOUT_FILENO);
+		close(data->pipe_fd[1]);
 	}
 	if (is_builtin(data))
-	{	
+	{
 		execute_builtin(data);
 		exit(0);
 	}
@@ -53,16 +52,15 @@ void	handle_child(t_data *data, int len_cmd,
 		make_cmd(data, len_cmd > 1);
 }
 
-void	handle_parent(t_data *data, int len_cmd,
-	pid_t pid, int i, int *prev_fd, int pipe_fd[])
+void	handle_parent(t_data *data, int len_cmd, pid_t pid, int i)
 {
 	data->pid_tab[i] = pid;
-	if (*prev_fd != -1)
-		close(*prev_fd);
+	if (data->prev_fd != -1)
+		close(data->prev_fd);
 	if (i < len_cmd - 1)
 	{
-		close(pipe_fd[1]);
-		*prev_fd = pipe_fd[0];
+		close(data->pipe_fd[1]);
+		data->prev_fd = data->pipe_fd[0];
 	}
 	return ;
 }
