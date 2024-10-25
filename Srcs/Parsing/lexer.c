@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:06:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/17 21:40:15 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:08:02 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_valid_token(t_data *data)
 		}
 		tmp = tmp->next;
 	}
-	return (1);
+	return (check_syntax(data));
 }
 
 void	print_token(t_token *token)

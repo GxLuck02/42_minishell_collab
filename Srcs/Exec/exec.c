@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 12:02:39 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:52:26 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ boucle sur la liste de commandes
 prepare les pipes
 envoie la commande
 */
-void exec(t_data *data)
+int	exec(t_data *data)
 {
     int len_cmd = ft_lstsize_circular(data->cmd);
     int saved_stdin = dup(STDIN_FILENO);
@@ -133,51 +133,31 @@ void exec(t_data *data)
     int prev_fd = -1;
     pid_t pid;
 	int	i;
-
-	i = 0;
-    if (len_cmd == 0) return;
-	init_pid_tab(data, len_cmd);
+	
+	i = -1;
+	if (data->cmd->skip_cmd == 1)
+		return (0);
+    if (len_cmd == 0)
+		return (0);
 	if (len_cmd == 1 && is_builtin(data))
-	{
-		execute_builtin(data);
-		return ;
-	}
-    while  (i < len_cmd)
+		return (execute_builtin(data));
+	init_pid_tab(data, len_cmd);
+    while  (++i < len_cmd)
     {
         if (i < len_cmd - 1 && pipe(pipe_fd) == -1)
-        {
-            perror("pipe");
-            free(data->pid_tab);
-            exit(EXIT_FAILURE);
-        }
+			pipe_error(data);
         pid = fork();
         if (pid < 0)
 			fork_fail(data);
         if (pid == 0) // Processus enfant
 			handle_child(data, len_cmd, prev_fd, pipe_fd, i);
         else // Processus parent
-        {
-            data->pid_tab[i] = pid;  // Sauvegarder le PID du processus enfant
-
-            if (prev_fd != -1)
-                close(prev_fd); // Fermer l'extrémité précédente du pipe
-
-            if (i < len_cmd - 1)
-            {
-                close(pipe_fd[1]);   // Fermer l'extrémité d'écriture du pipe
-                prev_fd = pipe_fd[0]; // Sauvegarder l'extrémité de lecture pour la prochaine commande
-            }
-        }
-		i++;
+			handle_parent(data, len_cmd, pid, i, &prev_fd, pipe_fd);
         data->cmd = data->cmd->next; // Avancer vers la commande suivante
     }
 	wait_all(data, len_cmd);
-	close(STDOUT_FILENO);
-    dup2(saved_stdin, STDIN_FILENO);
-    dup2(saved_stdout, STDOUT_FILENO);
-    close(saved_stdin);
-    close(saved_stdout);
-    free(data->pid_tab);
+	restore_and_cleanup(saved_stdin, saved_stdout, data);
+	return (0);
 }
 
 

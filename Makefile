@@ -1,13 +1,12 @@
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by tmontani          #+#    #+#              #
-#    Updated: 2024/10/14 16:01:38 by ttreichl         ###   ########.fr        #
+#    Updated: 2024/10/25 16:11:37 by tmontani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +22,13 @@ READLINE_PATH	= $(HOME)/.brew/opt/readline/
 # Source files
 BUILTINS		= cd echo env exit export_utils export pwd unset
 
-EXEC			= exec exec_loop_utils utils utils2 signals utils3 utils4
+EXEC			= exec exec_loop_utils utils4 utils utils2 signals utils3
 
 INIT			= env_list_utils init_minishell list_env load_env
 
 PARSING			= cmd_list_param cmd_list_utils create_cmd_list create_token_list \
 				  dollars_utils fd_utils here_doc lexer quotes_utils \
-				  replace_dollar token_list_utils
+				  replace_dollar token_list_utils check_syntax
 				  
 PROMPT			= prompt
 UTILS			= bubble_sort data_utils free_cmd free
@@ -84,7 +83,7 @@ PROGRESS_BAR_LENGTH = 100
 MAKEFLAGS += --silent
 
 %.o: %.c
-	$(CC) $(CFLAGS) -g -c $< -o $@
+	@$(CC) $(CFLAGS) -g -c $< -o $@
 
 all: header $(NAME)
 
@@ -92,7 +91,7 @@ $(NAME): $(OBJS)
 	@echo "$(YELLOW)----Compiling minishell----$(RESET)\n"
 	@echo "$(YELLOW)Compiling libft...$(RESET)"
 	@echo ""
-	@make re -C ./libft
+	@make -C ./libft 
 	@echo ""
 	@echo "$(YELLOW)Linking objects...$(RESET)"
 	$(CC) $(OBJS) $(LIBS) -o $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:13:05 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/24 18:22:56 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:28:21 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 // fais les redirections
 void	set_redir(t_data *data)
 {
-	if (data->cmd->infile == 3)
+	if (data->cmd->infile != -2 && data->cmd->infile >= 0)
 		dup2(data->cmd->infile, STDIN_FILENO);
-	if (data->cmd->outfile == 3)
-		dup2(data->cmd->outfile, STDOUT_FILENO);
-	if (data->cmd->outfile == 4)
+	if (data->cmd->outfile != -2 && data->cmd->outfile >= 0)
 		dup2(data->cmd->outfile, STDOUT_FILENO);
 	return ;
 }

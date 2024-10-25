@@ -6,11 +6,30 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 19:05:24 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:09:15 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+int	check_infile(t_data *data)
+{
+	int bytes_read;
+	char *buf;
+	
+	bytes_read = 0;
+	if (data->cmd->infile != -2 && data->cmd->infile >= 0)	
+	{
+	    while ((buf = get_next_line(data->cmd->infile)))
+		{
+			if (!buf)
+				break ;
+        	printf("%s", buf);
+    	}
+		return (1);
+	}
+	return (0);
+}
 
 int	check_n(char **cmd_param, int *index)
 {
@@ -46,13 +65,15 @@ int	ft_echo(t_data *data)
 	int	i;
 
 	i = 1;
-	if (check_n(data->cmd->cmd_param, &i))
+	if (check_infile(data))
+		return (0);
+	else if (check_n(data->cmd->cmd_param, &i))
 	{
 		while (data->cmd->cmd_param[i])
 		{
-			ft_putstr_fd(data->cmd->cmd_param[i], STDOUT_FILENO);
+			ft_putstr_fd(data->cmd->cmd_param[i], 1);
 			if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
-				ft_putchar_fd(' ', STDOUT_FILENO);
+				ft_putchar_fd(' ', 1);
 			i++;
 		}
 	}
@@ -61,11 +82,11 @@ int	ft_echo(t_data *data)
 		i = 0;
 		while (data->cmd->cmd_param[++i])
 		{
-			ft_putstr_fd(data->cmd->cmd_param[i], STDOUT_FILENO);
+			ft_putstr_fd(data->cmd->cmd_param[i], 1);
 			if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
-				ft_putchar_fd(' ', STDOUT_FILENO);
+				ft_putchar_fd(' ', 1);
 		}
-		ft_putstr_fd("\n", STDOUT_FILENO);
+		ft_putstr_fd("\n", 1);
 	}
 	return (0);
 }

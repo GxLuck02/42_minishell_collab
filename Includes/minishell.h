@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 12:02:46 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:10:32 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ char		*get_value(t_env *env, char *key);
 int			exist_in_env(t_data *data, int *i, char *str);
 char		*get_dollar_word(char *line, int size);
 int			open_pipe(t_data *data);
+int			check_syntax(t_data *data);
 
 //tokeniser
 bool		creat_token_list(t_token **begin, char *cmd_line);
@@ -161,12 +162,13 @@ int			len_array(char **array);
 void		bubble_sort(char **tab, int len_env);
 void		equal_check(t_env **env, char *str);
 void		key_var_to_node(char **var, t_env **node);
+void		print_cmd_list(t_cmd *list);
 
 //error
 bool		print_error(char *err);
 
 //execution
-void		exec(t_data *data);
+int			exec(t_data *data);
 int			ft_lstsize_env(t_env *lst);
 char		**ft_split_path(char const *path, char c);
 void		ft_print_array(char **array);
@@ -187,11 +189,14 @@ void		handle_ctrl_d(char *cmd_line);
 
 //pipe
 void		wait_all(t_data *data, int len_cmd);
-void    add_pid_tab(t_data *data, pid_t pid);
+void    	add_pid_tab(t_data *data, pid_t pid);
 
 //exec_loop_utils
 void		init_pid_tab(t_data *data, int len_cmd);
 void		fork_fail(t_data *data);
 void		handle_child(t_data *data, int len_cmd, int prev_fd, int pipe_fd[], int i);
+void    	handle_parent(t_data *data, int len_cmd,  pid_t pid, int i, int *prev_fd, int pipe_fd[]);
+void    	pipe_error(t_data *data);
+void 		restore_and_cleanup(int saved_stdin, int saved_stdout, t_data *data);
 
 #endif
