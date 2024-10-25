@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:47:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 17:01:15 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:01:46 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
 
 	while (1)
 	{
-		buf =readline("> ");
+		buf = readline("> ");
 		if (!buf)
 		{
 			print_error("warning: here-doc delimited by end-of-file (wanted '");

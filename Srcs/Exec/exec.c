@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 15:52:26 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:52:29 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,14 +126,14 @@ envoie la commande
 */
 int	exec(t_data *data)
 {
-    int len_cmd = ft_lstsize_circular(data->cmd);
-    int saved_stdin = dup(STDIN_FILENO);
-    int saved_stdout = dup(STDOUT_FILENO);
-    int pipe_fd[2];
-    int prev_fd = -1;
-    pid_t pid;
+    int	len_cmd;
+    int	saved_stdin;
+    int	saved_stdout;
 	int	i;
-	
+
+	len_cmd = ft_lstsize_circular(data->cmd);
+	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
 	i = -1;
 	if (data->cmd->skip_cmd == 1)
 		return (0);
@@ -142,22 +142,8 @@ int	exec(t_data *data)
 	if (len_cmd == 1 && is_builtin(data))
 		return (execute_builtin(data));
 	init_pid_tab(data, len_cmd);
-    while  (++i < len_cmd)
-    {
-        if (i < len_cmd - 1 && pipe(pipe_fd) == -1)
-			pipe_error(data);
-        pid = fork();
-        if (pid < 0)
-			fork_fail(data);
-        if (pid == 0) // Processus enfant
-			handle_child(data, len_cmd, prev_fd, pipe_fd, i);
-        else // Processus parent
-			handle_parent(data, len_cmd, pid, i, &prev_fd, pipe_fd);
-        data->cmd = data->cmd->next; // Avancer vers la commande suivante
-    }
+	exec_loop(data, i, len_cmd);
 	wait_all(data, len_cmd);
 	restore_and_cleanup(saved_stdin, saved_stdout, data);
 	return (0);
 }
-
-

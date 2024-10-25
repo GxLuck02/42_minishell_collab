@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 16:48:45 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:23:07 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
+static void print_echo(t_data *data, int i)
+{
+	
+	ft_putstr_fd(data->cmd->cmd_param[i], 1);
+	if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
+		ft_putchar_fd(' ', 1);
+	i++;
+	return ;
+}
 int	check_infile(t_data *data)
 {
 	char *buf;
@@ -22,10 +31,10 @@ int	check_infile(t_data *data)
 		{
 			if (!buf)
 				break ;
-        	printf("%s", buf);
+			printf("%s", buf);
 			free(buf);
-    	}
-		return (1);
+		}
+	return (1);
 	}
 	return (0);
 }
@@ -70,9 +79,7 @@ int	ft_echo(t_data *data)
 	{
 		while (data->cmd->cmd_param[i])
 		{
-			ft_putstr_fd(data->cmd->cmd_param[i], 1);
-			if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
-				ft_putchar_fd(' ', 1);
+			print_echo(data, i);
 			i++;
 		}
 	}
@@ -80,11 +87,7 @@ int	ft_echo(t_data *data)
 	{
 		i = 0;
 		while (data->cmd->cmd_param[++i])
-		{
-			ft_putstr_fd(data->cmd->cmd_param[i], 1);
-			if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
-				ft_putchar_fd(' ', 1);
-		}
+			print_echo(data, i);
 		ft_putstr_fd("\n", 1);
 	}
 	return (0);

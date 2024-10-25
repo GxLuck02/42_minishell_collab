@@ -1,50 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils4.c                                           :+:      :+:    :+:   */
+/*   exec_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 16:07:13 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/25 16:23:13 by tmontani         ###   ########.fr       */
+/*   Created: 2024/10/25 16:27:27 by tmontani          #+#    #+#             */
+/*   Updated: 2024/10/25 16:37:43 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-void	add_pid_tab(t_data *data, pid_t pid)
+void	exec_loop(t_data *data, int i, int len_cmd)
 {
-	static int	i = 0;
+	pid_t	pid;
+	int		pipe_fd[2];
+	int		prev_fd;
 
-	if (!data->pid_tab[i])
+	prev_fd = -1;
+	while (++i < len_cmd)
 	{
-		data->pid_tab[i] = pid;
-		data->pid_index = i;
-		i++;
+		if (i < len_cmd - 1 && pipe(pipe_fd) == -1)
+			pipe_error(data);
+		pid = fork();
+		if (pid < 0)
+			fork_fail(data);
+		if (pid == 0)
+			handle_child(data, len_cmd, prev_fd, pipe_fd, i);
+		else
+			handle_parent(data, len_cmd, pid, i, &prev_fd, pipe_fd);
+		data->cmd = data->cmd->next;
 	}
-	else
-	{
-		data->pid_tab[i] = pid;
-		data->pid_index = i;
-		i++;
-	}
-}
-
-void	wait_all(t_data *data, int len_cmd)
-{
-	int	i;
-
-	i = 0;
-	while (i < len_cmd)
-	{
-		waitpid(data->pid_tab[i], NULL, 0);
-		i++;
-	}
-}
-
-void	pipe_error(t_data *data)
-{
-	perror("pipe");
-	free(data->pid_tab);
-	exit(EXIT_FAILURE);
+	return ;
 }
