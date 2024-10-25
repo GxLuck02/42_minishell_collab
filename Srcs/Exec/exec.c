@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 16:52:29 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:44:58 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,18 +126,18 @@ envoie la commande
 */
 int	exec(t_data *data)
 {
-    int	len_cmd;
-    int	saved_stdin;
-    int	saved_stdout;
+	int	len_cmd;
+	int	saved_stdin;
+	int	saved_stdout;
 	int	i;
 
+	i = -1;
 	len_cmd = ft_lstsize_circular(data->cmd);
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
-	i = -1;
 	if (data->cmd->skip_cmd == 1)
 		return (0);
-    if (len_cmd == 0)
+	if (len_cmd == 0)
 		return (0);
 	if (len_cmd == 1 && is_builtin(data))
 		return (execute_builtin(data));

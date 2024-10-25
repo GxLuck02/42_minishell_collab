@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 17:23:07 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:41:03 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-static void print_echo(t_data *data, int i)
+static void	print_echo(t_data *data, int i)
 {
-	
 	ft_putstr_fd(data->cmd->cmd_param[i], 1);
 	if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
 		ft_putchar_fd(' ', 1);
 	i++;
 	return ;
 }
+
 int	check_infile(t_data *data)
 {
-	char *buf;
-	
+	char	*buf;
+
 	if (data->cmd->infile != -2 && data->cmd->infile >= 0)	
 	{
-	    while ((buf = get_next_line(data->cmd->infile)))
+		buf = get_next_line(data->cmd->infile);
+		while (buf)
 		{
-			if (!buf)
-				break ;
 			printf("%s", buf);
 			free(buf);
+			buf = get_next_line(data->cmd->infile);
 		}
-	return (1);
+		return (1);
 	}
 	return (0);
 }
