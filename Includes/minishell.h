@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/23 18:21:37 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:02:46 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,10 +172,7 @@ char		**ft_split_path(char const *path, char c);
 void		ft_print_array(char **array);
 char		**creat_env_copy(t_env *env);
 void		make_cmd(t_data *data, int inside_pipe);
-void		execute_pipe(t_data *data);
 int			ft_lstsize_circular(t_cmd	*cmd);
-void		handle_child(int *pipe_fd, t_data *data);
-void		handle_parent(int *pipe_fd);
 t_env		*ft_getenv(char *var, t_env *env);
 int			execute_builtin(t_data *data);
 void		set_redir(t_data *data);
@@ -191,5 +188,10 @@ void		handle_ctrl_d(char *cmd_line);
 //pipe
 void		wait_all(t_data *data, int len_cmd);
 void    add_pid_tab(t_data *data, pid_t pid);
+
+//exec_loop_utils
+void		init_pid_tab(t_data *data, int len_cmd);
+void		fork_fail(t_data *data);
+void		handle_child(t_data *data, int len_cmd, int prev_fd, int pipe_fd[], int i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/24 18:52:41 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:02:39 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,20 +132,17 @@ void exec(t_data *data)
     int pipe_fd[2];
     int prev_fd = -1;
     pid_t pid;
+	int	i;
 
+	i = 0;
     if (len_cmd == 0) return;
-    data->pid_tab = malloc(sizeof(pid_t) * len_cmd);
-    if (data->pid_tab == NULL)
-    {
-        perror("malloc");
-        exit(EXIT_FAILURE);
-    }
+	init_pid_tab(data, len_cmd);
 	if (len_cmd == 1 && is_builtin(data))
 	{
 		execute_builtin(data);
 		return ;
 	}
-    for (int i = 0; i < len_cmd; i++)
+    while  (i < len_cmd)
     {
         if (i < len_cmd - 1 && pipe(pipe_fd) == -1)
         {
@@ -155,36 +152,9 @@ void exec(t_data *data)
         }
         pid = fork();
         if (pid < 0)
-        {
-            perror("fork failed");
-            free(data->pid_tab);
-            exit(EXIT_FAILURE);
-		}
+			fork_fail(data);
         if (pid == 0) // Processus enfant
-        {
-             set_redir(data); // Gérer les redirections si nécessaire
-
-            // Si on est pas dans le premier processus, rediriger stdin vers le pipe précédent
-            if (prev_fd != -1)
-            {
-                dup2(prev_fd, STDIN_FILENO);
-                close(prev_fd);
-            }
-            if (i < len_cmd - 1)
-            {
-				puts("here\n");
-                close(pipe_fd[0]);  
-                dup2(pipe_fd[1], STDOUT_FILENO);
-                close(pipe_fd[1]);
-            }
-			if (is_builtin(data))
-			{	
-				execute_builtin(data);
-				exit(0);
-			}
-			else
-            	make_cmd(data, len_cmd > 1); // Exécuter la commande avec pipes si nécessaire
-        }
+			handle_child(data, len_cmd, prev_fd, pipe_fd, i);
         else // Processus parent
         {
             data->pid_tab[i] = pid;  // Sauvegarder le PID du processus enfant
@@ -198,6 +168,7 @@ void exec(t_data *data)
                 prev_fd = pipe_fd[0]; // Sauvegarder l'extrémité de lecture pour la prochaine commande
             }
         }
+		i++;
         data->cmd = data->cmd->next; // Avancer vers la commande suivante
     }
 	wait_all(data, len_cmd);
