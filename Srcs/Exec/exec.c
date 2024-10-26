@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 17:44:58 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:42:20 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,26 +124,31 @@ boucle sur la liste de commandes
 prepare les pipes
 envoie la commande
 */
-int	exec(t_data *data)
+void	exec(t_data *data)
 {
 	int	len_cmd;
 	int	saved_stdin;
 	int	saved_stdout;
-	int	i;
 
-	i = -1;
 	len_cmd = ft_lstsize_circular(data->cmd);
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
+	if (data->heredoc == 1)
+	{
+		data->heredoc = 0;
+		return ;
+	}
 	if (data->cmd->skip_cmd == 1)
-		return (0);
+		return ;
 	if (len_cmd == 0)
-		return (0);
+		return ;
 	if (len_cmd == 1 && is_builtin(data))
-		return (execute_builtin(data));
-	init_pid_tab(data, len_cmd);
-	exec_loop(data, i, len_cmd);
+	{
+		execute_builtin(data);
+		return ;
+	}
+	exec_loop(data, len_cmd);
 	wait_all(data, len_cmd);
 	restore_and_cleanup(saved_stdin, saved_stdout, data);
-	return (0);
+	return ;
 }

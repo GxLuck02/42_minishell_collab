@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/22 16:59:54 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/26 13:02:33 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (is_pars(&data, cmd_line) == 0)
 			continue ;
+		print_cmd_list(data.cmd);
 		exec(&data);
 		free_cmd(&data.cmd);
 		free_token(&data.token);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:26:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:10:27 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/26 12:21:42 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

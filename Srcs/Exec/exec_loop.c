@@ -6,17 +6,20 @@
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 16:27:27 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/25 18:05:20 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:42:09 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-void	exec_loop(t_data *data, int i, int len_cmd)
+void	exec_loop(t_data *data, int len_cmd)
 {
 	pid_t	pid;
+	int		i;
 
+	i = -1;
 	data->prev_fd = -1;
+	init_pid_tab(data, len_cmd);
 	while (++i < len_cmd)
 	{
 		if (i < len_cmd - 1 && pipe(data->pipe_fd) == -1)

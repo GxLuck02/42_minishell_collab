@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 05:40:00 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/14 13:37:56 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:13:16 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_data(t_data *data)
 	data->env_tab = NULL;
 	data->absolute_path = NULL;
 	data->exit_code = 0;
+	data->heredoc = 0;
 }
 
 int	init_minishell(t_data *data, char **envp)
