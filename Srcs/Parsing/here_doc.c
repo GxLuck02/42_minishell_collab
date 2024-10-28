@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:47:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 19:01:46 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:59:22 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+volatile sig_atomic_t g_signal_received;
 
 static bool	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
 {
@@ -18,6 +20,9 @@ static bool	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
 
 	while (1)
 	{
+		setup_signals();
+		if (g_signal_received)
+			return (-1);
 		buf = readline("> ");
 		if (!buf)
 		{

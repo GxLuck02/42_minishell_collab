@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 14:05:28 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:31:34 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ void		reset_stdout(int saved_stdout);
 void		error_path_var(t_data *data);
 
 //signals
+extern volatile sig_atomic_t g_signal_received;
 void		setup_signals(void);
 void		handle_ctrl_d(char *cmd_line);
 
