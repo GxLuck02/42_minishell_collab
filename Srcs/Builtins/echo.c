@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 17:45:40 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:07:25 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_n(char **cmd_param, int *index)
 			(*index)++;
 		}
 		else
-			break;
+			break ;
 	}
 	if (n_find == true)
 		return (1);

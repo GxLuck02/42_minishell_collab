@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 17:32:47 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:07:06 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,10 @@ void		invalid_var(char *var);
 
 //lexer
 int			replace_dollar(char **cmd_line, t_data *data);
+int			replace_dollar_var(char *cmd_line, int *i, \
+									t_data *data, char **str);
+int			add_char(char *cmd_line, char **new_str, \
+									int *index, t_data *data);
 void		quote_choice(bool *sq, bool *dq, char c);
 bool		is_pars(t_data *data, char *cmd_line);
 int			open_quote(char *str);
