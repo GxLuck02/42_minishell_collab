@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/26 16:32:24 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:32:47 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int			ft_lstsize_env(t_env *lst);
 char		**ft_split_path(char const *path, char c);
 void		ft_print_array(char **array);
 char		**creat_env_copy(t_env *env);
-void		make_cmd(t_data *data, int inside_pipe);
+void		make_cmd(t_data *data);
 int			ft_lstsize_circular(t_cmd	*cmd);
 t_env		*ft_getenv(char *var, t_env *env);
 int			execute_builtin(t_data *data);

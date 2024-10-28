@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:07:13 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/25 16:23:13 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:32:20 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,16 @@ void	add_pid_tab(t_data *data, pid_t pid)
 void	wait_all(t_data *data, int len_cmd)
 {
 	int	i;
+	int	status;
 
 	i = 0;
 	while (i < len_cmd)
 	{
-		waitpid(data->pid_tab[i], NULL, 0);
+		waitpid(data->pid_tab[i], &status, 0);
+		if (WIFEXITED(status))
+			data->exit_code = WEXITSTATUS(status);
+		else
+			printf("Child process error\n");
 		i++;
 	}
 }

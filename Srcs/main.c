@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 13:44:41 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:32:30 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (is_pars(&data, cmd_line) == 0)
 			continue ;
+		print_cmd_list(data.cmd);
 		exec(&data);
 		free_cmd(&data.cmd);
 		free_token(&data.token);
