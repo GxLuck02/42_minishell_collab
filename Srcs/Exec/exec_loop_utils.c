@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_loop_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:33 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 18:07:11 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:05:17 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	handle_child(t_data *data, int len_cmd, int i)
 		exit(0);
 	}
 	else
-		make_cmd(data, len_cmd > 1);
+		make_cmd(data);
 }
 
 void	handle_parent(t_data *data, int len_cmd, pid_t pid, int i)

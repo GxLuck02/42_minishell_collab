@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 18:11:07 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:11:29 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,18 @@ int	ft_echo(t_data *data)
 	int	i;
 
 	i = 1;
+	if (data->heredoc == 1)
+	{
+		printf("\n");
+		return (0);
+	}
 	if (check_infile(data))
 		return (0);
 	else if (check_n(data->cmd->cmd_param, &i))
 	{
-		while (data->cmd->cmd_param[i])
-		{
+		i--;
+		while (data->cmd->cmd_param[++i])
 			print_echo(data, i);
-			i++;
-		}
 	}
 	else
 	{

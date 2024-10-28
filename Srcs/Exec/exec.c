@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/26 16:42:20 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:10:46 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,12 @@ si oui execute la commande
 recupere le complete_path (path/cmd)
 execute la commande
 */
-void	make_cmd(t_data *data, int inside_pipe)
+void	make_cmd(t_data *data)
 {
 	char	*complete_path;
 	t_env	*path_var;
 
-	if (!inside_pipe)
-		set_redir(data);
+	set_redir(data);
 	path_var = ft_getenv("PATH", data->env);
 	if (!access(data->cmd->cmd_param[0], F_OK | X_OK))
 	{
@@ -86,6 +85,7 @@ void	make_cmd(t_data *data, int inside_pipe)
 		exit(127);
 	}
 	execve(complete_path, data->cmd->cmd_param, data->env_tab);
+	return ;
 }
 
 static int	return_parent_process(pid_t pid)
@@ -112,7 +112,7 @@ void	handle_cmd(t_data *data)
 	else if (pid == 0)
 	{
 		set_redir(data);
-		make_cmd(data, 0);
+		make_cmd(data);
 	}
 	else
 		data->exit_code = return_parent_process(pid);
@@ -133,11 +133,6 @@ void	exec(t_data *data)
 	len_cmd = ft_lstsize_circular(data->cmd);
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
-	if (data->heredoc == 1)
-	{
-		data->heredoc = 0;
-		return ;
-	}
 	if (data->cmd->skip_cmd == 1)
 		return ;
 	if (len_cmd == 0)
