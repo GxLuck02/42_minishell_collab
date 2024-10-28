@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/23 14:43:05 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:32:24 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ typedef struct s_data
 	t_cmd	*cmd;
 	bool	sq;
 	int		exit_code;
+	pid_t	*pid_tab;
+	int		heredoc;
+	int		pid_index;
+	int		prev_fd;
+	int		pipe_fd[2];
 }				t_data;
 
 //data
@@ -127,6 +132,7 @@ char		*get_value(t_env *env, char *key);
 int			exist_in_env(t_data *data, int *i, char *str);
 char		*get_dollar_word(char *line, int size);
 int			open_pipe(t_data *data);
+int			check_syntax(t_data *data);
 
 //tokeniser
 bool		creat_token_list(t_token **begin, char *cmd_line);
@@ -134,7 +140,6 @@ int			ft_isspecial(char *str);
 int			len_token(char *str, int *quotes);
 int			append_token(t_token **begin, char *str, int type, bool quoted);
 void		free_token(t_token **list);
-int			check_syntax(t_data *data);
 
 //cmd_list
 int			creat_cmd_list(t_data *data);
@@ -160,6 +165,7 @@ int			len_array(char **array);
 void		bubble_sort(char **tab, int len_env);
 void		equal_check(t_env **env, char *str);
 void		key_var_to_node(char **var, t_env **node);
+void		print_cmd_list(t_cmd *list);
 
 //error
 bool		print_error(char *err);
@@ -171,10 +177,7 @@ char		**ft_split_path(char const *path, char c);
 void		ft_print_array(char **array);
 char		**creat_env_copy(t_env *env);
 void		make_cmd(t_data *data, int inside_pipe);
-void		execute_pipe(t_data *data);
 int			ft_lstsize_circular(t_cmd	*cmd);
-void		handle_child(int *pipe_fd, t_data *data);
-void		handle_parent(int *pipe_fd, int status, pid_t pid);
 t_env		*ft_getenv(char *var, t_env *env);
 int			execute_builtin(t_data *data);
 void		set_redir(t_data *data);
@@ -186,5 +189,21 @@ void		error_path_var(t_data *data);
 //signals
 void		setup_signals(void);
 void		handle_ctrl_d(char *cmd_line);
+
+//pipe
+void		wait_all(t_data *data, int len_cmd);
+void		add_pid_tab(t_data *data, pid_t pid);
+
+//exec_loop_utils
+void		init_pid_tab(t_data *data, int len_cmd);
+void		fork_fail(t_data *data);
+void		handle_child(t_data *data, int len_cmd, int i);
+void		handle_parent(t_data *data, int len_cmd, pid_t pid, int i);
+void		pipe_error(t_data *data);
+void		restore_and_cleanup(int saved_stdin, int saved_stdout,
+				t_data *data);
+
+//exec_loop
+void		exec_loop(t_data *data, int len_cmd);
 
 #endif

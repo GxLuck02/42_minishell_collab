@@ -1,29 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 13:39:13 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/21 19:03:05 by tmontani         ###   ########.fr       */
+/*   Created: 2024/10/22 16:07:13 by tmontani          #+#    #+#             */
+/*   Updated: 2024/10/25 16:23:13 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-int	ft_pwd(void)
+void	add_pid_tab(t_data *data, pid_t pid)
 {
-	char	cwd[PATH_MAX];
+	static int	i = 0;
 
-	if (getcwd(cwd, PATH_MAX))
+	if (!data->pid_tab[i])
 	{
-		printf("%s\n", cwd);
-		return (0);
+		data->pid_tab[i] = pid;
+		data->pid_index = i;
+		i++;
 	}
 	else
 	{
-		perror("pwd");
-		return (1);
+		data->pid_tab[i] = pid;
+		data->pid_index = i;
+		i++;
 	}
+}
+
+void	wait_all(t_data *data, int len_cmd)
+{
+	int	i;
+
+	i = 0;
+	while (i < len_cmd)
+	{
+		waitpid(data->pid_tab[i], NULL, 0);
+		i++;
+	}
+}
+
+void	pipe_error(t_data *data)
+{
+	perror("pipe");
+	free(data->pid_tab);
+	exit(EXIT_FAILURE);
 }

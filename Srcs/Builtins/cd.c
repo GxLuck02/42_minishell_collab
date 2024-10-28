@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 14:15:23 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/21 18:19:27 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:06:36 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int	cd_special(t_data *data, char *pwd, char *new_pwd)
 		current_pwd = ft_getenv("PWD", data->env);
 		free_and_assign_pwd_value(current_pwd, new_pwd);
 		update_old_pwd(data, pwd);
-		return (1);
+		return (0);
 	}
 	else if (!ft_strcmp(data->cmd->cmd_param[1], "-"))
 	{
@@ -102,9 +102,9 @@ static int	cd_special(t_data *data, char *pwd, char *new_pwd)
 		current_pwd = ft_getenv("PWD", data->env);
 		free_and_assign_pwd_value(current_pwd, new_pwd);
 		update_old_pwd(data, pwd);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (1);
 }
 
 int	ft_cd(t_data *data)
@@ -125,12 +125,12 @@ int	ft_cd(t_data *data)
 		current_pwd = ft_getenv("PWD", data->env);
 		free_and_assign_pwd_value(current_pwd, new_pwd);
 		update_old_pwd(data, old_pwd);
-		return (1);
+		return (0);
 	}
 	else
 	{
 		free(old_pwd);
 		printf("bash %s: No such file or directory\n", data->cmd->cmd_param[0]);
 	}
-	return (0);
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/23 16:02:06 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:42:21 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd_line;
 	t_data	data;
 
+	sleep(5);
 	setup_signals();
 	if (argc < 1 || !argv)
 		return (1);
@@ -30,6 +31,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (is_pars(&data, cmd_line) == 0)
 			continue ;
+		print_cmd_list(data.cmd);
 		exec(&data);
 		free_cmd(&data.cmd);
 		free_token(&data.token);

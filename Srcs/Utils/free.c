@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:05:38 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 16:24:38 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:29:06 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	free_node(t_env *env)
 {
-	free(env->key);
-	free(env->value);
+	if (!env)
+		return ;
+	if (env->value)
+		free(env->value);
+	if (env->key)
+		free(env->key);
 	free(env);
 }
 

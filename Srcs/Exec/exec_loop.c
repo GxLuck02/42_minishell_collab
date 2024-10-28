@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_minishell.c                                   :+:      :+:    :+:   */
+/*   exec_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 05:40:00 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/26 16:13:16 by tmontani         ###   ########.fr       */
+/*   Created: 2024/10/25 16:27:27 by tmontani          #+#    #+#             */
+/*   Updated: 2024/10/26 16:42:09 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-void	init_data(t_data *data)
+void	exec_loop(t_data *data, int len_cmd)
 {
-	data->env = NULL;
-	data->cmd = NULL;
-	data->token = NULL;
-	data->env_tab = NULL;
-	data->absolute_path = NULL;
-	data->exit_code = 0;
-	data->heredoc = 0;
-}
+	pid_t	pid;
+	int		i;
 
-int	init_minishell(t_data *data, char **envp)
-{
-	init_data(data);
-	if (load_env(data, envp) == 0)
-		return (0);
-	return (1);
+	i = -1;
+	data->prev_fd = -1;
+	init_pid_tab(data, len_cmd);
+	while (++i < len_cmd)
+	{
+		if (i < len_cmd - 1 && pipe(data->pipe_fd) == -1)
+			pipe_error(data);
+		pid = fork();
+		if (pid < 0)
+			fork_fail(data);
+		if (pid == 0)
+			handle_child(data, len_cmd, i);
+		else
+			handle_parent(data, len_cmd, pid, i);
+		data->cmd = data->cmd->next;
+	}
+	return ;
 }

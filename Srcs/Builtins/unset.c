@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:35:37 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/18 16:37:50 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:04:00 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ int	ft_unset(t_env **env, char **args)
 			if (!is_valid_var(args[i]))
 			{
 				invalid_var(args[i]);
-				return (0);
+				return (1);
 			}
 			else if (!unset_var(env, args[i]))
-				return (0);
+				return (1);
 			i++;
 		}
 	}
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 14:39:12 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:27:51 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	set_export_var(t_env **env, char *str)
 	var = ft_envsplit(str);
 	if (!var || !new_node)
 	{
-		if (new_node)
-			free(new_node);
+		free_node(new_node);
 		return (0);
 	}
 	key_var_to_node(var, &new_node);
@@ -41,7 +40,8 @@ int	set_export_var(t_env **env, char *str)
 	{
 		if (new_node->equal == true)
 			change_value(env, new_node);
-		free(new_node);
+		else
+			free_node(new_node);
 	}
 	else
 		add_node_env(env, new_node);
@@ -70,7 +70,7 @@ int	export_no_args(t_env *env)
 	int		i;
 
 	if (!env)
-		return (0);
+		return (1);
 	i = 0;
 	new_tab = creat_table(env);
 	if (!new_tab)
@@ -86,7 +86,7 @@ int	export_no_args(t_env *env)
 		i++;
 	}
 	free(new_tab);
-	return (1);
+	return (0);
 }
 
 int	ft_export(t_env **env, char **args)
@@ -103,12 +103,12 @@ int	ft_export(t_env **env, char **args)
 			if (!is_valid_var(args[i]))
 			{
 				invalid_var(args[i]);
-				return (0);
+				return (1);
 			}
 			else if (!set_export_var(env, args[i]))
-				return (0);
+				return (1);
 			i++;
 		}
 	}
-	return (1);
+	return (0);
 }

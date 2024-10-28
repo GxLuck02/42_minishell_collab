@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:39:16 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/03 18:58:48 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:11:48 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	open_file(t_data *data, char *file_name, int type, t_token *token)
 	if (type == INPUT)
 		fd = open(file_name, O_RDONLY, 0644);
 	else if (type == HEREDOC)
+	{
+		data->heredoc = 1;
 		fd = here_doc(data, file_name, token->quoted);
+	}
 	else if (type == APPEND)
 		fd = open(file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else if (type == TRUNC)

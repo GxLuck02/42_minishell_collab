@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 06:18:25 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/23 16:32:58 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:25:13 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	load_default_env(t_env **head)
 		return (0);
 	if (!create_node_env(head, "CC=/usr/bin/gcc"))
 		return (0);
-	if (!create_node_env(head, "SHLVL=0"))
+	if (!create_node_env(head, "SHLVL=1"))
 		return (0);
 	if (!create_node_env(head, "_=/usr/bin/env"))
 		return (0);

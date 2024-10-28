@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 16:42:59 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/25 18:11:07 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+static void	print_echo(t_data *data, int i)
+{
+	ft_putstr_fd(data->cmd->cmd_param[i], 1);
+	if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
+		ft_putchar_fd(' ', 1);
+	i++;
+	return ;
+}
+
+int	check_infile(t_data *data)
+{
+	char	*buf;
+
+	if (data->cmd->infile != -2 && data->cmd->infile >= 0)
+	{
+		buf = get_next_line(data->cmd->infile);
+		while (buf)
+		{
+			printf("%s", buf);
+			free(buf);
+			buf = get_next_line(data->cmd->infile);
+		}
+		return (1);
+	}
+	return (0);
+}
 
 int	check_n(char **cmd_param, int *index)
 {
@@ -46,13 +73,13 @@ int	ft_echo(t_data *data)
 	int	i;
 
 	i = 1;
-	if (check_n(data->cmd->cmd_param, &i))
+	if (check_infile(data))
+		return (0);
+	else if (check_n(data->cmd->cmd_param, &i))
 	{
 		while (data->cmd->cmd_param[i])
 		{
-			ft_putstr_fd(data->cmd->cmd_param[i], STDOUT_FILENO);
-			if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
-				ft_putchar_fd(' ', STDOUT_FILENO);
+			print_echo(data, i);
 			i++;
 		}
 	}
@@ -60,12 +87,8 @@ int	ft_echo(t_data *data)
 	{
 		i = 0;
 		while (data->cmd->cmd_param[++i])
-		{
-			ft_putstr_fd(data->cmd->cmd_param[i], STDOUT_FILENO);
-			if (data->cmd->next != NULL && data->cmd->cmd_param[i + 1])
-				ft_putchar_fd(' ', STDOUT_FILENO);
-		}
-		ft_putstr_fd("\n", STDOUT_FILENO);
+			print_echo(data, i);
+		ft_putstr_fd("\n", 1);
 	}
-	return (1);
+	return (0);
 }

@@ -1,13 +1,12 @@
-
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by tmontani          #+#    #+#              #
-#    Updated: 2024/10/14 16:01:38 by ttreichl         ###   ########.fr        #
+#    Updated: 2024/10/25 16:27:46 by tmontani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +22,7 @@ READLINE_PATH	= $(HOME)/.brew/opt/readline/
 # Source files
 BUILTINS		= cd echo env exit export_utils export pwd unset
 
-EXEC			= exec pipe_utils utils utils2 signals utils3
+EXEC			= exec exec_loop exec_loop_utils utils4 utils utils2 signals utils3
 
 INIT			= env_list_utils init_minishell list_env load_env
 

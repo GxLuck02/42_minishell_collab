@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 18:21:40 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/26 16:42:20 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	make_cmd(t_data *data, int inside_pipe)
 	char	*complete_path;
 	t_env	*path_var;
 
-	if (inside_pipe)
+	if (!inside_pipe)
 		set_redir(data);
 	path_var = ft_getenv("PATH", data->env);
 	if (!access(data->cmd->cmd_param[0], F_OK | X_OK))
@@ -128,27 +128,27 @@ void	exec(t_data *data)
 {
 	int	len_cmd;
 	int	saved_stdin;
-	int	pipe;
+	int	saved_stdout;
 
 	len_cmd = ft_lstsize_circular(data->cmd);
 	saved_stdin = dup(STDIN_FILENO);
+	saved_stdout = dup(STDOUT_FILENO);
+	if (data->heredoc == 1)
+	{
+		data->heredoc = 0;
+		return ;
+	}
 	if (data->cmd->skip_cmd == 1)
 		return ;
-	while (len_cmd)
+	if (len_cmd == 0)
+		return ;
+	if (len_cmd == 1 && is_builtin(data))
 	{
-		pipe = len_cmd > 1;
-		if (pipe == 0)
-		{
-			if (is_builtin(data))
-				execute_builtin(data);
-			else
-				handle_cmd(data);
-		}
-		else
-			execute_pipe(data);
-		data->cmd = data->cmd->next;
-		len_cmd--;
+		execute_builtin(data);
+		return ;
 	}
-	reset_stdin(saved_stdin);
+	exec_loop(data, len_cmd);
+	wait_all(data, len_cmd);
+	restore_and_cleanup(saved_stdin, saved_stdout, data);
 	return ;
 }
