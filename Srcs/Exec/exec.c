@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 15:10:46 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:21:34 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,9 @@ void	exec(t_data *data)
 		return ;
 	if (len_cmd == 0)
 		return ;
-	if (len_cmd == 1 && is_builtin(data))
+	if (data->cmd->cmd_param[0] == NULL)
+		return ;
+	if (len_cmd == 1 && is_builtin(data) == 1)
 	{
 		execute_builtin(data);
 		return ;
