@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:40:59 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/25 17:18:38 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:50:44 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	check_combination(t_token *tmp)
 	int	ret;
 
 	ret = 1;
-	if (ft_strncmp(tmp->str, ">", 1) == 0 || ft_strncmp(tmp->str, "<", 1) == 0)
+	if (ft_strcmp(tmp->str, ">") == 0 || ft_strcmp(tmp->str, "<") == 0)
 	{
 		if (ft_strlen(tmp->str) > 2 || (!ft_strcmp(tmp->str, "<>") || \
 			!ft_strcmp(tmp->str, "><")))
