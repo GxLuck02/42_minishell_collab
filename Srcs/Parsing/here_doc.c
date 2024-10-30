@@ -6,73 +6,50 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:47:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/30 17:20:20 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:34:01 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
 
-static int	replace_dollar_heredoc(char **cmd_line, t_data *data)
+void	here_doc_loop(t_data *data, int fd, char *word, bool quoted)
 {
-	int			i;
-	char		*new_str;
+	char	*buf;
 
-	i = 0;
-	new_str = ft_strdup("");
-	while ((*cmd_line)[i] != '\0')
+	while (1)
 	{
-		if ((*cmd_line)[i] && !data->sq && (*cmd_line)[i + 1] \
-			&& (*cmd_line)[i] == '$' && \
-			((*cmd_line)[i + 1] != '\'') && (*cmd_line)[i + 1] != '"' \
-			&& (ft_isalpha((*cmd_line)[i + 1]) || \
-			(*cmd_line)[i + 1] == '?' || (*cmd_line)[i + 1] == '_' \
-			|| (*cmd_line)[i + 1] == '$') \
-			&& !replace_dollar_var((*cmd_line), &i, data, &new_str))
-			return (0);
-		if ((*cmd_line)[i] && !add_char(&(*cmd_line)[i], &new_str, &i, data))
-			return (0);
+		buf = readline("> ");
+		if (data->heredoc_interrupted)
+			break ;
+		if (!buf || !ft_strncmp(word, buf, ft_strlen(word)))
+		{
+			if (!buf)
+				print_error(word);
+			break ;
+		}
+		if (!quoted && !replace_dollar_heredoc(&buf, data))
+		{
+			free(buf);
+			free_all(data, "Error : malloc error", EXT_MALLOC);
+		}
+		write(fd, buf, ft_strlen(buf));
+		write(fd, "\n", 1);
+		free(buf);
 	}
-	free(*cmd_line);
-	*cmd_line = new_str;
-	return (1);
 }
 
-static bool read_in_stdin(t_data *data, int fd, char *word, bool quoted)
+static bool	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
 {
-    char *buf;
-    struct sigaction *prev_handler;
+	struct sigaction	*prev_handler;
 
-    data->heredoc_interrupted = false;
-    prev_handler = signal_heredoc(data);
-    while (1)
-    {
-        buf = readline("> ");
-        if (data->heredoc_interrupted)
-            break;
-        if (!buf)
-        {
-            print_error("warning: here-doc delimited by end-of-file (wanted '");
-            print_error(word);
-            print_error("')\n");
-            break;
-        }
-        if (!ft_strncmp(word, buf, ft_strlen(word)))
-            break;
-        if (!quoted && !replace_dollar_heredoc(&buf, data))
-        {
-            free(buf);
-            free_all(data, "Error : malloc error", EXT_MALLOC);
-        }
-        write(fd, buf, ft_strlen(buf));
-        write(fd, "\n", 1);
-        free(buf);
-    }
-    sigaction(SIGINT, prev_handler, NULL);
-    free(prev_handler);
-    close(fd);
-    return (!data->heredoc_interrupted);
+	data->heredoc_interrupted = false;
+	prev_handler = signal_heredoc(data);
+	here_doc_loop(data, fd, word, quoted);
+	sigaction(SIGINT, prev_handler, NULL);
+	free(prev_handler);
+	close(fd);
+	return (!data->heredoc_interrupted);
 }
-
 
 bool	gest_endfile(char *endfile)
 {

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+         #
+#    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by tmontani          #+#    #+#              #
-#    Updated: 2024/10/30 16:44:42 by tmontani         ###   ########.fr        #
+#    Updated: 2024/10/30 17:25:34 by ttreichl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ PARSING			= cmd_list_param cmd_list_utils create_cmd_list create_token_list \
 				  replace_dollar token_list_utils check_syntax
 				  
 PROMPT			= prompt
-UTILS			= bubble_sort data_utils free_cmd free
+UTILS			= bubble_sort data_utils free_cmd free here_doc_utils
 MAIN			= main
 
 

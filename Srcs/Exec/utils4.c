@@ -6,11 +6,20 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:07:13 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/28 17:38:23 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:50:38 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Includes/minishell.h"
+
+void	jump_skip_cmd(t_data *data, int *len_cmd)
+{
+	while (data->cmd->skip_cmd == 1 && *len_cmd)
+	{
+		data->cmd = data->cmd->next;
+		(*len_cmd)--;
+	}
+}
 
 void	add_pid_tab(t_data *data, pid_t pid)
 {

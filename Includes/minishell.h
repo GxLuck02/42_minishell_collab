@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/30 17:20:48 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:50:48 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void		bubble_sort(char **tab, int len_env);
 void		equal_check(t_env **env, char *str);
 void		key_var_to_node(char **var, t_env **node);
 void		print_cmd_list(t_cmd *list);
+int			replace_dollar_heredoc(char **cmd_line, t_data *data);
 
 //error
 bool		print_error(char *err);
@@ -190,6 +191,7 @@ void		ft_free_data(t_data *data);
 void		reset_stdin(int saved_stdin);
 void		reset_stdout(int saved_stdout);
 void		error_path_var(t_data *data);
+void		jump_skip_cmd(t_data *data, int *len_cmd);
 
 //signals
 void		setup_signals(void);
