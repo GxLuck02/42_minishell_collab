@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 18:07:25 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:20:43 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	ft_echo(t_data *data)
 	i = 1;
 	if (data->heredoc == 1)
 	{
+		data->heredoc = 0;
 		printf("\n");
 		return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 18:07:06 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:20:48 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_data
 	int		pid_index;
 	int		prev_fd;
 	int		pipe_fd[2];
+	bool	heredoc_interrupted;
 }				t_data;
 
 //data
@@ -193,6 +194,8 @@ void		error_path_var(t_data *data);
 //signals
 void		setup_signals(void);
 void		handle_ctrl_d(char *cmd_line);
+void		*signal_heredoc(t_data *data);
+void		handle_sigint_heredoc(int sig);
 
 //pipe
 void		wait_all(t_data *data, int len_cmd);

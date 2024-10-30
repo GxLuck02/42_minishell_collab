@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 17:33:01 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:20:33 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,20 @@ void	exec(t_data *data)
 	len_cmd = ft_lstsize_circular(data->cmd);
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
-	if (data->cmd->skip_cmd == 1)
-		return ;
+	while (data->cmd->skip_cmd == 1 && len_cmd)
+	{
+		data->cmd = data->cmd->next;
+		len_cmd--;
+	}
 	if (len_cmd == 0)
 		return ;
-	if (data->cmd->cmd_param[0] == NULL)
+	if ((data->cmd->cmd_param == NULL && data->cmd->skip_cmd != 1 )|| \
+		data->cmd->cmd_param[0] == NULL)
 		return ;
 	if (len_cmd == 1 && is_builtin(data) == 1)
 	{
+		if (data->cmd->skip_cmd == 1)
+			return ;
 		execute_builtin(data);
 		return ;
 	}

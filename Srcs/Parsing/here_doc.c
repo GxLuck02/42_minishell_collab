@@ -6,7 +6,7 @@
 /*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:47:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 18:00:29 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:20:20 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,34 +37,42 @@ static int	replace_dollar_heredoc(char **cmd_line, t_data *data)
 	return (1);
 }
 
-static bool	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
+static bool read_in_stdin(t_data *data, int fd, char *word, bool quoted)
 {
-	char	*buf;
+    char *buf;
+    struct sigaction *prev_handler;
 
-	while (1)
-	{
-		buf = readline("> ");
-		if (!buf)
-		{
-			print_error("warning: here-doc delimited by end-of-file (wanted '");
-			print_error(word);
-			print_error("')\n");
-			break ;
-		}
-		if (!ft_strncmp(word, buf, ft_strlen(word)))
-			break ;
-		if (!quoted && !replace_dollar_heredoc(&buf, data))
-		{
-			free(buf);
-			free_all(data, "Error : malloc error", EXT_MALLOC);
-		}
-		write(fd, buf, ft_strlen(buf));
-		write(fd, "\n", 1);
-		free(buf);
-	}
-	close(fd);
-	return (true);
+    data->heredoc_interrupted = false;
+    prev_handler = signal_heredoc(data);
+    while (1)
+    {
+        buf = readline("> ");
+        if (data->heredoc_interrupted)
+            break;
+        if (!buf)
+        {
+            print_error("warning: here-doc delimited by end-of-file (wanted '");
+            print_error(word);
+            print_error("')\n");
+            break;
+        }
+        if (!ft_strncmp(word, buf, ft_strlen(word)))
+            break;
+        if (!quoted && !replace_dollar_heredoc(&buf, data))
+        {
+            free(buf);
+            free_all(data, "Error : malloc error", EXT_MALLOC);
+        }
+        write(fd, buf, ft_strlen(buf));
+        write(fd, "\n", 1);
+        free(buf);
+    }
+    sigaction(SIGINT, prev_handler, NULL);
+    free(prev_handler);
+    close(fd);
+    return (!data->heredoc_interrupted);
 }
+
 
 bool	gest_endfile(char *endfile)
 {
