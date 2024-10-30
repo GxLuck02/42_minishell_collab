@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+         #
+#    By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 02:11:07 by tmontani          #+#    #+#              #
-#    Updated: 2024/10/09 15:25:25 by ttreichl         ###   ########.fr        #
+#    Updated: 2024/10/30 16:44:42 by tmontani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,16 @@ INCDIR 	 		= Srcs/Includes
 READLINE_PATH	= $(HOME)/.brew/opt/readline/
 
 # Source files
-BUILTINS		= cd echo env exit export_utils export pwd
-EXEC			= exec pipe_utils utils utils2
+BUILTINS		= cd echo env exit export_utils export pwd unset
+
+EXEC			= exec exec_loop exec_loop_utils utils4 utils utils2 signals utils3
+
 INIT			= env_list_utils init_minishell list_env load_env
+
 PARSING			= cmd_list_param cmd_list_utils create_cmd_list create_token_list \
 				  dollars_utils fd_utils here_doc lexer quotes_utils \
-				  replace_dollar token_list_utils
+				  replace_dollar token_list_utils check_syntax
+				  
 PROMPT			= prompt
 UTILS			= bubble_sort data_utils free_cmd free
 MAIN			= main
@@ -87,10 +91,10 @@ $(NAME): $(OBJS)
 	@echo "$(YELLOW)----Compiling minishell----$(RESET)\n"
 	@echo "$(YELLOW)Compiling libft...$(RESET)"
 	@echo ""
-	@make re -C ./libft
+	@make -C ./libft 
 	@echo ""
 	@echo "$(YELLOW)Linking objects...$(RESET)"
-	@$(CC) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) -o $(NAME)
 	@echo "$(GREEN)Minishell Compiled! ᕦ($(RED)♥$(GREEN)_$(RED)♥$(GREEN))ᕤ$(RESET)\n"
 
 header:
@@ -102,7 +106,7 @@ header:
 	@echo "/ /_/ />  </ /__/ /_/ / /__/ ,<     / /_/ /   / / / / / / / / /_/ / / / / /_/ /_/ / / / / /   "
 	@echo "\____/_/|_/_____|__,_/\___/_/|_|    \____/   /_/ /_/ /_/ /_/\____/_/ /_/\__/\__,_/_/ /_/_/    "
 	@echo "$(RESET)"
-
+	
 clean:
 	@make clean -C ./libft
 	@rm -f $(OBJS)

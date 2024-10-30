@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.ch>  +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 15:09:50 by ttreichl          #+#    #+#             */
-/*   Updated: 2023/10/20 15:10:19 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:20:42 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 size_t	nbrdigit(int n)
@@ -30,23 +31,17 @@ size_t	nbrdigit(int n)
 
 static char	*transfo(char	*dest, long int src, size_t	len)
 {
-	long int	a;
-	size_t		templen;
-
-	templen = len;
 	dest[len] = '\0';
 	if (src == -2147483648)
 	{
-		a = src;
-		src = 2147483647;
+		ft_strlcpy(dest, "-2147483648", len + 1);
+		return (dest);
 	}
 	while (len--)
 	{
 		*(dest + len) = src % 10 + '0';
 		src = src / 10;
 	}
-	if (a == -2147483648)
-		dest[templen - 1] = '8';
 	return (dest);
 }
 
@@ -71,13 +66,3 @@ char	*ft_itoa(int n)
 		result[0] = '-';
 	return (result);
 }
-/*
-int main(void)
-{
-	int num = INT32_MIN;
-	char *str_num = ft_itoa(num);
-	printf ("Le nombre est : %s\n", str_num);
-	free(str_num);
-	return (0);
-}
-*/
