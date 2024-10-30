@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:20:05 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 15:11:29 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:08:32 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,25 @@ int	check_infile(t_data *data)
 int	check_n(char **cmd_param, int *index)
 {
 	bool	n_find;
+	int		i;
 
 	n_find = false;
 	if (cmd_param[*index] == NULL)
 		return (0);
 	if (cmd_param[*index][0] != '-')
 		return (0);
-	else
+	while (cmd_param[*index] != NULL)
 	{
-		while (cmd_param[*index] != NULL)
+		i = 1;
+		while (cmd_param[*index][i] == 'n')
+			i++;
+		if (cmd_param[*index][i] == '\0')
 		{
-			if (ft_strcmp(cmd_param[*index], "-n") != 0)
-				break ;
 			n_find = true;
 			(*index)++;
 		}
+		else
+			break ;
 	}
 	if (n_find == true)
 		return (1);
@@ -75,6 +79,7 @@ int	ft_echo(t_data *data)
 	i = 1;
 	if (data->heredoc == 1)
 	{
+		data->heredoc = 0;
 		printf("\n");
 		return (0);
 	}

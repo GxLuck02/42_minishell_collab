@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 17:31:34 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:44:26 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_data
 	int		pid_index;
 	int		prev_fd;
 	int		pipe_fd[2];
+	bool	heredoc_interrupted;
 }				t_data;
 
 //data
@@ -124,6 +125,10 @@ void		invalid_var(char *var);
 
 //lexer
 int			replace_dollar(char **cmd_line, t_data *data);
+int			replace_dollar_var(char *cmd_line, int *i, \
+									t_data *data, char **str);
+int			add_char(char *cmd_line, char **new_str, \
+									int *index, t_data *data);
 void		quote_choice(bool *sq, bool *dq, char c);
 bool		is_pars(t_data *data, char *cmd_line);
 int			open_quote(char *str);
@@ -187,9 +192,10 @@ void		reset_stdout(int saved_stdout);
 void		error_path_var(t_data *data);
 
 //signals
-extern volatile sig_atomic_t g_signal_received;
 void		setup_signals(void);
 void		handle_ctrl_d(char *cmd_line);
+void		*signal_heredoc(t_data *data);
+void		handle_sigint_heredoc(int sig);
 
 //pipe
 void		wait_all(t_data *data, int len_cmd);

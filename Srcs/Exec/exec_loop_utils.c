@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:33 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 14:05:17 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:19:00 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ void	restore_and_cleanup(int saved_stdin, int saved_stdout, t_data *data)
 	dup2(saved_stdout, STDOUT_FILENO);
 	close(saved_stdin);
 	close(saved_stdout);
+	data->heredoc = 0;
 	free(data->pid_tab);
 }

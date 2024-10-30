@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:35:41 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/21 19:02:04 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:30:44 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	set_export_var(t_env **env, char *str)
 	var = ft_envsplit(str);
 	if (!var || !new_node)
 	{
-		if (new_node)
-			free(new_node);
+		free_node(new_node);
 		return (0);
 	}
 	key_var_to_node(var, &new_node);
@@ -41,7 +40,8 @@ int	set_export_var(t_env **env, char *str)
 	{
 		if (new_node->equal == true)
 			change_value(env, new_node);
-		free(new_node);
+		else
+			free_node(new_node);
 	}
 	else
 		add_node_env(env, new_node);

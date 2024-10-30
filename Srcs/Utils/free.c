@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:05:38 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/22 16:58:58 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:32:27 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	free_node(t_env *env)
 {
-	free(env->key);
-	free(env->value);
+	if (!env)
+		return ;
+	if (env->value)
+		free(env->value);
+	if (env->key)
+		free(env->key);
 	free(env);
 }
 

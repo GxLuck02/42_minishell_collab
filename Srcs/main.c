@@ -6,11 +6,13 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 16:09:02 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:42:51 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/minishell.h"
+
+bool g_heredoc_interrupted = false;
 
 int	main(int argc, char **argv, char **envp)
 {
