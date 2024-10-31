@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/31 08:48:03 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:31:42 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 # define ARG		7
 
 # define EXT_MALLOC 3
+
+extern int g_exit_code;
 
 typedef struct s_env
 {
@@ -85,8 +87,6 @@ typedef struct s_data
 	int		pid_index;
 	int		prev_fd;
 	int		pipe_fd[2];
-	bool	heredoc_interrupted;
-	bool	ctrl_d;
 }				t_data;
 
 //data
@@ -195,7 +195,7 @@ void		error_path_var(t_data *data);
 void		jump_skip_cmd(t_data *data, int *len_cmd);
 
 //signals
-void		setup_signals(void);
+void		setup_signals(t_data *data);
 void		handle_ctrl_d(char *cmd_line);
 void		*signal_heredoc(t_data *data);
 void		handle_sigint_heredoc(int sig);

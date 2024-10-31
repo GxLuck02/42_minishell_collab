@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 05:40:00 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/26 16:13:16 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:33:19 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

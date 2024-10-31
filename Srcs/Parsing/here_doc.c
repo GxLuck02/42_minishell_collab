@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:47:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/31 08:56:13 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:25:52 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	here_doc_loop(t_data *data, int fd, char *word, bool quoted)
 	while (1)
 	{
 		buf = readline("> ");
-		printf(" ctrl_d : %d\n", data->ctrl_d);
-		if (data->heredoc_interrupted)
-			break ;
 		if (!buf || !ft_strncmp(word, buf, ft_strlen(word)))
 		{
-			if (!buf && data->ctrl_d == false)
+			if (!buf)
+			{
 				print_error(word);
+				data->exit_code = 1;
+			}
 			break ;
 		}
 		if (!quoted && !replace_dollar_heredoc(&buf, data))
@@ -39,17 +39,16 @@ void	here_doc_loop(t_data *data, int fd, char *word, bool quoted)
 	}
 }
 
-static bool	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
+static int	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
 {
 	struct sigaction	*prev_handler;
 
-	data->heredoc_interrupted = false;
 	prev_handler = signal_heredoc(data);
 	here_doc_loop(data, fd, word, quoted);
 	sigaction(SIGINT, prev_handler, NULL);
 	free(prev_handler);
 	close(fd);
-	return (!data->heredoc_interrupted);
+	return (0);
 }
 
 bool	gest_endfile(char *endfile)

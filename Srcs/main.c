@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/30 17:53:40 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:31:21 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/minishell.h"
 
-bool	g_heredoc_interrupted = false;
+int g_exit_code = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*cmd_line;
 	t_data	data;
 
-	setup_signals();
+	setup_signals(&data);
 	if (argc < 1 || !argv)
 		return (1);
 	if (!init_minishell(&data, envp))
