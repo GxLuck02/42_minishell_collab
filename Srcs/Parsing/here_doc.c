@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:47:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/30 17:34:01 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/31 08:56:13 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void	here_doc_loop(t_data *data, int fd, char *word, bool quoted)
 	while (1)
 	{
 		buf = readline("> ");
+		printf(" ctrl_d : %d\n", data->ctrl_d);
 		if (data->heredoc_interrupted)
 			break ;
 		if (!buf || !ft_strncmp(word, buf, ft_strlen(word)))
 		{
-			if (!buf)
+			if (!buf && data->ctrl_d == false)
 				print_error(word);
 			break ;
 		}

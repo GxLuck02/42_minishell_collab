@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:38:41 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/30 18:21:25 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/31 08:57:58 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

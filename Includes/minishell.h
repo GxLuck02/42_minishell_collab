@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/30 17:50:48 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/31 08:48:03 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_data
 	int		prev_fd;
 	int		pipe_fd[2];
 	bool	heredoc_interrupted;
+	bool	ctrl_d;
 }				t_data;
 
 //data
