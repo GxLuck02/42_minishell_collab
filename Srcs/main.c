@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:52:08 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/31 15:22:16 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:12:07 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	if (!init_minishell(&data, envp))
 		print_error(RED"Error with init of minishell"NRM);
-		data.exit_code = 111;
 	while (1)
 	{
 		cmd_line = get_prompt(&data);

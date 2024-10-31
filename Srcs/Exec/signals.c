@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:38:41 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/31 15:32:43 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:08:10 by ttreichl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	setup_signals(t_data *data)
 void	handle_sigint_heredoc(int sig)
 {
 	(void)sig;
-	puts("Ctrl c heredoc\n");
 	g_exit_code = 1;
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -60,7 +59,6 @@ void	*signal_heredoc(t_data *data)
 	struct sigaction	sa;
 	struct sigaction	*prev_handler;
 
-	puts("Signals heredocs\n");
 	prev_handler = malloc(sizeof(struct sigaction));
 	sa.sa_flags = 0;
 	sa.sa_handler = handle_sigint_heredoc;
