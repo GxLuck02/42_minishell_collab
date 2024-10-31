@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 01:54:56 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/31 11:31:42 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:19:59 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 # define EXT_MALLOC 3
 
-extern int g_exit_code;
+extern int	g_exit_code;
 
 typedef struct s_env
 {

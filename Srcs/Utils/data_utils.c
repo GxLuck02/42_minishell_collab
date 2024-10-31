@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 17:45:51 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:20:29 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:49:54 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	open_pipe(t_data *data)
 	if (data->token && data->token->prev->token_type == PIPE)
 	{
 		write(2, "Error: syntax error pipe unclosed\n", 35);
-		data->exit_code = 2;
+		g_exit_code = 2;
 		free_token(&data->token);
 		return (0);
 	}

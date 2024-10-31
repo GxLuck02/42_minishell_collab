@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:07:13 by tmontani          #+#    #+#             */
-/*   Updated: 2024/10/30 17:50:38 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:48:41 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	wait_all(t_data *data, int len_cmd)
 	{
 		waitpid(data->pid_tab[i], &status, 0);
 		if (WIFEXITED(status))
-			data->exit_code = WEXITSTATUS(status);
+			g_exit_code = WEXITSTATUS(status);
 		i++;
 	}
 }

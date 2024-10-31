@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 17:06:23 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/30 17:50:30 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:10:22 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static int	return_parent_process(pid_t pid)
 	int	status;
 
 	waitpid(pid, &status, 0);
+	printf("status%d\n", status);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else
@@ -115,7 +116,7 @@ void	handle_cmd(t_data *data)
 		make_cmd(data);
 	}
 	else
-		data->exit_code = return_parent_process(pid);
+		g_exit_code = return_parent_process(pid);
 	return ;
 }
 
@@ -130,6 +131,7 @@ void	exec(t_data *data)
 	int	saved_stdin;
 	int	saved_stdout;
 
+	print_cmd_list(data->cmd);
 	len_cmd = ft_lstsize_circular(data->cmd);
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);

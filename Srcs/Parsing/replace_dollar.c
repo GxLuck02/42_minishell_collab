@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_dollar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 18:04:29 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/12 21:02:04 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/31 14:25:07 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int	in_env(t_data *data, char *cmd_line, char **new_str, int size_dollar)
 }
 
 //replace $? by the last exit status (data->exit_code)
-int	dollar_point_interogation(t_data *data, char **str)
+int	dollar_point_interogation(char **str)
 {
 	char	*tmp;
 	char	*tmp2;
 
-	tmp = ft_itoa(data->exit_code);
+	tmp = ft_itoa(g_exit_code);
 	if (!tmp)
 		return (0);
 	tmp2 = ft_strjoin(*str, tmp);
@@ -70,7 +70,7 @@ int	replace_dollar_var(char *cmd_line, int *i, t_data *data, char **str)
 	{
 		(*i) += 2;
 		if (nbr_output == 2)
-			return (dollar_point_interogation(data, str));
+			return (dollar_point_interogation(str));
 		if (nbr_output == 3)
 			return (1);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ttreichl <ttreichl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 11:13:51 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/09/13 18:11:38 by ttreichl         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:48:52 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	norm(t_data *data, t_token *tmp)
 		free_all(data, "error malloc", EXT_MALLOC);
 	if (!fill_cmd(data, tmp))
 	{
-		data->exit_code = 2;
+		g_exit_code = 2;
 		return (0);
 	}
 	return (1);

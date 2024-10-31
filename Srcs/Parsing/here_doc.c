@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 14:47:20 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/31 11:25:52 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/31 15:14:52 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void	here_doc_loop(t_data *data, int fd, char *word, bool quoted)
 		{
 			if (!buf)
 			{
-				print_error(word);
-				data->exit_code = 1;
+				close(fd);
+				unlink(".heredoc.tmp");
+				g_exit_code = 1;
 			}
 			break ;
 		}
@@ -48,7 +49,7 @@ static int	read_in_stdin(t_data *data, int fd, char *word, bool quoted)
 	sigaction(SIGINT, prev_handler, NULL);
 	free(prev_handler);
 	close(fd);
-	return (0);
+	return (1);
 }
 
 bool	gest_endfile(char *endfile)

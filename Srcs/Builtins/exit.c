@@ -6,7 +6,7 @@
 /*   By: tmontani <tmontani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:19:57 by ttreichl          #+#    #+#             */
-/*   Updated: 2024/10/28 14:36:13 by tmontani         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:47:30 by tmontani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	ft_exit(t_data *data)
 	if (len_array(data->cmd->cmd_param) > 2)
 	{
 		printf("exit\nbash: exit too many arguments\n");
-		data->exit_code = 1;
+		g_exit_code = 1;
 		return ;
 	}
 	exit_code = ft_atoi(data->cmd->cmd_param[1]) % 256;
